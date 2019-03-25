@@ -1,0 +1,51 @@
+# import * from './generated/prisma.graphql'
+
+type Mutation {
+  createItem(
+    title: String
+    description: String
+    price: Int
+    image: String
+    largeImage: String
+  ): Item!
+
+  createInfluencer(
+    firstName: String
+    lastName: String
+    phone: String
+  ): Influencer
+}
+
+type Query {
+  items: [Item]!
+  influencers: [Influencer]!
+}
+
+type Address {
+  unit: String
+  streetNumber: String
+  street: String
+  city: String
+  country: String
+  postalCode: String
+}
+
+type Social {
+  twitter: String
+  instagram: String
+  facebook: String
+}
+
+type Size {
+  shirt: clothingSize
+  pant: Int
+  shoe: Int
+}
+
+enum clothingSize {
+  XS
+  S
+  M
+  L
+  XL
+}

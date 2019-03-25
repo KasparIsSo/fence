@@ -6,7 +6,7 @@ const ButtonGroupExtend = styled.div`
   > button {
     margin: 0;
     border-radius: 0;
-    border-width: 0.125rem;
+    border-width: 0.0625rem;
     border-style: solid;
     vertical-align: middle;
   }
@@ -23,7 +23,7 @@ const ButtonGroupExtend = styled.div`
 `;
 
 export const ButtonPrimaryGroup = styled(ButtonGroupExtend)`
-  > button {
+  > button.primary {
     border-color: ${props => props.theme.color.green.darkest};
     :active,
     :hover {

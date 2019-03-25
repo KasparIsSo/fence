@@ -3,7 +3,7 @@ import styled from "styled-components";
 import TYPE from "../components/styles/Typography";
 import ANIMATION from "../components/styles/Animation";
 
-const ButtonExtend = styled.button`
+const ButtonWrapper = styled.button`
   border-radius: 0.125rem;
   border-width: 0.0625rem;
   border-style: solid;
@@ -20,6 +20,89 @@ const ButtonExtend = styled.button`
   :focus {
     outline: none;
   }
+
+  &.primary {
+    background: ${props => props.theme.color.green.feature};
+    color: ${props =>
+      props.color ? props.color : props.theme.color.gray.white};
+    border-color: ${props => props.theme.color.green.feature};
+
+    :focus {
+      border-color: ${props => props.theme.color.green.darkest};
+      box-shadow: inset 0 0 0 0.0625rem
+        ${props => props.theme.color.green.darkest};
+    }
+
+    :active {
+      box-shadow: ${props => props.theme.shadow.inner};
+    }
+  }
+
+  &.secondary {
+    background: ${props => props.theme.color.gray.white};
+    color: ${props =>
+      props.color ? props.color : props.theme.color.gray.subdued};
+    border-color: ${props => props.theme.color.gray.ink};
+
+    :focus {
+      border-color: ${props => props.theme.color.gray.ink};
+      box-shadow: inset 0 0 0 0.0625rem ${props => props.theme.color.gray.ink};
+    }
+
+    :active {
+      box-shadow: ${props => props.theme.shadow.inner};
+    }
+  }
+
+  &.outline {
+    background: none;
+    color: ${props =>
+      props.color ? props.color : props.theme.color.gray.subdued};
+    border-color: ${props => props.theme.color.gray.subdued};
+
+    :hover {
+      background-color: ${props => props.theme.color.gray.white};
+      color: ${props =>
+        props.color ? props.color : props.theme.color.gray.ink};
+    }
+
+    :focus {
+      background-color: ${props => props.theme.color.gray.white};
+      border-color: ${props => props.theme.color.gray.ink};
+      color: ${props =>
+        props.color ? props.color : props.theme.color.gray.ink};
+      box-shadow: inset 0 0 0 0.0625rem ${props => props.theme.color.gray.ink};
+    }
+
+    :active {
+      background-color: ${props => props.theme.color.gray.white};
+      color: ${props =>
+        props.color ? props.color : props.theme.color.gray.ink};
+      box-shadow: ${props => props.theme.shadow.inner};
+    }
+  }
+
+  &.danger {
+    background: ${props => props.theme.color.gray.white};
+    border-color: ${props => props.theme.color.red.feature};
+    color: ${props =>
+      props.color ? props.color : props.theme.color.red.feature};
+
+    :hover {
+      background-color: ${props => props.theme.color.red.feature};
+      border-color: ${props => props.theme.color.red.feature};
+      color: ${props => props.theme.color.gray.white};
+    }
+
+    :focus {
+      border-color: ${props => props.theme.color.red.dark};
+      box-shadow: inset 0 0 0 0.0625rem ${props => props.theme.color.red.dark};
+    }
+
+    :active {
+      box-shadow: ${props => props.theme.shadow.inner};
+    }
+  }
 `;
 
 const ButtonContent = styled.span`
@@ -27,112 +110,12 @@ const ButtonContent = styled.span`
   transform: translateY(-0.0625rem);
 `;
 
-const Primary = styled(ButtonExtend)`
-  background: ${props => props.theme.color.green.feature};
-  color: ${props => (props.color ? props.color : props.theme.color.gray.white)};
-  border-color: ${props => props.theme.color.green.feature};
-
-  :focus {
-    border-color: ${props => props.theme.color.green.darkest};
-    box-shadow: inset 0 0 0 0.0625rem
-      ${props => props.theme.color.green.darkest};
-  }
-
-  :active {
-    box-shadow: ${props => props.theme.shadow.inner};
-  }
-`;
-
-export const ButtonPrimary = props => {
+const Button = props => {
   return (
-    <Primary>
+    <ButtonWrapper className={props.buttonType ? props.buttonType : null}>
       <ButtonContent>{props.children}</ButtonContent>
-    </Primary>
+    </ButtonWrapper>
   );
 };
 
-const Secondary = styled(ButtonExtend)`
-  background: ${props => props.theme.color.gray.white};
-  color: ${props =>
-    props.color ? props.color : props.theme.color.gray.subdued};
-  border-color: ${props => props.theme.color.gray.ink};
-
-  :focus {
-    border-color: ${props => props.theme.color.gray.ink};
-    box-shadow: inset 0 0 0 0.0625rem ${props => props.theme.color.gray.ink};
-  }
-
-  :active {
-    box-shadow: ${props => props.theme.shadow.inner};
-  }
-`;
-
-export const ButtonSecondary = props => {
-  return (
-    <Secondary>
-      <ButtonContent>{props.children}</ButtonContent>
-    </Secondary>
-  );
-};
-
-const Outline = styled(ButtonExtend)`
-  background: none;
-  color: ${props =>
-    props.color ? props.color : props.theme.color.gray.subdued};
-  border-color: ${props => props.theme.color.gray.subdued};
-
-  :hover {
-    background-color: ${props => props.theme.color.gray.white};
-    color: ${props => (props.color ? props.color : props.theme.color.gray.ink)};
-  }
-
-  :focus {
-    border-color: ${props => props.theme.color.gray.ink};
-    color: ${props => (props.color ? props.color : props.theme.color.gray.ink)};
-    box-shadow: inset 0 0 0 0.0625rem ${props => props.theme.color.gray.ink};
-  }
-
-  :active {
-    background-color: ${props => props.theme.color.gray.white};
-    color: ${props => (props.color ? props.color : props.theme.color.gray.ink)};
-    box-shadow: ${props => props.theme.shadow.inner};
-  }
-`;
-
-export const ButtonOutline = props => {
-  return (
-    <Outline>
-      <ButtonContent>{props.children}</ButtonContent>
-    </Outline>
-  );
-};
-
-const Danger = styled(ButtonExtend)`
-  background: ${props => props.theme.color.gray.white};
-  border-color: ${props => props.theme.color.red.feature};
-  color: ${props =>
-    props.color ? props.color : props.theme.color.red.feature};
-
-  :hover {
-    background-color: ${props => props.theme.color.red.feature};
-    border-color: ${props => props.theme.color.red.feature};
-    color: ${props => props.theme.color.gray.white};
-  }
-
-  :focus {
-    border-color: ${props => props.theme.color.red.dark};
-    box-shadow: inset 0 0 0 0.0625rem ${props => props.theme.color.red.dark};
-  }
-
-  :active {
-    box-shadow: ${props => props.theme.shadow.inner};
-  }
-`;
-
-export const ButtonDanger = props => {
-  return (
-    <Danger>
-      <ButtonContent>{props.children}</ButtonContent>
-    </Danger>
-  );
-};
+export default Button;

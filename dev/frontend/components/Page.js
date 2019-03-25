@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import Header from "./Header";
+import AdminHeader from "./AdminHeader";
 import Button from "./Button";
 // import Meta from "../components/Meta";
 
@@ -20,7 +21,7 @@ const Inner = styled.div`
 `;
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700|Lato:300,700');
+  @import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700|Lato:400,700');
 
   html {
     box-sizing: border-box;
@@ -28,6 +29,8 @@ const GlobalStyle = createGlobalStyle`
   }
   *, *:before, *:after{
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   body{
     padding: 0;
@@ -50,7 +53,7 @@ class Page extends Component {
         <React.Fragment>
           <GlobalStyle />
           <StyledPage>
-            <Header />
+            <AdminHeader />
             <Inner>{this.props.children}</Inner>
           </StyledPage>
         </React.Fragment>

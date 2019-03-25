@@ -2,19 +2,23 @@ import styled from "styled-components";
 
 import TYPE from "./styles/Typography";
 
-import TextFieldInput from "./TextFieldInput";
+import TextAreaInput from "./TextAreaInput";
 import Button from "./Button";
 
-const TextFieldInputWrapper = styled.div`
+const TextAreaWrapper = styled.div`
   margin: 1rem;
+  display: inline-block;
+  width: calc(100% - 2rem);
 
   > button {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-right: 0;
+    clear: both;
+    float: right;
   }
 
-  > input {
+  > textarea {
     margin: 0;
+    display: block;
   }
 `;
 
@@ -22,22 +26,20 @@ const Label = styled.h6`
   ${TYPE.body.primary.ink}
 `;
 
-const TextField = props => {
+const TextArea = props => {
   return (
-    <TextFieldInputWrapper>
+    <TextAreaWrapper>
       <Label>{props.label ? props.label : "Label"}</Label>
-      <TextFieldInput
+      <TextAreaInput
         name={props.textInputName}
         placeholder={props.textInputPlaceholder}
-        inputType={props.textFieldType}
+        inputType={props.textAreaType}
       />
-      <Button
-        buttonType={props.textFieldType ? props.textFieldType : "primary"}
-      >
+      <Button buttonType={props.textAreaType ? props.textAreaType : "primary"}>
         {props.buttonInnerText ? props.buttonInnerText : "Submit"}
       </Button>
-    </TextFieldInputWrapper>
+    </TextAreaWrapper>
   );
 };
 
-export default TextField;
+export default TextArea;

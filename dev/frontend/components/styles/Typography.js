@@ -145,6 +145,7 @@ const TYPE = {
         line-height: 1.5rem;
         font-family: 'Lato';
         font-weight: 700;
+        letter-spacing: .0375rem;
         text-transform: uppercase;
         margin: .5rem 0 1rem;
       `,
@@ -154,6 +155,7 @@ const TYPE = {
         line-height: 1.5rem;
         font-family: 'Lato';
         font-weight: 700;
+        letter-spacing: .0375rem;
         text-transform: uppercase;
         margin: .5rem 0 1rem;
       `,
@@ -163,6 +165,7 @@ const TYPE = {
         line-height: 1.5rem;
         font-family: 'Lato';
         font-weight: 700;
+        letter-spacing: .0375rem;
         text-transform: uppercase;
         margin: .5rem 0 1rem;
       `
@@ -201,7 +204,7 @@ const TYPE = {
         font-size: 1rem;
         line-height: 1.5rem;
         font-family: 'Lato';
-        font-weight: 300;
+        font-weight: 400;
         margin: 0 0 1rem;
       `,
       subdued: `
@@ -209,7 +212,7 @@ const TYPE = {
         font-size: 1rem;
         line-height: 1.5rem;
         font-family: 'Lato';
-        font-weight: 300;
+        font-weight: 400;
         margin: 0 0 1rem;
       `,
       ink: `
@@ -217,7 +220,7 @@ const TYPE = {
         font-size: 1rem;
         line-height: 1.5rem;
         font-family: 'Lato';
-        font-weight: 300;
+        font-weight: 400;
         margin: 0 0 1rem;
       `
     }
@@ -255,7 +258,7 @@ const TYPE = {
         font-size: .6875rem;
         line-height: 1rem;
         font-family: 'Lato';
-        font-weight: 300;
+        font-weight: 400;
         margin: 0 0 .5rem;
       `,
       subdued: `
@@ -263,7 +266,7 @@ const TYPE = {
         font-size: .6875rem;
         line-height: 1rem;
         font-family: 'Lato';
-        font-weight: 300;
+        font-weight: 400;
         margin: 0 0 .5rem;
       `,
       ink: `
@@ -271,7 +274,7 @@ const TYPE = {
         font-size: .6875rem;
         line-height: 1rem;
         font-family: 'Lato';
-        font-weight: 300;
+        font-weight: 400;
         margin: 0 0 .5rem;
       `
     }

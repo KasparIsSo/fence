@@ -1,0 +1,940 @@
+type Address {
+  unit: String
+  streetNumber: String
+  street: String
+  city: String
+  country: String
+  postalCode: String
+}
+
+type AddressConnection {
+  pageInfo: PageInfo!
+  edges: [AddressEdge]!
+  aggregate: AggregateAddress!
+}
+
+input AddressCreateInput {
+  unit: String
+  streetNumber: String
+  street: String
+  city: String
+  country: String
+  postalCode: String
+}
+
+type AddressEdge {
+  node: Address!
+  cursor: String!
+}
+
+enum AddressOrderByInput {
+  unit_ASC
+  unit_DESC
+  streetNumber_ASC
+  streetNumber_DESC
+  street_ASC
+  street_DESC
+  city_ASC
+  city_DESC
+  country_ASC
+  country_DESC
+  postalCode_ASC
+  postalCode_DESC
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type AddressPreviousValues {
+  unit: String
+  streetNumber: String
+  street: String
+  city: String
+  country: String
+  postalCode: String
+}
+
+type AddressSubscriptionPayload {
+  mutation: MutationType!
+  node: Address
+  updatedFields: [String!]
+  previousValues: AddressPreviousValues
+}
+
+input AddressSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AddressWhereInput
+  AND: [AddressSubscriptionWhereInput!]
+  OR: [AddressSubscriptionWhereInput!]
+  NOT: [AddressSubscriptionWhereInput!]
+}
+
+input AddressUpdateInput {
+  unit: String
+  streetNumber: String
+  street: String
+  city: String
+  country: String
+  postalCode: String
+}
+
+input AddressWhereInput {
+  unit: String
+  unit_not: String
+  unit_in: [String!]
+  unit_not_in: [String!]
+  unit_lt: String
+  unit_lte: String
+  unit_gt: String
+  unit_gte: String
+  unit_contains: String
+  unit_not_contains: String
+  unit_starts_with: String
+  unit_not_starts_with: String
+  unit_ends_with: String
+  unit_not_ends_with: String
+  streetNumber: String
+  streetNumber_not: String
+  streetNumber_in: [String!]
+  streetNumber_not_in: [String!]
+  streetNumber_lt: String
+  streetNumber_lte: String
+  streetNumber_gt: String
+  streetNumber_gte: String
+  streetNumber_contains: String
+  streetNumber_not_contains: String
+  streetNumber_starts_with: String
+  streetNumber_not_starts_with: String
+  streetNumber_ends_with: String
+  streetNumber_not_ends_with: String
+  street: String
+  street_not: String
+  street_in: [String!]
+  street_not_in: [String!]
+  street_lt: String
+  street_lte: String
+  street_gt: String
+  street_gte: String
+  street_contains: String
+  street_not_contains: String
+  street_starts_with: String
+  street_not_starts_with: String
+  street_ends_with: String
+  street_not_ends_with: String
+  city: String
+  city_not: String
+  city_in: [String!]
+  city_not_in: [String!]
+  city_lt: String
+  city_lte: String
+  city_gt: String
+  city_gte: String
+  city_contains: String
+  city_not_contains: String
+  city_starts_with: String
+  city_not_starts_with: String
+  city_ends_with: String
+  city_not_ends_with: String
+  country: String
+  country_not: String
+  country_in: [String!]
+  country_not_in: [String!]
+  country_lt: String
+  country_lte: String
+  country_gt: String
+  country_gte: String
+  country_contains: String
+  country_not_contains: String
+  country_starts_with: String
+  country_not_starts_with: String
+  country_ends_with: String
+  country_not_ends_with: String
+  postalCode: String
+  postalCode_not: String
+  postalCode_in: [String!]
+  postalCode_not_in: [String!]
+  postalCode_lt: String
+  postalCode_lte: String
+  postalCode_gt: String
+  postalCode_gte: String
+  postalCode_contains: String
+  postalCode_not_contains: String
+  postalCode_starts_with: String
+  postalCode_not_starts_with: String
+  postalCode_ends_with: String
+  postalCode_not_ends_with: String
+  AND: [AddressWhereInput!]
+  OR: [AddressWhereInput!]
+  NOT: [AddressWhereInput!]
+}
+
+type AggregateAddress {
+  count: Int!
+}
+
+type AggregateInfluencer {
+  count: Int!
+}
+
+type AggregateItem {
+  count: Int!
+}
+
+type AggregateSize {
+  count: Int!
+}
+
+type AggregateSocial {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type BatchPayload {
+  count: Long!
+}
+
+enum clothingSize {
+  XS
+  S
+  M
+  L
+  XL
+}
+
+type Influencer {
+  id: ID!
+  firstName: String!
+  lastName: String
+  phone: String
+}
+
+type InfluencerConnection {
+  pageInfo: PageInfo!
+  edges: [InfluencerEdge]!
+  aggregate: AggregateInfluencer!
+}
+
+input InfluencerCreateInput {
+  firstName: String!
+  lastName: String
+  phone: String
+}
+
+type InfluencerEdge {
+  node: Influencer!
+  cursor: String!
+}
+
+enum InfluencerOrderByInput {
+  id_ASC
+  id_DESC
+  firstName_ASC
+  firstName_DESC
+  lastName_ASC
+  lastName_DESC
+  phone_ASC
+  phone_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type InfluencerPreviousValues {
+  id: ID!
+  firstName: String!
+  lastName: String
+  phone: String
+}
+
+type InfluencerSubscriptionPayload {
+  mutation: MutationType!
+  node: Influencer
+  updatedFields: [String!]
+  previousValues: InfluencerPreviousValues
+}
+
+input InfluencerSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: InfluencerWhereInput
+  AND: [InfluencerSubscriptionWhereInput!]
+  OR: [InfluencerSubscriptionWhereInput!]
+  NOT: [InfluencerSubscriptionWhereInput!]
+}
+
+input InfluencerUpdateInput {
+  firstName: String
+  lastName: String
+  phone: String
+}
+
+input InfluencerWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
+  phone: String
+  phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
+  AND: [InfluencerWhereInput!]
+  OR: [InfluencerWhereInput!]
+  NOT: [InfluencerWhereInput!]
+}
+
+input InfluencerWhereUniqueInput {
+  id: ID
+}
+
+type Item {
+  id: ID!
+  title: String!
+  description: String!
+  image: String
+  largeImage: String
+  price: Int!
+}
+
+type ItemConnection {
+  pageInfo: PageInfo!
+  edges: [ItemEdge]!
+  aggregate: AggregateItem!
+}
+
+input ItemCreateInput {
+  title: String!
+  description: String!
+  image: String
+  largeImage: String
+  price: Int!
+}
+
+type ItemEdge {
+  node: Item!
+  cursor: String!
+}
+
+enum ItemOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  description_ASC
+  description_DESC
+  image_ASC
+  image_DESC
+  largeImage_ASC
+  largeImage_DESC
+  price_ASC
+  price_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ItemPreviousValues {
+  id: ID!
+  title: String!
+  description: String!
+  image: String
+  largeImage: String
+  price: Int!
+}
+
+type ItemSubscriptionPayload {
+  mutation: MutationType!
+  node: Item
+  updatedFields: [String!]
+  previousValues: ItemPreviousValues
+}
+
+input ItemSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ItemWhereInput
+  AND: [ItemSubscriptionWhereInput!]
+  OR: [ItemSubscriptionWhereInput!]
+  NOT: [ItemSubscriptionWhereInput!]
+}
+
+input ItemUpdateInput {
+  title: String
+  description: String
+  image: String
+  largeImage: String
+  price: Int
+}
+
+input ItemWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  image: String
+  image_not: String
+  image_in: [String!]
+  image_not_in: [String!]
+  image_lt: String
+  image_lte: String
+  image_gt: String
+  image_gte: String
+  image_contains: String
+  image_not_contains: String
+  image_starts_with: String
+  image_not_starts_with: String
+  image_ends_with: String
+  image_not_ends_with: String
+  largeImage: String
+  largeImage_not: String
+  largeImage_in: [String!]
+  largeImage_not_in: [String!]
+  largeImage_lt: String
+  largeImage_lte: String
+  largeImage_gt: String
+  largeImage_gte: String
+  largeImage_contains: String
+  largeImage_not_contains: String
+  largeImage_starts_with: String
+  largeImage_not_starts_with: String
+  largeImage_ends_with: String
+  largeImage_not_ends_with: String
+  price: Int
+  price_not: Int
+  price_in: [Int!]
+  price_not_in: [Int!]
+  price_lt: Int
+  price_lte: Int
+  price_gt: Int
+  price_gte: Int
+  AND: [ItemWhereInput!]
+  OR: [ItemWhereInput!]
+  NOT: [ItemWhereInput!]
+}
+
+input ItemWhereUniqueInput {
+  id: ID
+}
+
+scalar Long
+
+type Mutation {
+  createAddress(data: AddressCreateInput!): Address!
+  updateManyAddresses(data: AddressUpdateInput!, where: AddressWhereInput): BatchPayload!
+  deleteManyAddresses(where: AddressWhereInput): BatchPayload!
+  createInfluencer(data: InfluencerCreateInput!): Influencer!
+  updateInfluencer(data: InfluencerUpdateInput!, where: InfluencerWhereUniqueInput!): Influencer
+  updateManyInfluencers(data: InfluencerUpdateInput!, where: InfluencerWhereInput): BatchPayload!
+  upsertInfluencer(where: InfluencerWhereUniqueInput!, create: InfluencerCreateInput!, update: InfluencerUpdateInput!): Influencer!
+  deleteInfluencer(where: InfluencerWhereUniqueInput!): Influencer
+  deleteManyInfluencers(where: InfluencerWhereInput): BatchPayload!
+  createItem(data: ItemCreateInput!): Item!
+  updateItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
+  updateManyItems(data: ItemUpdateInput!, where: ItemWhereInput): BatchPayload!
+  upsertItem(where: ItemWhereUniqueInput!, create: ItemCreateInput!, update: ItemUpdateInput!): Item!
+  deleteItem(where: ItemWhereUniqueInput!): Item
+  deleteManyItems(where: ItemWhereInput): BatchPayload!
+  createSize(data: SizeCreateInput!): Size!
+  updateManySizes(data: SizeUpdateInput!, where: SizeWhereInput): BatchPayload!
+  deleteManySizes(where: SizeWhereInput): BatchPayload!
+  createSocial(data: SocialCreateInput!): Social!
+  updateManySocials(data: SocialUpdateInput!, where: SocialWhereInput): BatchPayload!
+  deleteManySocials(where: SocialWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  addresses(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Address]!
+  addressesConnection(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AddressConnection!
+  influencer(where: InfluencerWhereUniqueInput!): Influencer
+  influencers(where: InfluencerWhereInput, orderBy: InfluencerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Influencer]!
+  influencersConnection(where: InfluencerWhereInput, orderBy: InfluencerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InfluencerConnection!
+  item(where: ItemWhereUniqueInput!): Item
+  items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Item]!
+  itemsConnection(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ItemConnection!
+  sizes(where: SizeWhereInput, orderBy: SizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Size]!
+  sizesConnection(where: SizeWhereInput, orderBy: SizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SizeConnection!
+  socials(where: SocialWhereInput, orderBy: SocialOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Social]!
+  socialsConnection(where: SocialWhereInput, orderBy: SocialOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SocialConnection!
+  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  node(id: ID!): Node
+}
+
+type Size {
+  shirt: clothingSize
+  pant: Int
+  shoe: Int
+}
+
+type SizeConnection {
+  pageInfo: PageInfo!
+  edges: [SizeEdge]!
+  aggregate: AggregateSize!
+}
+
+input SizeCreateInput {
+  shirt: clothingSize
+  pant: Int
+  shoe: Int
+}
+
+type SizeEdge {
+  node: Size!
+  cursor: String!
+}
+
+enum SizeOrderByInput {
+  shirt_ASC
+  shirt_DESC
+  pant_ASC
+  pant_DESC
+  shoe_ASC
+  shoe_DESC
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type SizePreviousValues {
+  shirt: clothingSize
+  pant: Int
+  shoe: Int
+}
+
+type SizeSubscriptionPayload {
+  mutation: MutationType!
+  node: Size
+  updatedFields: [String!]
+  previousValues: SizePreviousValues
+}
+
+input SizeSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SizeWhereInput
+  AND: [SizeSubscriptionWhereInput!]
+  OR: [SizeSubscriptionWhereInput!]
+  NOT: [SizeSubscriptionWhereInput!]
+}
+
+input SizeUpdateInput {
+  shirt: clothingSize
+  pant: Int
+  shoe: Int
+}
+
+input SizeWhereInput {
+  shirt: clothingSize
+  shirt_not: clothingSize
+  shirt_in: [clothingSize!]
+  shirt_not_in: [clothingSize!]
+  pant: Int
+  pant_not: Int
+  pant_in: [Int!]
+  pant_not_in: [Int!]
+  pant_lt: Int
+  pant_lte: Int
+  pant_gt: Int
+  pant_gte: Int
+  shoe: Int
+  shoe_not: Int
+  shoe_in: [Int!]
+  shoe_not_in: [Int!]
+  shoe_lt: Int
+  shoe_lte: Int
+  shoe_gt: Int
+  shoe_gte: Int
+  AND: [SizeWhereInput!]
+  OR: [SizeWhereInput!]
+  NOT: [SizeWhereInput!]
+}
+
+type Social {
+  twitter: String
+  instagram: String
+  facebook: String
+}
+
+type SocialConnection {
+  pageInfo: PageInfo!
+  edges: [SocialEdge]!
+  aggregate: AggregateSocial!
+}
+
+input SocialCreateInput {
+  twitter: String
+  instagram: String
+  facebook: String
+}
+
+type SocialEdge {
+  node: Social!
+  cursor: String!
+}
+
+enum SocialOrderByInput {
+  twitter_ASC
+  twitter_DESC
+  instagram_ASC
+  instagram_DESC
+  facebook_ASC
+  facebook_DESC
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type SocialPreviousValues {
+  twitter: String
+  instagram: String
+  facebook: String
+}
+
+type SocialSubscriptionPayload {
+  mutation: MutationType!
+  node: Social
+  updatedFields: [String!]
+  previousValues: SocialPreviousValues
+}
+
+input SocialSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SocialWhereInput
+  AND: [SocialSubscriptionWhereInput!]
+  OR: [SocialSubscriptionWhereInput!]
+  NOT: [SocialSubscriptionWhereInput!]
+}
+
+input SocialUpdateInput {
+  twitter: String
+  instagram: String
+  facebook: String
+}
+
+input SocialWhereInput {
+  twitter: String
+  twitter_not: String
+  twitter_in: [String!]
+  twitter_not_in: [String!]
+  twitter_lt: String
+  twitter_lte: String
+  twitter_gt: String
+  twitter_gte: String
+  twitter_contains: String
+  twitter_not_contains: String
+  twitter_starts_with: String
+  twitter_not_starts_with: String
+  twitter_ends_with: String
+  twitter_not_ends_with: String
+  instagram: String
+  instagram_not: String
+  instagram_in: [String!]
+  instagram_not_in: [String!]
+  instagram_lt: String
+  instagram_lte: String
+  instagram_gt: String
+  instagram_gte: String
+  instagram_contains: String
+  instagram_not_contains: String
+  instagram_starts_with: String
+  instagram_not_starts_with: String
+  instagram_ends_with: String
+  instagram_not_ends_with: String
+  facebook: String
+  facebook_not: String
+  facebook_in: [String!]
+  facebook_not_in: [String!]
+  facebook_lt: String
+  facebook_lte: String
+  facebook_gt: String
+  facebook_gte: String
+  facebook_contains: String
+  facebook_not_contains: String
+  facebook_starts_with: String
+  facebook_not_starts_with: String
+  facebook_ends_with: String
+  facebook_not_ends_with: String
+  AND: [SocialWhereInput!]
+  OR: [SocialWhereInput!]
+  NOT: [SocialWhereInput!]
+}
+
+type Subscription {
+  address(where: AddressSubscriptionWhereInput): AddressSubscriptionPayload
+  influencer(where: InfluencerSubscriptionWhereInput): InfluencerSubscriptionPayload
+  item(where: ItemSubscriptionWhereInput): ItemSubscriptionPayload
+  size(where: SizeSubscriptionWhereInput): SizeSubscriptionPayload
+  social(where: SocialSubscriptionWhereInput): SocialSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  birthdayMonth: String!
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  name: String!
+  email: String!
+  birthdayMonth: String!
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  email_ASC
+  email_DESC
+  birthdayMonth_ASC
+  birthdayMonth_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  name: String!
+  email: String!
+  birthdayMonth: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+  AND: [UserSubscriptionWhereInput!]
+  OR: [UserSubscriptionWhereInput!]
+  NOT: [UserSubscriptionWhereInput!]
+}
+
+input UserUpdateInput {
+  name: String
+  email: String
+  birthdayMonth: String
+}
+
+input UserWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  birthdayMonth: String
+  birthdayMonth_not: String
+  birthdayMonth_in: [String!]
+  birthdayMonth_not_in: [String!]
+  birthdayMonth_lt: String
+  birthdayMonth_lte: String
+  birthdayMonth_gt: String
+  birthdayMonth_gte: String
+  birthdayMonth_contains: String
+  birthdayMonth_not_contains: String
+  birthdayMonth_starts_with: String
+  birthdayMonth_not_starts_with: String
+  birthdayMonth_ends_with: String
+  birthdayMonth_not_ends_with: String
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+}
+
+input UserWhereUniqueInput {
+  id: ID
+}

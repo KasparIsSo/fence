@@ -1,8 +1,5 @@
 import styled from "styled-components";
 
-import TYPE from "../components/styles/Typography";
-import ANIMATION from "../components/styles/Animation";
-
 export const CardContainer = styled.div`
   border-radius: 0.125rem;
   border-width: 0.0625rem;

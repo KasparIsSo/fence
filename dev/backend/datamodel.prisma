@@ -1,0 +1,59 @@
+type User {
+  id: ID! @unique
+  name: String!
+  email: String!
+  birthdayMonth: String!
+}
+
+type Influencer {
+  id: ID! @unique
+  firstName: String!
+  lastName: String
+  phone: String
+
+  # user: User!
+}
+
+type Address {
+  unit: String
+  streetNumber: String
+  street: String
+  city: String
+  country: String
+  postalCode: String
+  # influencer: Influencer!
+}
+
+type Social {
+  twitter: String
+  instagram: String
+  facebook: String
+  # influencer: Influencer!
+}
+
+type Size {
+  shirt: clothingSize
+  pant: Int
+  shoe: Int
+  # influencer: Influencer!
+}
+
+enum clothingSize {
+  XS
+  S
+  M
+  L
+  XL
+}
+
+type Item {
+  id: ID! @unique
+  title: String!
+  description: String!
+  image: String
+  largeImage: String
+  price: Int!
+  # createdAt: DateTime!
+  # updatedAt: DateTime!
+  # user: User!
+}

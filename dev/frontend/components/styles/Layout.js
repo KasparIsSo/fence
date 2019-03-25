@@ -17,8 +17,9 @@ const GRID = {
   wrapper: `
     display: block;
     margin: 0 auto;
-    width: calc(100vw - 4rem);
+    width: calc(100vw - 4rem - 15rem);
     max-width: 960px;
+    transform: translateX(7.5rem);
 
     @media (max-width: ${BREAKPOINTS.tablet.large}) {
       max-width: calc(100vw - 4rem);
