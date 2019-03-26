@@ -25,11 +25,11 @@ const NavLink = styled.a`
   margin-left: 1rem;
 `;
 
-const Nav = () => (
+const MarketingNav = () => (
   <NavLinksWrapper>
     <NavLink href="/">log in</NavLink>
     <NavLink href="/">sign up</NavLink>
   </NavLinksWrapper>
 );
 
-export default Nav;
+export default MarketingNav;

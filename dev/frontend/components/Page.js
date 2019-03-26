@@ -5,19 +5,22 @@ import AdminHeader from "./AdminHeader";
 import Button from "./Button";
 // import Meta from "../components/Meta";
 
+import { toRem } from "./utils/unitConversion";
 import THEME from "./styles/Theme";
+import ContentWrapper from "./ContentWrapper";
 
 const theme = THEME;
 
 const StyledPage = styled.div`
   color: ${props => props.theme.color.gray.ink};
-  padding-top: 6.875rem;
+  /* padding-top: 6.875rem; */
+  padding-top: ${toRem(100)};
 `;
 
 const Inner = styled.div`
   /* max-width: ${props => props.theme.maxWidth}; */
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -54,7 +57,7 @@ class Page extends Component {
           <GlobalStyle />
           <StyledPage>
             <AdminHeader />
-            <Inner>{this.props.children}</Inner>
+            <ContentWrapper>{this.props.children}</ContentWrapper>
           </StyledPage>
         </React.Fragment>
       </ThemeProvider>

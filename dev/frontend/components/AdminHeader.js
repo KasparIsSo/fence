@@ -4,7 +4,7 @@ import Router from "next/router";
 import NProgress from "nprogress";
 import { PropTypes } from "react";
 
-import Nav from "./Nav";
+import MarketingNav from "./MarketingNav";
 
 import { GRID, BREAKPOINTS } from "./styles/Layout";
 import { toRem } from "./utils/unitConversion";
@@ -34,20 +34,34 @@ const AdminHeaderWrapper = styled.div`
   background: ${props => props.theme.color.gray.white};
   box-shadow: ${props => props.theme.shadow.drop};
   padding: ${toRem(60)} ${toRem(40)};
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    width: ${toRem(104)};
+    padding: ${toRem(20)};
+  }
 `;
 
 const LogoWrapper = styled.div`
   width: 6rem;
   height: 6rem;
   margin: 0 auto ${toRem(60)};
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    width: 4rem;
+    height: 4rem;
+  }
 `;
 
 const NavLink = styled.a`
   text-decoration: none;
-  display: inline-block;
+  display: block;
   clear: both;
   margin-bottom: ${toRem(30)};
   cursor: pointer;
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    text-align: center;
+  }
 `;
 
 const NavIconWrapper = styled.div`
@@ -63,6 +77,10 @@ const NavLinkText = styled.p`
   vertical-align: top;
   ${TYPE.body.primary.ink}
   margin-bottom: 0;
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    display: none;
+  }
 `;
 
 const LinksContainer = styled.div`
@@ -71,6 +89,10 @@ const LinksContainer = styled.div`
   justify-content: space-between;
   height: calc(100vh - 7.5rem - 9.75rem);
   min-height: min-content;
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    height: calc(100vh - 6.5rem - 3.75rem);
+  }
 `;
 
 const NavLinksContainer = styled.div``;

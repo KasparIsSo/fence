@@ -115,26 +115,26 @@ const TYPE = {
     feature: {
       white: `
         color: ${THEME.color.gray.white};
-        font-size: 1rem;
-        line-height: 1.5rem;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
         font-family: 'Crimson Text';
-        font-weight: 700;
+        font-weight: 400;
         margin: .5rem 0 1rem;
       `,
       subdued: `
         color: ${THEME.color.gray.subdued};
-        font-size: 1rem;
-        line-height: 1.5rem;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
         font-family: 'Crimson Text';
-        font-weight: 700;
+        font-weight: 400;
         margin: .5rem 0 1rem;
       `,
       ink: `
         color: ${THEME.color.gray.ink};
-        font-size: 1rem;
-        line-height: 1.5rem;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
         font-family: 'Crimson Text';
-        font-weight: 700;
+        font-weight: 400;
         margin: .5rem 0 1rem;
       `
     },

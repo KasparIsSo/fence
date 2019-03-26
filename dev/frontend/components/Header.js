@@ -4,7 +4,7 @@ import Router from "next/router";
 import NProgress from "nprogress";
 import { PropTypes } from "react";
 
-import Nav from "./Nav";
+import MarketingNav from "./MarketingNav";
 
 import { GRID, BREAKPOINTS } from "./styles/Layout";
 import ANIMATION from "./styles/Animation";
@@ -79,7 +79,7 @@ class Header extends React.Component {
           <LogoWrapper>
             <Logo />
           </LogoWrapper>
-          <Nav />
+          <MarketingNav />
         </HeaderContainer>
       </HeaderWrapper>
     );

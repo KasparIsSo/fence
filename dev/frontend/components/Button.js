@@ -11,7 +11,8 @@ const ButtonWrapper = styled.button`
   height: 2.75rem;
   ${TYPE.body.primary.white}
   ${ANIMATION.default}
-  margin: 1rem;
+  margin: 1rem 0 1rem 1rem;
+  float: ${props => props.float};
 
   :hover {
     box-shadow: ${props => props.theme.shadow.drop};
@@ -112,7 +113,10 @@ const ButtonContent = styled.span`
 
 const Button = props => {
   return (
-    <ButtonWrapper className={props.buttonType ? props.buttonType : null}>
+    <ButtonWrapper
+      className={props.buttonType ? props.buttonType : null}
+      float={props.float ? props.float : null}
+    >
       <ButtonContent>{props.children}</ButtonContent>
     </ButtonWrapper>
   );

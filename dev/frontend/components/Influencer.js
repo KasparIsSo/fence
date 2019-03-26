@@ -1,5 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+
+import { CardContainer } from "./CardContainer";
+
+const InfluencerCard = styled(CardContainer)`
+  grid-column: span 4;
+`;
 
 class Influencer extends Component {
   static propTpes = {
@@ -7,11 +14,12 @@ class Influencer extends Component {
   };
   render() {
     const { influencer } = this.props;
+    console.log(influencer);
     return (
-      <p>
+      <InfluencerCard>
         {influencer.firstName}
         {/* Link to influencer profile */}
-      </p>
+      </InfluencerCard>
     );
   }
 }
