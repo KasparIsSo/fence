@@ -10,7 +10,13 @@ import { GRID, BREAKPOINTS } from "./styles/Layout";
 import { toRem } from "./utils/unitConversion";
 import TYPE from "./styles/Typography";
 import ANIMATION from "./styles/Animation";
+
 import Logo from "react-svg-loader!../static/icons/brand/logo.svg";
+import Campaigns from "react-svg-loader!../static/icons/nav/campaigns.svg";
+import Contacts from "react-svg-loader!../static/icons/nav/contacts.svg";
+import LogOut from "react-svg-loader!../static/icons/nav/logOut.svg";
+import Profile from "react-svg-loader!../static/icons/nav/profile.svg";
+import Settings from "react-svg-loader!../static/icons/nav/settings.svg";
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -28,7 +34,7 @@ const AdminHeaderWrapper = styled.div`
   position: absolute;
   left: 0;
   top: 0;
-  width: 15rem;
+  width: ${toRem(200)};
   height: 100vh;
   min-height: min-content;
   background: ${props => props.theme.color.gray.white};
@@ -38,6 +44,10 @@ const AdminHeaderWrapper = styled.div`
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     width: ${toRem(104)};
     padding: ${toRem(20)};
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    width: ${toRem(64)};
   }
 `;
 
@@ -59,6 +69,27 @@ const NavLink = styled.a`
   margin-bottom: ${toRem(30)};
   cursor: pointer;
 
+  :hover {
+    > p {
+      color: ${props => props.theme.color.gray.ink};
+    }
+
+    > div > svg {
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    > p {
+      color: ${props => props.theme.color.gray.ink};
+      font-weight: 700;
+    }
+
+    > div > svg {
+      opacity: 1;
+    }
+  }
+
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     text-align: center;
   }
@@ -69,14 +100,20 @@ const NavIconWrapper = styled.div`
   width: 1.5rem;
   height: 1.5rem;
   margin-right: ${toRem(10)};
-  background: #333;
+
+  svg {
+    width: 100%;
+    opacity: 0.76;
+    ${ANIMATION.default}
+  }
 `;
 
 const NavLinkText = styled.p`
   display: inline-block;
   vertical-align: top;
-  ${TYPE.body.primary.ink}
+  ${TYPE.body.primary.subdued}
   margin-bottom: 0;
+  ${ANIMATION.default}
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     display: none;
@@ -132,25 +169,35 @@ class AdminHeader extends React.Component {
         <LinksContainer>
           <NavLinksContainer>
             <NavLink>
-              <NavIconWrapper />
+              <NavIconWrapper>
+                <Campaigns />
+              </NavIconWrapper>
               <NavLinkText>Campaigns</NavLinkText>
             </NavLink>
-            <NavLink>
-              <NavIconWrapper />
+            <NavLink className="active">
+              <NavIconWrapper>
+                <Contacts />
+              </NavIconWrapper>
               <NavLinkText>Influencers</NavLinkText>
             </NavLink>
             <NavLink>
-              <NavIconWrapper />
+              <NavIconWrapper>
+                <Profile />
+              </NavIconWrapper>
               <NavLinkText>Profile</NavLinkText>
             </NavLink>
           </NavLinksContainer>
           <SettingsContainer>
             <NavLink>
-              <NavIconWrapper />
+              <NavIconWrapper>
+                <Settings />
+              </NavIconWrapper>
               <NavLinkText>Settings</NavLinkText>
             </NavLink>
             <NavLink>
-              <NavIconWrapper />
+              <NavIconWrapper>
+                <LogOut />
+              </NavIconWrapper>
               <NavLinkText>Log Out</NavLinkText>
             </NavLink>
           </SettingsContainer>

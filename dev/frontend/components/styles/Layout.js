@@ -5,7 +5,7 @@ const BREAKPOINTS = {
   },
   tablet: {
     small: "840px",
-    large: "960px"
+    large: "1140px"
   },
   desktop: {
     small: "1280px",
@@ -17,9 +17,9 @@ const GRID = {
   wrapper: `
     display: block;
     margin: 0 auto;
-    width: calc(100vw - 4rem - 15rem);
+    width: calc(100vw - 4rem - 12.5rem);
     max-width: 960px;
-    transform: translateX(7.5rem);
+    transform: translateX(6.25rem);
 
     @media (max-width: ${BREAKPOINTS.tablet.large}) {
       max-width: calc(100vw - 4rem);

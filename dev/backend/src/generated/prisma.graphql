@@ -178,6 +178,10 @@ type AggregateAddress {
   count: Int!
 }
 
+type AggregateCampaign {
+  count: Int!
+}
+
 type AggregateInfluencer {
   count: Int!
 }
@@ -202,6 +206,132 @@ type BatchPayload {
   count: Long!
 }
 
+type Campaign {
+  id: ID!
+  createdAt: DateTime!
+  startDate: DateTime!
+  endDate: DateTime!
+  influencers: [String!]!
+}
+
+type CampaignConnection {
+  pageInfo: PageInfo!
+  edges: [CampaignEdge]!
+  aggregate: AggregateCampaign!
+}
+
+input CampaignCreateinfluencersInput {
+  set: [String!]
+}
+
+input CampaignCreateInput {
+  startDate: DateTime!
+  endDate: DateTime!
+  influencers: CampaignCreateinfluencersInput
+}
+
+type CampaignEdge {
+  node: Campaign!
+  cursor: String!
+}
+
+enum CampaignOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  startDate_ASC
+  startDate_DESC
+  endDate_ASC
+  endDate_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type CampaignPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  startDate: DateTime!
+  endDate: DateTime!
+  influencers: [String!]!
+}
+
+type CampaignSubscriptionPayload {
+  mutation: MutationType!
+  node: Campaign
+  updatedFields: [String!]
+  previousValues: CampaignPreviousValues
+}
+
+input CampaignSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CampaignWhereInput
+  AND: [CampaignSubscriptionWhereInput!]
+  OR: [CampaignSubscriptionWhereInput!]
+  NOT: [CampaignSubscriptionWhereInput!]
+}
+
+input CampaignUpdateinfluencersInput {
+  set: [String!]
+}
+
+input CampaignUpdateInput {
+  startDate: DateTime
+  endDate: DateTime
+  influencers: CampaignUpdateinfluencersInput
+}
+
+input CampaignWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  startDate: DateTime
+  startDate_not: DateTime
+  startDate_in: [DateTime!]
+  startDate_not_in: [DateTime!]
+  startDate_lt: DateTime
+  startDate_lte: DateTime
+  startDate_gt: DateTime
+  startDate_gte: DateTime
+  endDate: DateTime
+  endDate_not: DateTime
+  endDate_in: [DateTime!]
+  endDate_not_in: [DateTime!]
+  endDate_lt: DateTime
+  endDate_lte: DateTime
+  endDate_gt: DateTime
+  endDate_gte: DateTime
+  AND: [CampaignWhereInput!]
+  OR: [CampaignWhereInput!]
+  NOT: [CampaignWhereInput!]
+}
+
+input CampaignWhereUniqueInput {
+  id: ID
+}
+
 enum clothingSize {
   XS
   S
@@ -210,11 +340,18 @@ enum clothingSize {
   XL
 }
 
+scalar DateTime
+
 type Influencer {
   id: ID!
   firstName: String!
   lastName: String
   phone: String
+  description: String
+  thumbnail: String
+  image: String
+  activeCampaigns: [String!]!
+  pastCampaigns: [String!]!
 }
 
 type InfluencerConnection {
@@ -223,10 +360,23 @@ type InfluencerConnection {
   aggregate: AggregateInfluencer!
 }
 
+input InfluencerCreateactiveCampaignsInput {
+  set: [String!]
+}
+
 input InfluencerCreateInput {
   firstName: String!
   lastName: String
   phone: String
+  description: String
+  thumbnail: String
+  image: String
+  activeCampaigns: InfluencerCreateactiveCampaignsInput
+  pastCampaigns: InfluencerCreatepastCampaignsInput
+}
+
+input InfluencerCreatepastCampaignsInput {
+  set: [String!]
 }
 
 type InfluencerEdge {
@@ -243,6 +393,12 @@ enum InfluencerOrderByInput {
   lastName_DESC
   phone_ASC
   phone_DESC
+  description_ASC
+  description_DESC
+  thumbnail_ASC
+  thumbnail_DESC
+  image_ASC
+  image_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -254,6 +410,11 @@ type InfluencerPreviousValues {
   firstName: String!
   lastName: String
   phone: String
+  description: String
+  thumbnail: String
+  image: String
+  activeCampaigns: [String!]!
+  pastCampaigns: [String!]!
 }
 
 type InfluencerSubscriptionPayload {
@@ -274,10 +435,23 @@ input InfluencerSubscriptionWhereInput {
   NOT: [InfluencerSubscriptionWhereInput!]
 }
 
+input InfluencerUpdateactiveCampaignsInput {
+  set: [String!]
+}
+
 input InfluencerUpdateInput {
   firstName: String
   lastName: String
   phone: String
+  description: String
+  thumbnail: String
+  image: String
+  activeCampaigns: InfluencerUpdateactiveCampaignsInput
+  pastCampaigns: InfluencerUpdatepastCampaignsInput
+}
+
+input InfluencerUpdatepastCampaignsInput {
+  set: [String!]
 }
 
 input InfluencerWhereInput {
@@ -337,6 +511,48 @@ input InfluencerWhereInput {
   phone_not_starts_with: String
   phone_ends_with: String
   phone_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  thumbnail: String
+  thumbnail_not: String
+  thumbnail_in: [String!]
+  thumbnail_not_in: [String!]
+  thumbnail_lt: String
+  thumbnail_lte: String
+  thumbnail_gt: String
+  thumbnail_gte: String
+  thumbnail_contains: String
+  thumbnail_not_contains: String
+  thumbnail_starts_with: String
+  thumbnail_not_starts_with: String
+  thumbnail_ends_with: String
+  thumbnail_not_ends_with: String
+  image: String
+  image_not: String
+  image_in: [String!]
+  image_not_in: [String!]
+  image_lt: String
+  image_lte: String
+  image_gt: String
+  image_gte: String
+  image_contains: String
+  image_not_contains: String
+  image_starts_with: String
+  image_not_starts_with: String
+  image_ends_with: String
+  image_not_ends_with: String
   AND: [InfluencerWhereInput!]
   OR: [InfluencerWhereInput!]
   NOT: [InfluencerWhereInput!]
@@ -522,6 +738,12 @@ type Mutation {
   createAddress(data: AddressCreateInput!): Address!
   updateManyAddresses(data: AddressUpdateInput!, where: AddressWhereInput): BatchPayload!
   deleteManyAddresses(where: AddressWhereInput): BatchPayload!
+  createCampaign(data: CampaignCreateInput!): Campaign!
+  updateCampaign(data: CampaignUpdateInput!, where: CampaignWhereUniqueInput!): Campaign
+  updateManyCampaigns(data: CampaignUpdateInput!, where: CampaignWhereInput): BatchPayload!
+  upsertCampaign(where: CampaignWhereUniqueInput!, create: CampaignCreateInput!, update: CampaignUpdateInput!): Campaign!
+  deleteCampaign(where: CampaignWhereUniqueInput!): Campaign
+  deleteManyCampaigns(where: CampaignWhereInput): BatchPayload!
   createInfluencer(data: InfluencerCreateInput!): Influencer!
   updateInfluencer(data: InfluencerUpdateInput!, where: InfluencerWhereUniqueInput!): Influencer
   updateManyInfluencers(data: InfluencerUpdateInput!, where: InfluencerWhereInput): BatchPayload!
@@ -568,6 +790,9 @@ type PageInfo {
 type Query {
   addresses(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Address]!
   addressesConnection(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AddressConnection!
+  campaign(where: CampaignWhereUniqueInput!): Campaign
+  campaigns(where: CampaignWhereInput, orderBy: CampaignOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Campaign]!
+  campaignsConnection(where: CampaignWhereInput, orderBy: CampaignOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CampaignConnection!
   influencer(where: InfluencerWhereUniqueInput!): Influencer
   influencers(where: InfluencerWhereInput, orderBy: InfluencerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Influencer]!
   influencersConnection(where: InfluencerWhereInput, orderBy: InfluencerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InfluencerConnection!
@@ -796,6 +1021,7 @@ input SocialWhereInput {
 
 type Subscription {
   address(where: AddressSubscriptionWhereInput): AddressSubscriptionPayload
+  campaign(where: CampaignSubscriptionWhereInput): CampaignSubscriptionPayload
   influencer(where: InfluencerSubscriptionWhereInput): InfluencerSubscriptionPayload
   item(where: ItemSubscriptionWhereInput): ItemSubscriptionPayload
   size(where: SizeSubscriptionWhereInput): SizeSubscriptionPayload

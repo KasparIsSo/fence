@@ -66,6 +66,7 @@ const TYPE = {
         font-family: 'Crimson Text';
         font-weight: 700;
         margin: .5rem 0 1.5rem;
+        letter-spacing: -.01875rem;
       `,
       subdued: `
         color: ${THEME.color.gray.subdued};
@@ -74,6 +75,7 @@ const TYPE = {
         font-family: 'Crimson Text';
         font-weight: 700;
         margin: .5rem 0 1.5rem;
+        letter-spacing: -.01875rem;
       `,
       ink: `
         color: ${THEME.color.gray.ink};
@@ -82,6 +84,7 @@ const TYPE = {
         font-family: 'Crimson Text';
         font-weight: 700;
         margin: .5rem 0 1.5rem;
+        letter-spacing: -.01875rem;
       `
     },
     primary: {

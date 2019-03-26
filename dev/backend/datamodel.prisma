@@ -10,8 +10,20 @@ type Influencer {
   firstName: String!
   lastName: String
   phone: String
-
+  description: String
+  thumbnail: String
+  image: String
+  activeCampaigns: [String]
+  pastCampaigns: [String]
   # user: User!
+}
+
+type Campaign {
+  id: ID! @unique
+  createdAt: DateTime!
+  startDate: DateTime!
+  endDate: DateTime!
+  influencers: [String]
 }
 
 type Address {

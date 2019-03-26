@@ -15,6 +15,11 @@ const ALL_INFLUENCERS_QUERY = gql`
       firstName
       lastName
       phone
+      description
+      thumbnail
+      image
+      activeCampaigns
+      pastCampaigns
     }
   }
 `;

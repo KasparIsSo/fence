@@ -24,7 +24,7 @@ const Inner = styled.div`
 `;
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700|Lato:400,700');
+  @import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700|Lato:400,400i,700');
 
   html {
     box-sizing: border-box;
