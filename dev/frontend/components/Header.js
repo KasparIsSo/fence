@@ -1,7 +1,7 @@
 import Link from "next/link";
-import styled from "styled-components";
-import Router from "next/router";
 import NProgress from "nprogress";
+import Router from "next/router";
+import styled from "styled-components";
 import { PropTypes } from "react";
 
 import MarketingNav from "./MarketingNav";

@@ -116,6 +116,7 @@ const Button = props => {
     <ButtonWrapper
       className={props.buttonType ? props.buttonType : null}
       float={props.float ? props.float : null}
+      onClick={props.handleClick}
     >
       <ButtonContent>{props.children}</ButtonContent>
     </ButtonWrapper>

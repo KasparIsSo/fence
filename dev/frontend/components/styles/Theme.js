@@ -45,6 +45,9 @@ const THEME = {
   shadow: {
     inner: "inset 0 0 .25rem .125rem rgba(51, 51, 51, 0.5)",
     drop: "0 .125rem .5rem 0 rgba(51, 51, 51, .3)"
+  },
+  background: {
+    overlay: "rgba(51, 51, 51, 0.4)"
   }
 };
 

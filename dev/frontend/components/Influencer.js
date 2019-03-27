@@ -6,6 +6,7 @@ import { toRem } from "./utils/unitConversion";
 
 import ANIMATION from "./styles/Animation";
 import TYPE from "./styles/Typography";
+import { BREAKPOINTS } from "./styles/Layout";
 
 import { CardContainer } from "./CardContainer";
 import Tag from "./Tag";
@@ -13,6 +14,10 @@ import Tag from "./Tag";
 const InfluencerCard = styled(CardContainer)`
   grid-column: span 4;
   padding: ${toRem(30)} ${toRem(20)};
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    margin: 0;
+  }
 `;
 
 const InfluencerProfileImg = styled.a`
@@ -32,7 +37,7 @@ const InfluencerProfileImg = styled.a`
 
   :hover {
     > img {
-      opacity: 0.5;
+      opacity: 0.8;
     }
   }
 `;
@@ -43,6 +48,10 @@ const InfluencerInfo = styled.a`
   padding: 0 ${toRem(20)};
   margin-bottom: ${toRem(30)};
   cursor: pointer;
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    padding: 0;
+  }
 
   :hover {
     h3 {
@@ -84,7 +93,6 @@ class Influencer extends Component {
   };
   render() {
     const { influencer } = this.props;
-    console.log(influencer);
     return (
       <InfluencerCard>
         <InfluencerProfileImg>

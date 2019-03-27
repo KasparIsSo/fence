@@ -1,8 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
-import Router from "next/router";
-import NProgress from "nprogress";
 import { PropTypes } from "react";
+import Router from "next/router";
 
 import MarketingNav from "./MarketingNav";
 
@@ -10,6 +9,7 @@ import { GRID, BREAKPOINTS } from "./styles/Layout";
 import { toRem } from "./utils/unitConversion";
 import TYPE from "./styles/Typography";
 import ANIMATION from "./styles/Animation";
+import ZINDEX from "./styles/Zindex";
 
 import Logo from "react-svg-loader!../static/icons/brand/logo.svg";
 import Campaigns from "react-svg-loader!../static/icons/nav/campaigns.svg";
@@ -18,20 +18,8 @@ import LogOut from "react-svg-loader!../static/icons/nav/logOut.svg";
 import Profile from "react-svg-loader!../static/icons/nav/profile.svg";
 import Settings from "react-svg-loader!../static/icons/nav/settings.svg";
 
-Router.onRouteChangeStart = () => {
-  NProgress.start();
-};
-
-Router.onRouteChangeComplete = () => {
-  NProgress.done();
-};
-
-Router.onRouteChangeError = () => {
-  NProgress.done();
-};
-
-const AdminHeaderWrapper = styled.div`
-  position: absolute;
+const AdminHeaderWrapper = styled.header`
+  position: fixed;
   left: 0;
   top: 0;
   width: ${toRem(200)};
@@ -40,6 +28,7 @@ const AdminHeaderWrapper = styled.div`
   background: ${props => props.theme.color.gray.white};
   box-shadow: ${props => props.theme.shadow.drop};
   padding: ${toRem(60)} ${toRem(40)};
+  z-index: ${ZINDEX.header};
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     width: ${toRem(104)};
@@ -59,6 +48,11 @@ const LogoWrapper = styled.div`
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     width: 4rem;
     height: 4rem;
+  }
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    width: ${toRem(32)};
+    height: ${toRem(32)};
+    transform: translateX(${toRem(-4)});
   }
 `;
 
@@ -146,41 +140,43 @@ const SettingsContainer = styled.div`
 class AdminHeader extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { navBackgroundWhite: false };
   }
 
   componentDidMount() {
-    document.addEventListener("scroll", () => {
-      const navBackgroundWhite = window.scrollY > 50;
-      if (navBackgroundWhite !== this.state.navBackgroundWhite) {
-        this.setState({ navBackgroundWhite });
-      }
-    });
+    let activeNavCategory = Router.route.split("/");
+    activeNavCategory =
+      activeNavCategory[1].charAt(0).toUpperCase() +
+      activeNavCategory[1].slice(1);
+    activeNavCategory
+      ? document
+          .getElementById("nav" + activeNavCategory)
+          .classList.add("active")
+      : null;
   }
 
   render() {
     return (
-      <AdminHeaderWrapper
-        className={this.state.navBackgroundWhite ? "scrolled" : null}
-      >
+      <AdminHeaderWrapper>
         <LogoWrapper>
-          <Logo />
+          <Link href="./">
+            <Logo />
+          </Link>
         </LogoWrapper>
         <LinksContainer>
           <NavLinksContainer>
-            <NavLink>
+            <NavLink id="navCampaigns">
               <NavIconWrapper>
                 <Campaigns />
               </NavIconWrapper>
               <NavLinkText>Campaigns</NavLinkText>
             </NavLink>
-            <NavLink className="active">
+            <NavLink id="navInfluencers" href="/influencers">
               <NavIconWrapper>
                 <Contacts />
               </NavIconWrapper>
               <NavLinkText>Influencers</NavLinkText>
             </NavLink>
-            <NavLink>
+            <NavLink id="navProfile">
               <NavIconWrapper>
                 <Profile />
               </NavIconWrapper>
@@ -188,7 +184,7 @@ class AdminHeader extends React.Component {
             </NavLink>
           </NavLinksContainer>
           <SettingsContainer>
-            <NavLink>
+            <NavLink id="navSettingss">
               <NavIconWrapper>
                 <Settings />
               </NavIconWrapper>

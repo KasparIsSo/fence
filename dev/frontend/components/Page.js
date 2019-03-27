@@ -3,11 +3,10 @@ import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
 import Header from "./Header";
 import AdminHeader from "./AdminHeader";
 import Button from "./Button";
-// import Meta from "../components/Meta";
+import Meta from "../components/Meta";
 
 import { toRem } from "./utils/unitConversion";
 import THEME from "./styles/Theme";
-import ContentWrapper from "./ContentWrapper";
 
 const theme = THEME;
 
@@ -22,6 +21,8 @@ const Inner = styled.div`
   margin: 0 auto;
   /* padding: 2rem; */
 `;
+
+const Modal = styled.div``;
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700|Lato:400,400i,700');
@@ -56,8 +57,9 @@ class Page extends Component {
         <React.Fragment>
           <GlobalStyle />
           <StyledPage>
+            <Meta />
             <AdminHeader />
-            <ContentWrapper>{this.props.children}</ContentWrapper>
+            {this.props.children}
           </StyledPage>
         </React.Fragment>
       </ThemeProvider>

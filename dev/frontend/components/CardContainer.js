@@ -6,7 +6,7 @@ export const CardContainer = styled.div`
   border-color: ${props => props.theme.color.gray.light};
   border-style: solid;
   background: ${props => props.theme.color.gray.white};
-  padding: 2.5rem 2rem;
+  padding: 2.5rem 2.5rem;
   margin-bottom: 2rem;
   box-shadow: ${props => props.theme.shadow.drop};
 `;

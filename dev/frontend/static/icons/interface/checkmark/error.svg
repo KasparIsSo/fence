@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>UI / Checkbox / Checkmark / Error</title>
+    <desc>Created with Sketch.</desc>
+    <g id="UI-/-Checkbox-/-Checkmark-/-Error" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M9.94974747,14.363961 L17.0208153,7.29289322 C17.4113396,6.90236893 18.0445046,6.90236893 18.4350288,7.29289322 L19.1421356,8 C19.5326599,8.39052429 19.5326599,9.02368927 19.1421356,9.41421356 L10.6568542,17.8994949 C10.26633,18.2900192 9.63316498,18.2900192 9.24264069,17.8994949 L4.29289322,12.9497475 C3.90236893,12.5592232 3.90236893,11.9260582 4.29289322,11.5355339 L5,10.8284271 C5.39052429,10.4379028 6.02368927,10.4379028 6.41421356,10.8284271 L9.94974747,14.363961 Z" id="Path" fill="#F03A47"></path>
+    </g>
+</svg>
