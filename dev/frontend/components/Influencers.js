@@ -8,7 +8,7 @@ import { GRID, BREAKPOINTS } from "./styles/Layout";
 import TYPE from "./styles/Typography";
 
 import ContentWrapper from "./ContentWrapper";
-import Influencer from "./Influencer";
+import InfluencerCard from "./InfluencerCard";
 import Button from "./Button";
 import AddInfluencerModal from "./modals/AddInfluencer";
 
@@ -50,16 +50,12 @@ const InfluencerTitle = styled.h1`
 `;
 
 class Influencers extends Component {
-  constructor(...args) {
-    super(...args);
-    this.state = {
-      showAddInfluencerModal: false
-    };
-  }
+  state = {
+    showAddInfluencerModal: false
+  };
 
   showModal = () => {
     this.setState({ showAddInfluencerModal: true });
-    console.log(this.state);
   };
 
   render() {
@@ -73,9 +69,7 @@ class Influencers extends Component {
               <Button
                 buttonType="primary"
                 float="right"
-                // onClick={() => this.setState({ modalShow: true })}
-                asdadsd="sadafafs"
-                handleClick={this.showModal}
+                onClick={this.showModal}
               >
                 +Add a New Influencer
               </Button>
@@ -87,7 +81,10 @@ class Influencers extends Component {
                 return (
                   <>
                     {data.influencers.map(influencer => (
-                      <Influencer influencer={influencer} key={influencer.id} />
+                      <InfluencerCard
+                        influencer={influencer}
+                        key={influencer.id}
+                      />
                     ))}
                   </>
                 );
@@ -101,3 +98,4 @@ class Influencers extends Component {
 }
 
 export default Influencers;
+export { ALL_INFLUENCERS_QUERY };

@@ -60,6 +60,9 @@ const TextAreaInput = props => {
           : "Type Somthing..."
       }
       className={props.inputType ? props.inputType : null}
+      required={props.required ? true : null}
+      value={props.value}
+      onChange={props.onChange}
     />
   );
 };

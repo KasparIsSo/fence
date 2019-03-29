@@ -1,24 +1,33 @@
 # import * from './generated/prisma.graphql'
 
 type Mutation {
-  createItem(
-    title: String
-    description: String
-    price: Int
-    image: String
-    largeImage: String
-  ): Item!
-
   createInfluencer(
-    firstName: String
+    firstName: String!
     lastName: String
+    description: String
     phone: String
-  ): Influencer
+    thumbnail: String
+    image: String
+    activeCampaigns: [String]
+    pastCampaigns: [String]
+  ): Influencer!
+  updateInfluencer(
+    id: ID!
+    firstName: String!
+    lastName: String
+    description: String
+    phone: String
+    thumbnail: String
+    image: String
+    activeCampaigns: [String]
+    pastCampaigns: [String]
+  ): Influencer!
 }
 
 type Query {
   items: [Item]!
   influencers: [Influencer]!
+  influencer(where: InfluencerWhereUniqueInput!): Influencer
 }
 
 type Address {

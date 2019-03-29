@@ -50,12 +50,15 @@ const Input = styled.input`
 const TextFieldInput = props => {
   return (
     <Input
-      type="text"
+      type={props.type ? props.type : "text"}
       name={props.textInputName ? props.textInputName : "textInput"}
       placeholder={
         props.textInputPlaceholder ? props.textInputPlaceholder : "Text"
       }
       className={props.inputType ? props.inputType : null}
+      required={props.required ? true : null}
+      value={props.value}
+      onChange={props.onChange}
     />
   );
 };

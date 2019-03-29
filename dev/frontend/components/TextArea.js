@@ -16,31 +16,36 @@ const TextAreaWrapper = styled.div`
     clear: both;
     float: right;
   }
-
-  > textarea {
-    margin: 0;
-    display: block;
-  }
 `;
 
-const Label = styled.h6`
+const Label = styled.label`
   ${TYPE.body.primary.ink}
   margin: 0;
-  margin-bottom: ${toRem(5)};
+  > textarea {
+    margin: ${toRem(5)} 0 0 0;
+    display: block;
+  }
 `;
 
 const TextArea = props => {
   return (
     <TextAreaWrapper>
-      <Label>{props.label ? props.label : "Label"}</Label>
-      <TextAreaInput
-        textInputName={props.textInputName}
-        textInputPlaceholder={props.textInputPlaceholder}
-        inputType={props.inputType}
-      />
-      <Button buttonType={props.textAreaType ? props.textAreaType : "primary"}>
-        {props.buttonInnerText ? props.buttonInnerText : "Submit"}
-      </Button>
+      <Label>
+        {props.label ? props.label : "Label"}
+        <TextAreaInput
+          textInputName={props.textInputName}
+          textInputPlaceholder={props.textInputPlaceholder}
+          inputType={props.inputType}
+          required={props.required ? true : null}
+          value={props.value}
+          onChange={props.onChange}
+        />
+        <Button
+          buttonType={props.textAreaType ? props.textAreaType : "primary"}
+        >
+          {props.buttonInnerText ? props.buttonInnerText : "Submit"}
+        </Button>
+      </Label>
     </TextAreaWrapper>
   );
 };
@@ -50,12 +55,17 @@ export default TextArea;
 const TextAreaSimple = props => {
   return (
     <TextAreaWrapper>
-      <Label>{props.label ? props.label : "Label"}</Label>
-      <TextAreaInput
-        textInputName={props.textInputName}
-        textInputPlaceholder={props.textInputPlaceholder}
-        inputType={props.inputType}
-      />
+      <Label>
+        {props.label ? props.label : "Label"}
+        <TextAreaInput
+          textInputName={props.textInputName}
+          textInputPlaceholder={props.textInputPlaceholder}
+          inputType={props.inputType}
+          required={props.required ? true : null}
+          value={props.value}
+          onChange={props.onChange}
+        />
+      </Label>
     </TextAreaWrapper>
   );
 };

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
 import styled from "styled-components";
+import Router from "next/router";
 
 import { toRem } from "../utils/unitConversion";
 import { BREAKPOINTS, GRID } from "../styles/Layout";
@@ -11,11 +14,37 @@ import ANIMATION from "../styles/Animation";
 import { CardContainer } from "../CardContainer";
 import { TextFieldSimple } from "../TextField";
 import { TextAreaSimple } from "../TextArea";
+import UploadField from "../UploadField";
 import Button from "../Button";
+import Error from "../ErrorMessage";
 
 import CloseIcon from "react-svg-loader!../../static/icons/interface/cancel/default.svg";
 
-// import THEME from "../styles/Theme";
+const CREATE_INFLUENCER_MUTATION = gql`
+  mutation CREATE_INFLUENCER_MUTATION(
+    $firstName: String!
+    $lastName: String
+    $description: String
+    $phone: String
+    $thumbnail: String
+    $image: String
+    $activeCampaigns: [String]
+    $pastCampaigns: [String]
+  ) {
+    createInfluencer(
+      firstName: $firstName
+      lastName: $lastName
+      description: $description
+      phone: $phone
+      thumbnail: $thumbnail
+      image: $image
+      activeCampaigns: $activeCampaigns
+      pastCampaigns: $pastCampaigns
+    ) {
+      id
+    }
+  }
+`;
 
 const BackgroundOverlay = styled.div`
   background-color: ${props => props.theme.background.overlay};
@@ -128,19 +157,51 @@ const ModalButtons = styled.div`
   }
 `;
 
-class AddInfluencerModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: props.show
-    };
-  }
+class AddInfluencerModal extends Component {
+  state = {
+    show: this.props.show,
+    firstName: "",
+    lastName: "",
+    description: "",
+    thumbnail: "",
+    image: ""
+  };
+
+  handleChange = e => {
+    const { name, type, value } = e.target;
+    const val = type === "number" ? parseFloat(value) : value;
+    this.setState({ [name]: val });
+  };
+
+  uploadFile = async e => {
+    console.log("uploading file");
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "fence-social");
+
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/kaspar/image/upload",
+      {
+        method: "POST",
+        body: data
+      }
+    );
+
+    const file = await res.json();
+    console.log(file);
+    this.setState({
+      thumbnail: file.secure_url,
+      image: file.eager[0].secure_url
+    });
+  };
 
   componentWillReceiveProps(props) {
     this.setState({ show: props.show });
   }
 
-  hideModal = () => {
+  hideModal = e => {
+    e.preventDefault();
     this.setState({ show: false });
   };
 
@@ -149,40 +210,85 @@ class AddInfluencerModal extends React.Component {
       <BackgroundOverlay className={this.state.show ? "show" : null}>
         <ModalWrapper>
           <Modal>
-            <ModalHeader>
-              <ModalTitle>Add an Influencer</ModalTitle>
+            <Mutation
+              mutation={CREATE_INFLUENCER_MUTATION}
+              variables={this.state}
+            >
+              {(createInfluencer, { loading, error }) => (
+                <form
+                  onSubmit={async e => {
+                    e.preventDefault();
+                    const res = await createInfluencer();
+                    console.log(res);
+                    Router.push({
+                      pathname: "/influencer",
+                      query: { id: res.data.createInfluencer.id }
+                    });
+                  }}
+                >
+                  <Error error={error} />
+                  <fieldset disabled={loading} aria-busy={loading}>
+                    <ModalHeader>
+                      <ModalTitle>Add an Influencer</ModalTitle>
 
-              <ModalClose onClick={this.hideModal}>
-                <CloseIcon />
-              </ModalClose>
-            </ModalHeader>
+                      <ModalClose type="button" onClick={this.hideModal}>
+                        <CloseIcon />
+                      </ModalClose>
+                    </ModalHeader>
 
-            <ModalInput>
-              <TextFieldSimple
-                label="First Name"
-                textInputName="firstName"
-                textInputPlaceholder="Enter their first name"
-                inputType="secondary"
-                className="halfInput"
-              />
-              <TextFieldSimple
-                label="Last Name (Optional)"
-                textInputName="lastName"
-                textInputPlaceholder="Enter their last name"
-                inputType="secondary"
-                className="halfInput"
-              />
-              <TextAreaSimple
-                label="Description (Optional)"
-                textInputName="description"
-                textInputPlaceholder="Something to help you remember them"
-                inputType="secondary"
-              />
-            </ModalInput>
-            <ModalButtons>
-              <Button buttonType="primary">Submit</Button>
-              <Button buttonType="secondary">Cancel</Button>
-            </ModalButtons>
+                    <ModalInput>
+                      <TextFieldSimple
+                        label="First Name"
+                        labelFor="firstName"
+                        textInputName="firstName"
+                        textInputPlaceholder="Enter their first name"
+                        inputType="secondary"
+                        className="halfInput"
+                        required
+                        value={this.state.firstName}
+                        onChange={this.handleChange}
+                      />
+                      <TextFieldSimple
+                        label="Last Name (Optional)"
+                        labelFor="lastName"
+                        textInputName="lastName"
+                        textInputPlaceholder="Enter their last name"
+                        inputType="secondary"
+                        className="halfInput"
+                        value={this.state.lastName}
+                        onChange={this.handleChange}
+                      />
+                      <TextAreaSimple
+                        label="Description (Optional)"
+                        labelFor="description"
+                        textInputName="description"
+                        textInputPlaceholder="Something to help you remember them"
+                        inputType="secondary"
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                      />
+                      <UploadField
+                        onChange={this.uploadFile}
+                        image={this.state.image}
+                      />
+                    </ModalInput>
+
+                    <ModalButtons>
+                      <Button buttonType="primary" type="submit">
+                        Submit
+                      </Button>
+                      <Button
+                        buttonType="secondary"
+                        type="button"
+                        onClick={this.hideModal}
+                      >
+                        Cancel
+                      </Button>
+                    </ModalButtons>
+                  </fieldset>
+                </form>
+              )}
+            </Mutation>
           </Modal>
         </ModalWrapper>
       </BackgroundOverlay>
@@ -190,25 +296,5 @@ class AddInfluencerModal extends React.Component {
   }
 }
 
-// class Modal extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.el = document.createElement("div");
-//   }
-
-//   componentDidMount() {
-//     modalRoot.appendChild(this.el);
-//   }
-
-//   componentWillUnmount() {
-//     modalRoot.removeChild(this.el);
-//   }
-
-//   render() {
-//     return ReactDOM.createPortal(this.props.children, this.el);
-//   }
-// }
-
-// export default ModalBackground;
-
 export default AddInfluencerModal;
+export { CREATE_INFLUENCER_MUTATION };

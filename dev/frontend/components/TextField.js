@@ -13,28 +13,32 @@ const TextFieldInputWrapper = styled.div`
     margin-top: 0;
     margin-bottom: 0;
   }
-
-  > input {
-    margin: 0;
-    width: 100%;
-  }
 `;
 
-const Label = styled.h6`
+const Label = styled.label`
   ${TYPE.body.primary.ink}
   margin: 0;
-  margin-bottom: ${toRem(5)};
+
+  > input {
+    margin: ${toRem(5)} 0 0 0;
+    width: 100%;
+  }
 `;
 
 const TextField = props => {
   return (
     <TextFieldInputWrapper>
-      <Label>{props.label ? props.label : "Label"}</Label>
-      <TextFieldInput
-        textInputName={props.textInputName}
-        textInputPlaceholder={props.textInputPlaceholder}
-        inputType={props.inputType}
-      />
+      <Label htmlfor={props.labelFor ? props.labelFor : "title"}>
+        {props.label ? props.label : "Label"}
+        <TextFieldInput
+          textInputName={props.textInputName}
+          textInputPlaceholder={props.textInputPlaceholder}
+          inputType={props.inputType}
+          required={props.required ? "required" : null}
+          value={props.value}
+          onChange={props.onChange}
+        />
+      </Label>
       <Button
         buttonType={props.textFieldType ? props.textFieldType : "primary"}
       >
@@ -49,12 +53,17 @@ export default TextField;
 const TextFieldSimple = props => {
   return (
     <TextFieldInputWrapper className={props.className}>
-      <Label>{props.label ? props.label : "Label"}</Label>
-      <TextFieldInput
-        textInputName={props.textInputName}
-        textInputPlaceholder={props.textInputPlaceholder}
-        inputType={props.inputType}
-      />
+      <Label htmlfor={props.labelFor ? props.labelFor : "title"}>
+        {props.label ? props.label : "Label"}
+        <TextFieldInput
+          textInputName={props.textInputName}
+          textInputPlaceholder={props.textInputPlaceholder}
+          inputType={props.inputType}
+          required={props.required ? true : null}
+          value={props.value}
+          onChange={props.onChange}
+        />
+      </Label>
     </TextFieldInputWrapper>
   );
 };

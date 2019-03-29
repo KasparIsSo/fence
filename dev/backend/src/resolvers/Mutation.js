@@ -1,18 +1,4 @@
 const Mutations = {
-  async createItem(parent, args, ctx, info) {
-    //TODO: Check if they are logged in
-
-    const item = await ctx.db.mutation.createItem(
-      {
-        data: {
-          ...args
-        }
-      },
-      info
-    );
-
-    return item;
-  },
   async createInfluencer(parent, args, ctx, info) {
     const influencer = await ctx.db.mutation.createInfluencer(
       {
@@ -24,6 +10,19 @@ const Mutations = {
     );
 
     return influencer;
+  },
+  updateInfluencer(parent, args, ctx, info) {
+    const updates = { ...args };
+    delete updates.id;
+    return ctx.db.mutation.updateInfluencer(
+      {
+        data: updates,
+        where: {
+          id: args.id
+        }
+      },
+      info
+    );
   }
 };
 

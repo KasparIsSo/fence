@@ -48,6 +48,15 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: ${theme.color.gray.ink}; 
   }
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    :disabled {
+      opacity: .5;
+    }
+  }
 `;
 
 class Page extends Component {
