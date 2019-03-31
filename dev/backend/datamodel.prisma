@@ -3,6 +3,8 @@ type User {
   name: String!
   email: String!
   birthdayMonth: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Influencer {
@@ -15,12 +17,15 @@ type Influencer {
   image: String
   activeCampaigns: [String]
   pastCampaigns: [String]
+  createdAt: DateTime!
+  updatedAt: DateTime!
   # user: User!
 }
 
 type Campaign {
   id: ID! @unique
   createdAt: DateTime!
+  updatedAt: DateTime!
   startDate: DateTime!
   endDate: DateTime!
   influencers: [String]
@@ -33,7 +38,6 @@ type Address {
   city: String
   country: String
   postalCode: String
-  influencerId: String!
   influencer: Influencer!
 }
 
@@ -41,6 +45,7 @@ type Social {
   twitter: String
   instagram: String
   facebook: String
+  influencerId: String!
   influencer: Influencer!
 }
 
@@ -48,6 +53,7 @@ type Size {
   shirt: clothingSize
   pant: Int
   shoe: Int
+  influencerId: String!
   influencer: Influencer!
 }
 
@@ -57,6 +63,27 @@ enum clothingSize {
   M
   L
   XL
+}
+
+type LoggedActivity {
+  eventType: activityType!
+  description: String
+  influencerId: String!
+  influencer: Influencer!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum activityType {
+  INSTAGRAM
+  TWITTER
+  FACEBOOK
+  EVENT
+  MEETING
+  CALL
+  COFFEE
+  CELEBRATION
+  OTHER
 }
 
 type Item {

@@ -1,5 +1,9 @@
 const Mutations = {
   async createInfluencer(parent, args, ctx, info) {
+    console.log(parent);
+    console.log(args);
+    console.log(ctx);
+    console.log(info);
     const influencer = await ctx.db.mutation.createInfluencer(
       {
         data: {
@@ -25,6 +29,8 @@ const Mutations = {
     );
   },
   async createAddress(parent, args, ctx, info) {
+    const addressArgs = { ...args };
+    delete addressArgs.influencerId;
     const address = await ctx.db.mutation.createAddress(
       {
         data: {
@@ -33,7 +39,7 @@ const Mutations = {
               id: args.influencerId
             }
           },
-          ...args
+          ...addressArgs
         }
       },
       info

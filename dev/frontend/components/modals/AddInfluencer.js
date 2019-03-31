@@ -224,6 +224,7 @@ class AddInfluencerModal extends Component {
                       pathname: "/influencer",
                       query: { id: res.data.createInfluencer.id }
                     });
+                    this.hideModal;
                   }}
                 >
                   <Error error={error} />

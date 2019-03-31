@@ -1,3 +1,15 @@
+enum activityType {
+  INSTAGRAM
+  TWITTER
+  FACEBOOK
+  EVENT
+  MEETING
+  CALL
+  COFFEE
+  CELEBRATION
+  OTHER
+}
+
 type Address {
   unit: String
   streetNumber: String
@@ -5,7 +17,6 @@ type Address {
   city: String
   country: String
   postalCode: String
-  influencerId: String!
   influencer: Influencer!
 }
 
@@ -22,7 +33,6 @@ input AddressCreateInput {
   city: String
   country: String
   postalCode: String
-  influencerId: String!
   influencer: InfluencerCreateOneInput!
 }
 
@@ -44,8 +54,6 @@ enum AddressOrderByInput {
   country_DESC
   postalCode_ASC
   postalCode_DESC
-  influencerId_ASC
-  influencerId_DESC
   id_ASC
   id_DESC
   createdAt_ASC
@@ -61,7 +69,6 @@ type AddressPreviousValues {
   city: String
   country: String
   postalCode: String
-  influencerId: String!
 }
 
 type AddressSubscriptionPayload {
@@ -89,7 +96,6 @@ input AddressUpdateInput {
   city: String
   country: String
   postalCode: String
-  influencerId: String
   influencer: InfluencerUpdateOneRequiredInput
 }
 
@@ -178,20 +184,6 @@ input AddressWhereInput {
   postalCode_not_starts_with: String
   postalCode_ends_with: String
   postalCode_not_ends_with: String
-  influencerId: String
-  influencerId_not: String
-  influencerId_in: [String!]
-  influencerId_not_in: [String!]
-  influencerId_lt: String
-  influencerId_lte: String
-  influencerId_gt: String
-  influencerId_gte: String
-  influencerId_contains: String
-  influencerId_not_contains: String
-  influencerId_starts_with: String
-  influencerId_not_starts_with: String
-  influencerId_ends_with: String
-  influencerId_not_ends_with: String
   influencer: InfluencerWhereInput
   AND: [AddressWhereInput!]
   OR: [AddressWhereInput!]
@@ -214,6 +206,10 @@ type AggregateItem {
   count: Int!
 }
 
+type AggregateLoggedActivity {
+  count: Int!
+}
+
 type AggregateSize {
   count: Int!
 }
@@ -233,6 +229,7 @@ type BatchPayload {
 type Campaign {
   id: ID!
   createdAt: DateTime!
+  updatedAt: DateTime!
   startDate: DateTime!
   endDate: DateTime!
   influencers: [String!]!
@@ -264,17 +261,18 @@ enum CampaignOrderByInput {
   id_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   startDate_ASC
   startDate_DESC
   endDate_ASC
   endDate_DESC
-  updatedAt_ASC
-  updatedAt_DESC
 }
 
 type CampaignPreviousValues {
   id: ID!
   createdAt: DateTime!
+  updatedAt: DateTime!
   startDate: DateTime!
   endDate: DateTime!
   influencers: [String!]!
@@ -331,6 +329,14 @@ input CampaignWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   startDate: DateTime
   startDate_not: DateTime
   startDate_in: [DateTime!]
@@ -376,6 +382,8 @@ type Influencer {
   image: String
   activeCampaigns: [String!]!
   pastCampaigns: [String!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type InfluencerConnection {
@@ -444,6 +452,8 @@ type InfluencerPreviousValues {
   image: String
   activeCampaigns: [String!]!
   pastCampaigns: [String!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type InfluencerSubscriptionPayload {
@@ -605,6 +615,22 @@ input InfluencerWhereInput {
   image_not_starts_with: String
   image_ends_with: String
   image_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [InfluencerWhereInput!]
   OR: [InfluencerWhereInput!]
   NOT: [InfluencerWhereInput!]
@@ -784,6 +810,136 @@ input ItemWhereUniqueInput {
   id: ID
 }
 
+type LoggedActivity {
+  eventType: activityType!
+  description: String
+  influencerId: String!
+  influencer: Influencer!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type LoggedActivityConnection {
+  pageInfo: PageInfo!
+  edges: [LoggedActivityEdge]!
+  aggregate: AggregateLoggedActivity!
+}
+
+input LoggedActivityCreateInput {
+  eventType: activityType!
+  description: String
+  influencerId: String!
+  influencer: InfluencerCreateOneInput!
+}
+
+type LoggedActivityEdge {
+  node: LoggedActivity!
+  cursor: String!
+}
+
+enum LoggedActivityOrderByInput {
+  eventType_ASC
+  eventType_DESC
+  description_ASC
+  description_DESC
+  influencerId_ASC
+  influencerId_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  id_ASC
+  id_DESC
+}
+
+type LoggedActivityPreviousValues {
+  eventType: activityType!
+  description: String
+  influencerId: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type LoggedActivitySubscriptionPayload {
+  mutation: MutationType!
+  node: LoggedActivity
+  updatedFields: [String!]
+  previousValues: LoggedActivityPreviousValues
+}
+
+input LoggedActivitySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: LoggedActivityWhereInput
+  AND: [LoggedActivitySubscriptionWhereInput!]
+  OR: [LoggedActivitySubscriptionWhereInput!]
+  NOT: [LoggedActivitySubscriptionWhereInput!]
+}
+
+input LoggedActivityUpdateInput {
+  eventType: activityType
+  description: String
+  influencerId: String
+  influencer: InfluencerUpdateOneRequiredInput
+}
+
+input LoggedActivityWhereInput {
+  eventType: activityType
+  eventType_not: activityType
+  eventType_in: [activityType!]
+  eventType_not_in: [activityType!]
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  influencerId: String
+  influencerId_not: String
+  influencerId_in: [String!]
+  influencerId_not_in: [String!]
+  influencerId_lt: String
+  influencerId_lte: String
+  influencerId_gt: String
+  influencerId_gte: String
+  influencerId_contains: String
+  influencerId_not_contains: String
+  influencerId_starts_with: String
+  influencerId_not_starts_with: String
+  influencerId_ends_with: String
+  influencerId_not_ends_with: String
+  influencer: InfluencerWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [LoggedActivityWhereInput!]
+  OR: [LoggedActivityWhereInput!]
+  NOT: [LoggedActivityWhereInput!]
+}
+
 scalar Long
 
 type Mutation {
@@ -808,6 +964,9 @@ type Mutation {
   upsertItem(where: ItemWhereUniqueInput!, create: ItemCreateInput!, update: ItemUpdateInput!): Item!
   deleteItem(where: ItemWhereUniqueInput!): Item
   deleteManyItems(where: ItemWhereInput): BatchPayload!
+  createLoggedActivity(data: LoggedActivityCreateInput!): LoggedActivity!
+  updateManyLoggedActivities(data: LoggedActivityUpdateInput!, where: LoggedActivityWhereInput): BatchPayload!
+  deleteManyLoggedActivities(where: LoggedActivityWhereInput): BatchPayload!
   createSize(data: SizeCreateInput!): Size!
   updateManySizes(data: SizeUpdateInput!, where: SizeWhereInput): BatchPayload!
   deleteManySizes(where: SizeWhereInput): BatchPayload!
@@ -851,6 +1010,8 @@ type Query {
   item(where: ItemWhereUniqueInput!): Item
   items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Item]!
   itemsConnection(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ItemConnection!
+  loggedActivities(where: LoggedActivityWhereInput, orderBy: LoggedActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [LoggedActivity]!
+  loggedActivitiesConnection(where: LoggedActivityWhereInput, orderBy: LoggedActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LoggedActivityConnection!
   sizes(where: SizeWhereInput, orderBy: SizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Size]!
   sizesConnection(where: SizeWhereInput, orderBy: SizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SizeConnection!
   socials(where: SocialWhereInput, orderBy: SocialOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Social]!
@@ -865,6 +1026,7 @@ type Size {
   shirt: clothingSize
   pant: Int
   shoe: Int
+  influencerId: String!
   influencer: Influencer!
 }
 
@@ -878,6 +1040,7 @@ input SizeCreateInput {
   shirt: clothingSize
   pant: Int
   shoe: Int
+  influencerId: String!
   influencer: InfluencerCreateOneInput!
 }
 
@@ -893,6 +1056,8 @@ enum SizeOrderByInput {
   pant_DESC
   shoe_ASC
   shoe_DESC
+  influencerId_ASC
+  influencerId_DESC
   id_ASC
   id_DESC
   createdAt_ASC
@@ -905,6 +1070,7 @@ type SizePreviousValues {
   shirt: clothingSize
   pant: Int
   shoe: Int
+  influencerId: String!
 }
 
 type SizeSubscriptionPayload {
@@ -929,6 +1095,7 @@ input SizeUpdateInput {
   shirt: clothingSize
   pant: Int
   shoe: Int
+  influencerId: String
   influencer: InfluencerUpdateOneRequiredInput
 }
 
@@ -953,6 +1120,20 @@ input SizeWhereInput {
   shoe_lte: Int
   shoe_gt: Int
   shoe_gte: Int
+  influencerId: String
+  influencerId_not: String
+  influencerId_in: [String!]
+  influencerId_not_in: [String!]
+  influencerId_lt: String
+  influencerId_lte: String
+  influencerId_gt: String
+  influencerId_gte: String
+  influencerId_contains: String
+  influencerId_not_contains: String
+  influencerId_starts_with: String
+  influencerId_not_starts_with: String
+  influencerId_ends_with: String
+  influencerId_not_ends_with: String
   influencer: InfluencerWhereInput
   AND: [SizeWhereInput!]
   OR: [SizeWhereInput!]
@@ -963,6 +1144,7 @@ type Social {
   twitter: String
   instagram: String
   facebook: String
+  influencerId: String!
   influencer: Influencer!
 }
 
@@ -976,6 +1158,7 @@ input SocialCreateInput {
   twitter: String
   instagram: String
   facebook: String
+  influencerId: String!
   influencer: InfluencerCreateOneInput!
 }
 
@@ -991,6 +1174,8 @@ enum SocialOrderByInput {
   instagram_DESC
   facebook_ASC
   facebook_DESC
+  influencerId_ASC
+  influencerId_DESC
   id_ASC
   id_DESC
   createdAt_ASC
@@ -1003,6 +1188,7 @@ type SocialPreviousValues {
   twitter: String
   instagram: String
   facebook: String
+  influencerId: String!
 }
 
 type SocialSubscriptionPayload {
@@ -1027,6 +1213,7 @@ input SocialUpdateInput {
   twitter: String
   instagram: String
   facebook: String
+  influencerId: String
   influencer: InfluencerUpdateOneRequiredInput
 }
 
@@ -1073,6 +1260,20 @@ input SocialWhereInput {
   facebook_not_starts_with: String
   facebook_ends_with: String
   facebook_not_ends_with: String
+  influencerId: String
+  influencerId_not: String
+  influencerId_in: [String!]
+  influencerId_not_in: [String!]
+  influencerId_lt: String
+  influencerId_lte: String
+  influencerId_gt: String
+  influencerId_gte: String
+  influencerId_contains: String
+  influencerId_not_contains: String
+  influencerId_starts_with: String
+  influencerId_not_starts_with: String
+  influencerId_ends_with: String
+  influencerId_not_ends_with: String
   influencer: InfluencerWhereInput
   AND: [SocialWhereInput!]
   OR: [SocialWhereInput!]
@@ -1084,6 +1285,7 @@ type Subscription {
   campaign(where: CampaignSubscriptionWhereInput): CampaignSubscriptionPayload
   influencer(where: InfluencerSubscriptionWhereInput): InfluencerSubscriptionPayload
   item(where: ItemSubscriptionWhereInput): ItemSubscriptionPayload
+  loggedActivity(where: LoggedActivitySubscriptionWhereInput): LoggedActivitySubscriptionPayload
   size(where: SizeSubscriptionWhereInput): SizeSubscriptionPayload
   social(where: SocialSubscriptionWhereInput): SocialSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
@@ -1094,6 +1296,8 @@ type User {
   name: String!
   email: String!
   birthdayMonth: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserConnection {
@@ -1133,6 +1337,8 @@ type UserPreviousValues {
   name: String!
   email: String!
   birthdayMonth: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserSubscriptionPayload {
@@ -1216,6 +1422,22 @@ input UserWhereInput {
   birthdayMonth_not_starts_with: String
   birthdayMonth_ends_with: String
   birthdayMonth_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
