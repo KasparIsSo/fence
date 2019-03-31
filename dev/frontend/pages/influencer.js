@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Influencer from "../components/Influencer";
 
-const Home = props => (
+const InfluencerProfile = props => (
   <div>
-    <p>Hello</p>
+    <Influencer id={props.query.id} />
   </div>
 );
 
-export default Home;
+export default InfluencerProfile;

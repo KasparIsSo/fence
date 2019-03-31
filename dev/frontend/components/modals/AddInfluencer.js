@@ -18,7 +18,7 @@ import UploadField from "../UploadField";
 import Button from "../Button";
 import Error from "../ErrorMessage";
 
-import CloseIcon from "react-svg-loader!../../static/icons/interface/cancel/default.svg";
+import CloseIcon from "react-svg-loader!../../static/icons/input/cancel/default.svg";
 
 const CREATE_INFLUENCER_MUTATION = gql`
   mutation CREATE_INFLUENCER_MUTATION(

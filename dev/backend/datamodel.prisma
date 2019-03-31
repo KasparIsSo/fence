@@ -33,21 +33,22 @@ type Address {
   city: String
   country: String
   postalCode: String
-  # influencer: Influencer!
+  influencerId: String!
+  influencer: Influencer!
 }
 
 type Social {
   twitter: String
   instagram: String
   facebook: String
-  # influencer: Influencer!
+  influencer: Influencer!
 }
 
 type Size {
   shirt: clothingSize
   pant: Int
   shoe: Int
-  # influencer: Influencer!
+  influencer: Influencer!
 }
 
 enum clothingSize {

@@ -23,6 +23,57 @@ const Mutations = {
       },
       info
     );
+  },
+  async createAddress(parent, args, ctx, info) {
+    const address = await ctx.db.mutation.createAddress(
+      {
+        data: {
+          influencer: {
+            connect: {
+              id: args.influencerId
+            }
+          },
+          ...args
+        }
+      },
+      info
+    );
+
+    return address;
+  },
+  async createSocial(parent, args, ctx, info) {
+    const social = await ctx.db.mutation.createSocial(
+      {
+        data: {
+          influencer: {
+            connect: {
+              id: args.influencer
+            }
+          },
+          ...args
+        }
+      },
+      info
+    );
+
+    return social;
+  },
+  async createSize(parent, args, ctx, info) {
+    const size = await ctx.db.mutation.createSize(
+      {
+        data: {
+          influencer: {
+            connect: {
+              id: args.influencer
+            }
+          },
+          ...args
+        }
+      },
+      info
+    );
+
+    return size;
   }
 };
 

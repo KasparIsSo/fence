@@ -5,6 +5,8 @@ type Address {
   city: String
   country: String
   postalCode: String
+  influencerId: String!
+  influencer: Influencer!
 }
 
 type AddressConnection {
@@ -20,6 +22,8 @@ input AddressCreateInput {
   city: String
   country: String
   postalCode: String
+  influencerId: String!
+  influencer: InfluencerCreateOneInput!
 }
 
 type AddressEdge {
@@ -40,6 +44,8 @@ enum AddressOrderByInput {
   country_DESC
   postalCode_ASC
   postalCode_DESC
+  influencerId_ASC
+  influencerId_DESC
   id_ASC
   id_DESC
   createdAt_ASC
@@ -55,6 +61,7 @@ type AddressPreviousValues {
   city: String
   country: String
   postalCode: String
+  influencerId: String!
 }
 
 type AddressSubscriptionPayload {
@@ -82,6 +89,8 @@ input AddressUpdateInput {
   city: String
   country: String
   postalCode: String
+  influencerId: String
+  influencer: InfluencerUpdateOneRequiredInput
 }
 
 input AddressWhereInput {
@@ -169,6 +178,21 @@ input AddressWhereInput {
   postalCode_not_starts_with: String
   postalCode_ends_with: String
   postalCode_not_ends_with: String
+  influencerId: String
+  influencerId_not: String
+  influencerId_in: [String!]
+  influencerId_not_in: [String!]
+  influencerId_lt: String
+  influencerId_lte: String
+  influencerId_gt: String
+  influencerId_gte: String
+  influencerId_contains: String
+  influencerId_not_contains: String
+  influencerId_starts_with: String
+  influencerId_not_starts_with: String
+  influencerId_ends_with: String
+  influencerId_not_ends_with: String
+  influencer: InfluencerWhereInput
   AND: [AddressWhereInput!]
   OR: [AddressWhereInput!]
   NOT: [AddressWhereInput!]
@@ -375,6 +399,11 @@ input InfluencerCreateInput {
   pastCampaigns: InfluencerCreatepastCampaignsInput
 }
 
+input InfluencerCreateOneInput {
+  create: InfluencerCreateInput
+  connect: InfluencerWhereUniqueInput
+}
+
 input InfluencerCreatepastCampaignsInput {
   set: [String!]
 }
@@ -439,6 +468,17 @@ input InfluencerUpdateactiveCampaignsInput {
   set: [String!]
 }
 
+input InfluencerUpdateDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  description: String
+  thumbnail: String
+  image: String
+  activeCampaigns: InfluencerUpdateactiveCampaignsInput
+  pastCampaigns: InfluencerUpdatepastCampaignsInput
+}
+
 input InfluencerUpdateInput {
   firstName: String
   lastName: String
@@ -450,8 +490,20 @@ input InfluencerUpdateInput {
   pastCampaigns: InfluencerUpdatepastCampaignsInput
 }
 
+input InfluencerUpdateOneRequiredInput {
+  create: InfluencerCreateInput
+  update: InfluencerUpdateDataInput
+  upsert: InfluencerUpsertNestedInput
+  connect: InfluencerWhereUniqueInput
+}
+
 input InfluencerUpdatepastCampaignsInput {
   set: [String!]
+}
+
+input InfluencerUpsertNestedInput {
+  update: InfluencerUpdateDataInput!
+  create: InfluencerCreateInput!
 }
 
 input InfluencerWhereInput {
@@ -813,6 +865,7 @@ type Size {
   shirt: clothingSize
   pant: Int
   shoe: Int
+  influencer: Influencer!
 }
 
 type SizeConnection {
@@ -825,6 +878,7 @@ input SizeCreateInput {
   shirt: clothingSize
   pant: Int
   shoe: Int
+  influencer: InfluencerCreateOneInput!
 }
 
 type SizeEdge {
@@ -875,6 +929,7 @@ input SizeUpdateInput {
   shirt: clothingSize
   pant: Int
   shoe: Int
+  influencer: InfluencerUpdateOneRequiredInput
 }
 
 input SizeWhereInput {
@@ -898,6 +953,7 @@ input SizeWhereInput {
   shoe_lte: Int
   shoe_gt: Int
   shoe_gte: Int
+  influencer: InfluencerWhereInput
   AND: [SizeWhereInput!]
   OR: [SizeWhereInput!]
   NOT: [SizeWhereInput!]
@@ -907,6 +963,7 @@ type Social {
   twitter: String
   instagram: String
   facebook: String
+  influencer: Influencer!
 }
 
 type SocialConnection {
@@ -919,6 +976,7 @@ input SocialCreateInput {
   twitter: String
   instagram: String
   facebook: String
+  influencer: InfluencerCreateOneInput!
 }
 
 type SocialEdge {
@@ -969,6 +1027,7 @@ input SocialUpdateInput {
   twitter: String
   instagram: String
   facebook: String
+  influencer: InfluencerUpdateOneRequiredInput
 }
 
 input SocialWhereInput {
@@ -1014,6 +1073,7 @@ input SocialWhereInput {
   facebook_not_starts_with: String
   facebook_ends_with: String
   facebook_not_ends_with: String
+  influencer: InfluencerWhereInput
   AND: [SocialWhereInput!]
   OR: [SocialWhereInput!]
   NOT: [SocialWhereInput!]

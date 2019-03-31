@@ -117,7 +117,7 @@ const TagContent = styled.span`
 const Tag = props => {
   return (
     <TagWrapper
-      className={props.TagType ? props.TagType : null}
+      className={props.tagType ? props.tagType : null}
       float={props.float ? props.float : null}
     >
       <TagContent>{props.children}</TagContent>

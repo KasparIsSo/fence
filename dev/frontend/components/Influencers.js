@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components";
@@ -8,9 +7,30 @@ import { GRID, BREAKPOINTS } from "./styles/Layout";
 import TYPE from "./styles/Typography";
 
 import ContentWrapper from "./ContentWrapper";
-import InfluencerCard from "./InfluencerCard";
+import InfluencerSnapshotCard from "./InfluencerSnapshotCard";
 import Button from "./Button";
 import AddInfluencerModal from "./modals/AddInfluencer";
+
+const InfluencersContainer = styled.div`
+  ${GRID.container};
+`;
+
+const InfluencersHeader = styled.div`
+  grid-column: span 12;
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    grid-column: span 8;
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    grid-column: span 4;
+  }
+`;
+
+const InfluencersTitle = styled.h1`
+  ${TYPE.displaySmall.feature.ink}
+  display: inline-block;
+`;
 
 const ALL_INFLUENCERS_QUERY = gql`
   query ALL_INFLUENCERS_QUERY {
@@ -28,27 +48,6 @@ const ALL_INFLUENCERS_QUERY = gql`
   }
 `;
 
-const InfluencerContainer = styled.div`
-  ${GRID.container};
-`;
-
-const InfluencerHeader = styled.div`
-  grid-column: span 12;
-
-  @media (max-width: ${BREAKPOINTS.tablet.large}) {
-    grid-column: span 8;
-  }
-
-  @media (max-width: ${BREAKPOINTS.mobile.large}) {
-    grid-column: span 4;
-  }
-`;
-
-const InfluencerTitle = styled.h1`
-  ${TYPE.displaySmall.feature.ink}
-  display: inline-block;
-`;
-
 class Influencers extends Component {
   state = {
     showAddInfluencerModal: false
@@ -63,9 +62,9 @@ class Influencers extends Component {
       <>
         <AddInfluencerModal show={this.state.showAddInfluencerModal} />
         <ContentWrapper>
-          <InfluencerContainer>
-            <InfluencerHeader>
-              <InfluencerTitle>Influencers</InfluencerTitle>
+          <InfluencersContainer>
+            <InfluencersHeader>
+              <InfluencersTitle>Influencers</InfluencersTitle>
               <Button
                 buttonType="primary"
                 float="right"
@@ -73,7 +72,7 @@ class Influencers extends Component {
               >
                 +Add a New Influencer
               </Button>
-            </InfluencerHeader>
+            </InfluencersHeader>
             <Query query={ALL_INFLUENCERS_QUERY}>
               {({ data, error, loading }) => {
                 if (loading) return <p>Loading...</p>;
@@ -81,7 +80,7 @@ class Influencers extends Component {
                 return (
                   <>
                     {data.influencers.map(influencer => (
-                      <InfluencerCard
+                      <InfluencerSnapshotCard
                         influencer={influencer}
                         key={influencer.id}
                       />
@@ -90,7 +89,7 @@ class Influencers extends Component {
                 );
               }}
             </Query>
-          </InfluencerContainer>
+          </InfluencersContainer>
         </ContentWrapper>
       </>
     );

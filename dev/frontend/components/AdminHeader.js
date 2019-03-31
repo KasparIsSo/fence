@@ -148,9 +148,12 @@ class AdminHeader extends React.Component {
       activeNavCategory[1].charAt(0).toUpperCase() +
       activeNavCategory[1].slice(1);
     activeNavCategory
-      ? document
-          .getElementById("nav" + activeNavCategory)
-          .classList.add("active")
+      ? () => {
+          const adminNavCtgy = document.getElementById(
+            "nav" + activeNavCategory
+          );
+          adminNavCtgy ? adminNavCtgy.classList.add("active") : null;
+        }
       : null;
   }
 

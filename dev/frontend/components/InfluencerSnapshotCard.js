@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import Link from "next/link";
 
 import { toRem } from "./utils/unitConversion";
 
@@ -14,7 +13,6 @@ import { CardContainer } from "./CardContainer";
 import Tag from "./Tag";
 
 import EmptyProfileImg from "react-svg-loader!../static/icons/emptyState/influencer.svg";
-import HamburgerMenu from "react-svg-loader!../static/icons/nav/hamburger.svg";
 
 const InfluencerCardContainer = styled(CardContainer)`
   grid-column: span 4;
@@ -83,50 +81,16 @@ const InfluencerDescription = styled.p`
   ${ANIMATION.default}
 `;
 
-const InfluencerStat = styled.div`
+const InfluencerCampaigns = styled.div`
   display: block;
 `;
 
-const InfluencerStatTitle = styled.h4`
+const InfluencerCampaignsTitle = styled.h4`
   ${TYPE.body.primary.ink}
   font-weight: 700;
 `;
 
-const SINGLE_INFLUENCER_ADRESS_QUERY = gql`
-  query SINGLE_INFLUENCER_ADDRESS_QUERY($id: String!) {
-    addresses(where: { influencerId: $id }) {
-      unit
-      streetNumber
-      street
-      city
-      country
-      postalCode
-      influencerId
-    }
-  }
-`;
-
-const SINGLE_INFLUENCER_SOCIALMEDIA_QUERY = gql`
-  query SINGLE_INFLUENCER_SOCIALMEDIA_QUERY($id: String!) {
-    socials(where: { influencerId: $id }) {
-      twitter
-      instagram
-      facebook
-    }
-  }
-`;
-
-const SINGLE_INFLUENCER_SIZE_QUERY = gql`
-  query SINGLE_INFLUENCER_SIZE_QUERY($id: String!) {
-    sizes(where: { influencerId: $id }) {
-      shirt
-      pant
-      shoe
-    }
-  }
-`;
-
-class InfluencerCard extends Component {
+class InfluencerSnapshotCard extends Component {
   static propTpes = {
     influencer: PropTypes.object.isRequired
   };
@@ -134,17 +98,23 @@ class InfluencerCard extends Component {
     const { influencer } = this.props;
     return (
       <InfluencerCardContainer>
-        <InfluencerProfileImg>
-          {influencer.thumbnail ? (
-            <img
-              src={influencer.thumbnail}
-              alt={influencer.firstName + " profile image"}
-            />
-          ) : (
-            <EmptyProfileImg />
-          )}
-        </InfluencerProfileImg>
-
+        <Link
+          href={{
+            pathname: "/influencer",
+            query: { id: influencer.id }
+          }}
+        >
+          <InfluencerProfileImg>
+            {influencer.thumbnail ? (
+              <img
+                src={influencer.thumbnail}
+                alt={influencer.firstName + " profile image"}
+              />
+            ) : (
+              <EmptyProfileImg />
+            )}
+          </InfluencerProfileImg>
+        </Link>
         <InfluencerInfo>
           <InfluencerName>
             {influencer.firstName} {influencer.lastName}
@@ -155,36 +125,13 @@ class InfluencerCard extends Component {
               : '"No description, but I’m sure they’re great"'}
           </InfluencerDescription>
         </InfluencerInfo>
-        <Query
-          query={SINGLE_INFLUENCER_ADRESS_QUERY}
-          variables={{ id: influencer.id }}
-        >
-          {({ data, error, loading }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <Error error={error} />;
-            if (!data.addresses)
-              return <p>No addresses found for {this.props.id}</p>;
-            console.log(data);
-            return (
-              <>
-                {data.addresses.map(address => (
-                  <InfluencerStat key={address.influencerId}>
-                    <InfluencerStatTitle>Address</InfluencerStatTitle>
-                    <p>{address.unit}</p>
-                    <p>{address.streetNumber}</p>
-                    <p>{address.street}</p>
-                    <p>{address.city}</p>
-                    <p>{address.country}</p>
-                    <p>{address.postalCode}</p>
-                  </InfluencerStat>
-                ))}
-              </>
-            );
-          }}
-        </Query>
+        <InfluencerCampaigns>
+          <InfluencerCampaignsTitle>Campaigns</InfluencerCampaignsTitle>
+          <Tag TagType="active">yoyoyo</Tag>
+        </InfluencerCampaigns>
       </InfluencerCardContainer>
     );
   }
 }
 
-export default InfluencerCard;
+export default InfluencerSnapshotCard;

@@ -114,7 +114,7 @@ const ButtonContent = styled.span`
 const Button = props => {
   return (
     <ButtonWrapper
-      className={props.buttonType ? props.buttonType : null}
+      className={props.buttonType + " " + props.className}
       float={props.float ? props.float : null}
       onClick={props.onClick}
       type={props.type}
