@@ -232,7 +232,7 @@ const Home = props => (
               Heading / Lato / Bold - 24px / 36px
             </TextHeadingPrimary>
             <TextSubheadingFeature>
-              Subheading / Crimson Text / Bold - 16px / 24px
+              Subheading / Crimson Text / Bold - 20px / 28px
             </TextSubheadingFeature>
             <TextSubheadingPrimary>
               SUBHEADING / LATO / BOLD - 16PX / 24PX
@@ -269,7 +269,7 @@ const Home = props => (
               Heading / Lato / Bold - 24px / 36px
             </TextHeadingPrimarySubdued>
             <TextSubheadingFeatureSubdued>
-              Subheading / Crimson Text / Bold - 16px / 24px
+              Subheading / Crimson Text / Bold - 20px / 28px
             </TextSubheadingFeatureSubdued>
             <TextSubheadingPrimarySubdued>
               SUBHEADING / LATO / BOLD - 16PX / 24PX
@@ -304,7 +304,7 @@ const Home = props => (
               Heading / Lato / Bold - 24px / 36px
             </TextHeadingPrimaryWhite>
             <TextSubheadingFeatureWhite>
-              Subheading / Crimson Text / Bold - 16px / 24px
+              Subheading / Crimson Text / Bold - 20px / 28px
             </TextSubheadingFeatureWhite>
             <TextSubheadingPrimaryWhite>
               SUBHEADING / LATO / BOLD - 16PX / 24PX
