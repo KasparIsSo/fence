@@ -29,7 +29,7 @@ type Mutation {
     city: String
     country: String
     postalCode: String
-    influencerId: String! # influencer: Influencer!
+    influencerId: String!
   ): Address!
   createSocial(
     twitter: String

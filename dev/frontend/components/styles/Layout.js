@@ -36,7 +36,8 @@ const GRID = {
     max-width: 60rem;
     margin: 0 auto;
     grid-template-columns: repeat( 12, 1fr );
-    grid-gap: 1.5rem;
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 2.5rem;
 
     @media (max-width: ${BREAKPOINTS.tablet.large}) {
       max-width: calc(100vw - 4rem - 6.5rem);

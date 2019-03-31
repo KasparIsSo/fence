@@ -1,9 +1,5 @@
 const Mutations = {
   async createInfluencer(parent, args, ctx, info) {
-    console.log(parent);
-    console.log(args);
-    console.log(ctx);
-    console.log(info);
     const influencer = await ctx.db.mutation.createInfluencer(
       {
         data: {
@@ -48,15 +44,17 @@ const Mutations = {
     return address;
   },
   async createSocial(parent, args, ctx, info) {
+    const socialArgs = { ...args };
+    delete socialArgs.influencerId;
     const social = await ctx.db.mutation.createSocial(
       {
         data: {
           influencer: {
             connect: {
-              id: args.influencer
+              id: args.influencerId
             }
           },
-          ...args
+          ...socialArgs
         }
       },
       info
@@ -65,15 +63,17 @@ const Mutations = {
     return social;
   },
   async createSize(parent, args, ctx, info) {
+    const sizeArgs = { ...args };
+    delete sizeArgs.influencerId;
     const size = await ctx.db.mutation.createSize(
       {
         data: {
           influencer: {
             connect: {
-              id: args.influencer
+              id: args.influencerId
             }
           },
-          ...args
+          ...sizeArgs
         }
       },
       info

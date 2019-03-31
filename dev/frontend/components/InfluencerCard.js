@@ -15,10 +15,15 @@ import Tag from "./Tag";
 
 import EmptyProfileImg from "react-svg-loader!../static/icons/emptyState/influencer.svg";
 import HamburgerMenu from "react-svg-loader!../static/icons/nav/hamburger.svg";
+import Facebook from "react-svg-loader!../static/icons/social/ink/facebook.svg";
+import Instagram from "react-svg-loader!../static/icons/social/ink/instagram.svg";
+import Snapchat from "react-svg-loader!../static/icons/social/ink/snapchat.svg";
+import Twitter from "react-svg-loader!../static/icons/social/ink/twitter.svg";
+import Website from "react-svg-loader!../static/icons/social/ink/web.svg";
 
 const InfluencerCardContainer = styled(CardContainer)`
   grid-column: span 4;
-  padding: ${toRem(30)} ${toRem(20)};
+  padding: ${toRem(30)} ${toRem(20)} 0;
 
   @media (max-width: ${BREAKPOINTS.mobile.large}) {
     margin: 0;
@@ -85,40 +90,77 @@ const InfluencerDescription = styled.p`
 
 const InfluencerStat = styled.div`
   display: block;
+  margin-bottom: ${toRem(30)};
 `;
 
 const InfluencerStatTitle = styled.h4`
   ${TYPE.body.primary.ink}
   font-weight: 700;
+  margin-bottom: ${toRem(10)};
+`;
+
+const InfluencerContent = styled.p`
+  ${TYPE.caption.primary.subdued}
+  margin: 0;
+  display: inline-block;
+`;
+
+const InfluencerContentWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
+const InfluencerSocial = styled.a`
+  width: calc(50% - ${toRem(10)});
+  height: 1rem;
+  display: inline-block;
+  margin-bottom: ${toRem(10)};
+
+  > p {
+    vertical-align: top;
+  }
+`;
+
+const InfluencerSocialIconWrapper = styled.div`
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: ${toRem(5)};
+
+  > svg {
+    vertical-align: top;
+  }
 `;
 
 const SINGLE_INFLUENCER_ADRESS_QUERY = gql`
-  query SINGLE_INFLUENCER_ADDRESS_QUERY($id: String!) {
-    addresses(where: { influencerId: $id }) {
+  query SINGLE_INFLUENCER_ADDRESS_QUERY($id: ID) {
+    addresses(where: { influencer: { id: $id } }) {
       unit
       streetNumber
       street
       city
       country
       postalCode
-      influencerId
     }
   }
 `;
 
 const SINGLE_INFLUENCER_SOCIALMEDIA_QUERY = gql`
-  query SINGLE_INFLUENCER_SOCIALMEDIA_QUERY($id: String!) {
-    socials(where: { influencerId: $id }) {
+  query SINGLE_INFLUENCER_SOCIALMEDIA_QUERY($id: ID) {
+    socials(where: { influencer: { id: $id } }) {
       twitter
       instagram
       facebook
+      snapchat
+      website
     }
   }
 `;
 
 const SINGLE_INFLUENCER_SIZE_QUERY = gql`
-  query SINGLE_INFLUENCER_SIZE_QUERY($id: String!) {
-    sizes(where: { influencerId: $id }) {
+  query SINGLE_INFLUENCER_SIZE_QUERY($id: ID) {
+    sizes(where: { influencer: { id: $id } }) {
       shirt
       pant
       shoe
@@ -156,28 +198,141 @@ class InfluencerCard extends Component {
           </InfluencerDescription>
         </InfluencerInfo>
         <Query
+          query={SINGLE_INFLUENCER_SOCIALMEDIA_QUERY}
+          variables={{ id: influencer.id }}
+        >
+          {({ data, error, loading }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <Error error={error} />;
+            if (!data.socials[0]) {
+              return null;
+            }
+            const social = data.socials[0];
+            return (
+              <>
+                <InfluencerStat>
+                  <InfluencerStatTitle>Social</InfluencerStatTitle>
+                  <InfluencerContentWrapper>
+                    {social.facebook ? (
+                      <InfluencerSocial
+                        href={"https://www.facebook.com/" + social.facebook}
+                        target="_blank"
+                      >
+                        <InfluencerSocialIconWrapper>
+                          <Facebook />
+                        </InfluencerSocialIconWrapper>
+                        <InfluencerContent>
+                          @{social.facebook}
+                        </InfluencerContent>
+                      </InfluencerSocial>
+                    ) : null}
+                    {social.instagram ? (
+                      <InfluencerSocial
+                        href={"https://www.instagram.com/" + social.instagram}
+                        target="_blank"
+                      >
+                        <InfluencerSocialIconWrapper>
+                          <Instagram />
+                        </InfluencerSocialIconWrapper>
+                        <InfluencerContent>
+                          @{social.instagram}
+                        </InfluencerContent>
+                      </InfluencerSocial>
+                    ) : null}
+                    {social.twitter ? (
+                      <InfluencerSocial
+                        href={"https://www.twitter.com/" + social.twitter}
+                        target="_blank"
+                      >
+                        <InfluencerSocialIconWrapper>
+                          <Twitter />
+                        </InfluencerSocialIconWrapper>
+                        <InfluencerContent>@{social.twitter}</InfluencerContent>
+                      </InfluencerSocial>
+                    ) : null}
+                    {social.snapchat ? (
+                      <InfluencerSocial>
+                        <InfluencerSocialIconWrapper>
+                          <Snapchat />
+                        </InfluencerSocialIconWrapper>
+                        <InfluencerContent>{social.snapchat}</InfluencerContent>
+                      </InfluencerSocial>
+                    ) : null}
+                    {social.website ? (
+                      <InfluencerSocial
+                        href={
+                          social.website.substring(0, 4) == "http"
+                            ? social.website
+                            : "http://" + social.website
+                        }
+                        target="_blank"
+                      >
+                        <InfluencerSocialIconWrapper>
+                          <Website />
+                        </InfluencerSocialIconWrapper>
+                        <InfluencerContent>{social.website}</InfluencerContent>
+                      </InfluencerSocial>
+                    ) : null}
+                  </InfluencerContentWrapper>
+                </InfluencerStat>
+              </>
+            );
+          }}
+        </Query>
+        <Query
           query={SINGLE_INFLUENCER_ADRESS_QUERY}
           variables={{ id: influencer.id }}
         >
           {({ data, error, loading }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <Error error={error} />;
-            if (!data.addresses)
-              return <p>No addresses found for {this.props.id}</p>;
-            console.log(data);
+            if (!data.addresses[0]) {
+              return null;
+            }
+            const address = data.addresses[0];
             return (
               <>
-                {data.addresses.map(address => (
-                  <InfluencerStat key={address.influencerId}>
-                    <InfluencerStatTitle>Address</InfluencerStatTitle>
-                    <p>{address.unit}</p>
-                    <p>{address.streetNumber}</p>
-                    <p>{address.street}</p>
-                    <p>{address.city}</p>
-                    <p>{address.country}</p>
-                    <p>{address.postalCode}</p>
-                  </InfluencerStat>
-                ))}
+                <InfluencerStat>
+                  <InfluencerStatTitle>Address</InfluencerStatTitle>
+                  <InfluencerContent>
+                    {address.unit ? "Unit " + address.unit : null}
+                    {address.streetNumber && address.street && address.unit ? (
+                      <br />
+                    ) : null}
+                    {address.streetNumber} {address.street}
+                    {address.city ? <br /> : null} {address.city}
+                    {address.country ? <br /> : null} {address.country}
+                    {address.postalCode ? <br /> : null} {address.postalCode}
+                  </InfluencerContent>
+                </InfluencerStat>
+              </>
+            );
+          }}
+        </Query>
+        <Query
+          query={SINGLE_INFLUENCER_SIZE_QUERY}
+          variables={{ id: influencer.id }}
+        >
+          {({ data, error, loading }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <Error error={error} />;
+            if (!data.sizes[0]) {
+              return null;
+            }
+            const size = data.sizes[0];
+            return (
+              <>
+                <InfluencerStat>
+                  <InfluencerStatTitle>Sizes</InfluencerStatTitle>
+                  <InfluencerContent>
+                    {size.shirt ? "Shirt: " + size.shirt : null}
+                    {size.pant ? <br /> : null}
+                    {size.pant ? "Pant: " + size.pant : null}
+                    {size.shoe ? <br /> : null}
+                    {size.shoe ? "Shoe: " + size.shoe / 10 : null}
+                  </InfluencerContent>
+                  <InfluencerContentWrapper />
+                </InfluencerStat>
               </>
             );
           }}

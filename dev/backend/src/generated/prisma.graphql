@@ -1026,7 +1026,6 @@ type Size {
   shirt: clothingSize
   pant: Int
   shoe: Int
-  influencerId: String!
   influencer: Influencer!
 }
 
@@ -1040,7 +1039,6 @@ input SizeCreateInput {
   shirt: clothingSize
   pant: Int
   shoe: Int
-  influencerId: String!
   influencer: InfluencerCreateOneInput!
 }
 
@@ -1056,8 +1054,6 @@ enum SizeOrderByInput {
   pant_DESC
   shoe_ASC
   shoe_DESC
-  influencerId_ASC
-  influencerId_DESC
   id_ASC
   id_DESC
   createdAt_ASC
@@ -1070,7 +1066,6 @@ type SizePreviousValues {
   shirt: clothingSize
   pant: Int
   shoe: Int
-  influencerId: String!
 }
 
 type SizeSubscriptionPayload {
@@ -1095,7 +1090,6 @@ input SizeUpdateInput {
   shirt: clothingSize
   pant: Int
   shoe: Int
-  influencerId: String
   influencer: InfluencerUpdateOneRequiredInput
 }
 
@@ -1120,20 +1114,6 @@ input SizeWhereInput {
   shoe_lte: Int
   shoe_gt: Int
   shoe_gte: Int
-  influencerId: String
-  influencerId_not: String
-  influencerId_in: [String!]
-  influencerId_not_in: [String!]
-  influencerId_lt: String
-  influencerId_lte: String
-  influencerId_gt: String
-  influencerId_gte: String
-  influencerId_contains: String
-  influencerId_not_contains: String
-  influencerId_starts_with: String
-  influencerId_not_starts_with: String
-  influencerId_ends_with: String
-  influencerId_not_ends_with: String
   influencer: InfluencerWhereInput
   AND: [SizeWhereInput!]
   OR: [SizeWhereInput!]
@@ -1144,7 +1124,8 @@ type Social {
   twitter: String
   instagram: String
   facebook: String
-  influencerId: String!
+  snapchat: String
+  website: String
   influencer: Influencer!
 }
 
@@ -1158,7 +1139,8 @@ input SocialCreateInput {
   twitter: String
   instagram: String
   facebook: String
-  influencerId: String!
+  snapchat: String
+  website: String
   influencer: InfluencerCreateOneInput!
 }
 
@@ -1174,8 +1156,10 @@ enum SocialOrderByInput {
   instagram_DESC
   facebook_ASC
   facebook_DESC
-  influencerId_ASC
-  influencerId_DESC
+  snapchat_ASC
+  snapchat_DESC
+  website_ASC
+  website_DESC
   id_ASC
   id_DESC
   createdAt_ASC
@@ -1188,7 +1172,8 @@ type SocialPreviousValues {
   twitter: String
   instagram: String
   facebook: String
-  influencerId: String!
+  snapchat: String
+  website: String
 }
 
 type SocialSubscriptionPayload {
@@ -1213,7 +1198,8 @@ input SocialUpdateInput {
   twitter: String
   instagram: String
   facebook: String
-  influencerId: String
+  snapchat: String
+  website: String
   influencer: InfluencerUpdateOneRequiredInput
 }
 
@@ -1260,20 +1246,34 @@ input SocialWhereInput {
   facebook_not_starts_with: String
   facebook_ends_with: String
   facebook_not_ends_with: String
-  influencerId: String
-  influencerId_not: String
-  influencerId_in: [String!]
-  influencerId_not_in: [String!]
-  influencerId_lt: String
-  influencerId_lte: String
-  influencerId_gt: String
-  influencerId_gte: String
-  influencerId_contains: String
-  influencerId_not_contains: String
-  influencerId_starts_with: String
-  influencerId_not_starts_with: String
-  influencerId_ends_with: String
-  influencerId_not_ends_with: String
+  snapchat: String
+  snapchat_not: String
+  snapchat_in: [String!]
+  snapchat_not_in: [String!]
+  snapchat_lt: String
+  snapchat_lte: String
+  snapchat_gt: String
+  snapchat_gte: String
+  snapchat_contains: String
+  snapchat_not_contains: String
+  snapchat_starts_with: String
+  snapchat_not_starts_with: String
+  snapchat_ends_with: String
+  snapchat_not_ends_with: String
+  website: String
+  website_not: String
+  website_in: [String!]
+  website_not_in: [String!]
+  website_lt: String
+  website_lte: String
+  website_gt: String
+  website_gte: String
+  website_contains: String
+  website_not_contains: String
+  website_starts_with: String
+  website_not_starts_with: String
+  website_ends_with: String
+  website_not_ends_with: String
   influencer: InfluencerWhereInput
   AND: [SocialWhereInput!]
   OR: [SocialWhereInput!]

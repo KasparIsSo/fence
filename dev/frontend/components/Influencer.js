@@ -70,7 +70,6 @@ class Influencer extends Component {
               >
                 ← Back to Influencers
               </Button>
-              <InfluencerTitle>Influencer</InfluencerTitle>
             </InfluencerHeader>
             <Query
               query={SINGLE_INFLUENCER_QUERY}

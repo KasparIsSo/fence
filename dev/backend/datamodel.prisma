@@ -45,7 +45,8 @@ type Social {
   twitter: String
   instagram: String
   facebook: String
-  influencerId: String!
+  snapchat: String
+  website: String
   influencer: Influencer!
 }
 
@@ -53,7 +54,6 @@ type Size {
   shirt: clothingSize
   pant: Int
   shoe: Int
-  influencerId: String!
   influencer: Influencer!
 }
 
