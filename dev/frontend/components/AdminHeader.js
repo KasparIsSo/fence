@@ -52,7 +52,6 @@ const LogoWrapper = styled.div`
   @media (max-width: ${BREAKPOINTS.mobile.large}) {
     width: ${toRem(32)};
     height: ${toRem(32)};
-    transform: translateX(${toRem(-4)});
   }
 `;
 

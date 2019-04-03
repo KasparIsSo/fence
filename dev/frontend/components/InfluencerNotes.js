@@ -5,21 +5,35 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import TYPE from "./styles/Typography";
+import { BREAKPOINTS } from "./styles/Layout";
 
 import InfluencerNote from "./InfluencerNote";
 
-const LoggedNotesWrapper = styled.div`
+const NotesWrapper = styled.div`
   grid-column: 5 /13;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1.5rem;
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    grid-column: span 8;
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    grid-column: span 4;
+    display: block;
+  }
 `;
 
-const LoggedNotesHeader = styled.h2`
+const NotesHeader = styled.h2`
   ${TYPE.displaySmall.feature.ink}
   grid-column: span 2;
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    /* grid-column: span 4; */
+  }
 `;
 
-const LOGGED_NOTES_QUERY = gql`
+const NOTES_QUERY = gql`
   query SINGLE_INFLUENCER_NOTES_QUERY($id: ID!) {
     notes(where: { influencer: { id: $id } }) {
       content
@@ -29,16 +43,16 @@ const LOGGED_NOTES_QUERY = gql`
   }
 `;
 
-class InfluencerLoggedNotes extends Component {
+class InfluencerNotes extends Component {
   static propTypes = {
     influencer: PropTypes.object.isRequired
   };
   render() {
     const { influencer } = this.props;
     return (
-      <LoggedNotesWrapper>
-        <LoggedNotesHeader>Notes</LoggedNotesHeader>
-        <Query query={LOGGED_NOTES_QUERY} variables={{ id: influencer.id }}>
+      <NotesWrapper>
+        <NotesHeader>Notes</NotesHeader>
+        <Query query={NOTES_QUERY} variables={{ id: influencer.id }}>
           {({ data, error, loading }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error: {error.message}</p>;
@@ -51,9 +65,9 @@ class InfluencerLoggedNotes extends Component {
             );
           }}
         </Query>
-      </LoggedNotesWrapper>
+      </NotesWrapper>
     );
   }
 }
 
-export default InfluencerLoggedNotes;
+export default InfluencerNotes;

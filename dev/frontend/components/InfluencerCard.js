@@ -29,6 +29,11 @@ const InfluencerCardWrapper = styled.div`
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     grid-column: span 8;
+    grid-row: span 1;
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    grid-column: span 4;
   }
 `;
 
@@ -60,6 +65,11 @@ const InfluencerProfileImg = styled.div`
     margin: 0 ${toRem(30)} ${toRem(20)} 0;
     vertical-align: middle;
   }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    display: block;
+    margin: 0 auto ${toRem(20)};
+  }
 `;
 
 const InfluencerInfo = styled.div`
@@ -73,6 +83,12 @@ const InfluencerInfo = styled.div`
     text-align: left;
     vertical-align: middle;
     padding: 0;
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    display: block;
+    text-align: center;
+    padding: 0 ${toRem(20)};
   }
 `;
 
@@ -127,8 +143,12 @@ const InfluencerContentWrapper = styled.div`
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     display: block;
-    justify-content: none;
-    flex-wrap: nowrap;
+    width: calc(13rem + ${toRem(20)});
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    display: flex;
+    width: auto;
   }
 `;
 
@@ -143,8 +163,12 @@ const InfluencerSocial = styled.a`
   }
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
-    /* width: calc(2% - ${toRem(10)}); */
-    width: none;
+    width: max-content;
+    flex: 0 0 max-content;
+    margin-right: ${toRem(20)};
+    :nth-child(2n) {
+      margin-right: 0;
+    }
   }
 `;
 
@@ -306,7 +330,7 @@ class InfluencerCard extends Component {
                               <Website />
                             </InfluencerSocialIconWrapper>
                             <InfluencerContent>
-                              {social.website}
+                              {social.website.replace("www.", "")}
                             </InfluencerContent>
                           </InfluencerSocial>
                         ) : null}

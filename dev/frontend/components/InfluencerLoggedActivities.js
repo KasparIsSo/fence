@@ -5,12 +5,21 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import TYPE from "./styles/Typography";
+import { BREAKPOINTS } from "./styles/Layout";
 
 import InfluencerLoggedActivity from "./InfluencerLoggedActivity";
 
 const LoggedActivitiesWrapper = styled.div`
-  grid-column: span 8;
+  grid-column: 5 /13;
   height: min-content;
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    grid-column: span 8;
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    grid-column: span 4;
+  }
 `;
 
 const LoggedActivitiesHeader = styled.h2`

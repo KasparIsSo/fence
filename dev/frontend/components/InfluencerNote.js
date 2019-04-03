@@ -4,12 +4,17 @@ import PropTypes from "prop-types";
 
 import { toRem } from "./utils/unitConversion";
 import TYPE from "./styles/Typography";
+import { BREAKPOINTS } from "./styles/Layout";
 
 import { CardContainer } from "./CardContainer";
 
 const InfluencerNoteWrapper = styled(CardContainer)`
   grid-column: span 1;
   padding: ${toRem(20)};
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    grid-column: span 2;
+  }
 `;
 
 const InfluencerNoteContent = styled.p`
