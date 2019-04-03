@@ -9,7 +9,8 @@ import TYPE from "./styles/Typography";
 import InfluencerLoggedActivity from "./InfluencerLoggedActivity";
 
 const LoggedActivitiesWrapper = styled.div`
-  grid-column: span 4;
+  grid-column: span 8;
+  height: min-content;
 `;
 
 const LoggedActivitiesHeader = styled.h2`
@@ -17,11 +18,11 @@ const LoggedActivitiesHeader = styled.h2`
 `;
 
 const LOGGED_ACTIVITIES_QUERY = gql`
-  query SINGLE_INFLUENCER_ADDRESS_QUERY($id: ID!) {
+  query SINGLE_INFLUENCER_LOGGED_ACTIVITIES_QUERY($id: ID!) {
     loggedActivities(where: { influencer: { id: $id } }) {
       eventType
       description
-      createdAt
+      updatedAt
     }
   }
 `;
@@ -47,7 +48,7 @@ class InfluencerLoggedActivities extends Component {
                 {data.loggedActivities.map(loggedActivity => (
                   <InfluencerLoggedActivity
                     loggedActivity={loggedActivity}
-                    key={influencer.id}
+                    key={loggedActivity.updatedAt}
                   />
                 ))}
               </>

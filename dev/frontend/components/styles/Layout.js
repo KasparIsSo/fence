@@ -17,7 +17,7 @@ const GRID = {
   wrapper: `
     display: block;
     margin: 0 auto;
-    width: calc(100vw - 12.5rem);
+    width: calc(100vw - 12.5rem - 4rem);
     max-width: 960px;
     transform: translateX(6.25rem);
 

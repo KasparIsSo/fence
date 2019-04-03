@@ -5,6 +5,7 @@ import Router from "next/router";
 import gql from "graphql-tag";
 import styled from "styled-components";
 
+import { toRem } from "./utils/unitConversion";
 import { GRID, BREAKPOINTS } from "./styles/Layout";
 import TYPE from "./styles/Typography";
 
@@ -14,9 +15,11 @@ import ContentWrapper from "./ContentWrapper";
 import Button from "./Button";
 import InfluencerCard from "./InfluencerCard";
 import InfluencerLoggedActivities from "./InfluencerLoggedActivities";
+import InfluencerNotes from "./InfluencerNotes";
 
 const InfluencerContainer = styled.div`
   ${GRID.container};
+  grid-row-gap: ${toRem(40)};
 `;
 
 const InfluencerHeader = styled.div`
@@ -87,6 +90,7 @@ class Influencer extends Component {
                       key={influencer.id}
                     />
                     <InfluencerLoggedActivities influencer={influencer} />
+                    <InfluencerNotes influencer={influencer} />
                   </>
                 );
               }}
