@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>Social / Ink / Event</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Social-/-Ink-/-Event" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#333333" stroke-width="2" x="1" y="4" width="22" height="19" rx="4"></rect>
+        <path d="M17.5,1 L17.5,7" id="Line-3" stroke="#333333" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M6.5,1 L6.5,7" id="Line-3-Copy" stroke="#333333" stroke-width="2" stroke-linecap="round"></path>
+        <polyline id="Path-3" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="9 16.7320564 10.8390717 18.5 15 14.5"></polyline>
+        <path d="M1,10.5 L22.5,10.5" id="Line-4" stroke="#333333" stroke-width="2" stroke-linecap="square"></path>
+    </g>
+</svg>

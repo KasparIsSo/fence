@@ -80,6 +80,44 @@ const Mutations = {
     );
 
     return size;
+  },
+  async createLoggedActivity(parent, args, ctx, info) {
+    const loggedActivityArgs = { ...args };
+    delete loggedActivityArgs.influencerId;
+    const loggedActivity = await ctx.db.mutation.createLoggedActivity(
+      {
+        data: {
+          influencer: {
+            connect: {
+              id: args.influencerId
+            }
+          },
+          ...loggedActivityArgs
+        }
+      },
+      info
+    );
+
+    return loggedActivity;
+  },
+  async createNote(parent, args, ctx, info) {
+    const noteArgs = { ...args };
+    delete noteArgs.influencerId;
+    const note = await ctx.db.mutation.createNote(
+      {
+        data: {
+          influencer: {
+            connect: {
+              id: args.influencerId
+            }
+          },
+          ...noteArgs
+        }
+      },
+      info
+    );
+
+    return note;
   }
 };
 

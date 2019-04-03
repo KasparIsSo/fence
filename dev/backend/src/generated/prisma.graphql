@@ -210,6 +210,10 @@ type AggregateLoggedActivity {
   count: Int!
 }
 
+type AggregateNote {
+  count: Int!
+}
+
 type AggregateSize {
   count: Int!
 }
@@ -813,7 +817,6 @@ input ItemWhereUniqueInput {
 type LoggedActivity {
   eventType: activityType!
   description: String
-  influencerId: String!
   influencer: Influencer!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -828,7 +831,6 @@ type LoggedActivityConnection {
 input LoggedActivityCreateInput {
   eventType: activityType!
   description: String
-  influencerId: String!
   influencer: InfluencerCreateOneInput!
 }
 
@@ -842,8 +844,6 @@ enum LoggedActivityOrderByInput {
   eventType_DESC
   description_ASC
   description_DESC
-  influencerId_ASC
-  influencerId_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -855,7 +855,6 @@ enum LoggedActivityOrderByInput {
 type LoggedActivityPreviousValues {
   eventType: activityType!
   description: String
-  influencerId: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -881,7 +880,6 @@ input LoggedActivitySubscriptionWhereInput {
 input LoggedActivityUpdateInput {
   eventType: activityType
   description: String
-  influencerId: String
   influencer: InfluencerUpdateOneRequiredInput
 }
 
@@ -904,20 +902,6 @@ input LoggedActivityWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
-  influencerId: String
-  influencerId_not: String
-  influencerId_in: [String!]
-  influencerId_not_in: [String!]
-  influencerId_lt: String
-  influencerId_lte: String
-  influencerId_gt: String
-  influencerId_gte: String
-  influencerId_contains: String
-  influencerId_not_contains: String
-  influencerId_starts_with: String
-  influencerId_not_starts_with: String
-  influencerId_ends_with: String
-  influencerId_not_ends_with: String
   influencer: InfluencerWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
@@ -967,6 +951,9 @@ type Mutation {
   createLoggedActivity(data: LoggedActivityCreateInput!): LoggedActivity!
   updateManyLoggedActivities(data: LoggedActivityUpdateInput!, where: LoggedActivityWhereInput): BatchPayload!
   deleteManyLoggedActivities(where: LoggedActivityWhereInput): BatchPayload!
+  createNote(data: NoteCreateInput!): Note!
+  updateManyNotes(data: NoteUpdateInput!, where: NoteWhereInput): BatchPayload!
+  deleteManyNotes(where: NoteWhereInput): BatchPayload!
   createSize(data: SizeCreateInput!): Size!
   updateManySizes(data: SizeUpdateInput!, where: SizeWhereInput): BatchPayload!
   deleteManySizes(where: SizeWhereInput): BatchPayload!
@@ -991,6 +978,114 @@ interface Node {
   id: ID!
 }
 
+type Note {
+  content: String!
+  influencer: Influencer!
+  isShown: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type NoteConnection {
+  pageInfo: PageInfo!
+  edges: [NoteEdge]!
+  aggregate: AggregateNote!
+}
+
+input NoteCreateInput {
+  content: String!
+  influencer: InfluencerCreateOneInput!
+  isShown: Boolean!
+}
+
+type NoteEdge {
+  node: Note!
+  cursor: String!
+}
+
+enum NoteOrderByInput {
+  content_ASC
+  content_DESC
+  isShown_ASC
+  isShown_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  id_ASC
+  id_DESC
+}
+
+type NotePreviousValues {
+  content: String!
+  isShown: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type NoteSubscriptionPayload {
+  mutation: MutationType!
+  node: Note
+  updatedFields: [String!]
+  previousValues: NotePreviousValues
+}
+
+input NoteSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: NoteWhereInput
+  AND: [NoteSubscriptionWhereInput!]
+  OR: [NoteSubscriptionWhereInput!]
+  NOT: [NoteSubscriptionWhereInput!]
+}
+
+input NoteUpdateInput {
+  content: String
+  influencer: InfluencerUpdateOneRequiredInput
+  isShown: Boolean
+}
+
+input NoteWhereInput {
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  influencer: InfluencerWhereInput
+  isShown: Boolean
+  isShown_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [NoteWhereInput!]
+  OR: [NoteWhereInput!]
+  NOT: [NoteWhereInput!]
+}
+
 type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
@@ -1012,6 +1107,8 @@ type Query {
   itemsConnection(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ItemConnection!
   loggedActivities(where: LoggedActivityWhereInput, orderBy: LoggedActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [LoggedActivity]!
   loggedActivitiesConnection(where: LoggedActivityWhereInput, orderBy: LoggedActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LoggedActivityConnection!
+  notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note]!
+  notesConnection(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoteConnection!
   sizes(where: SizeWhereInput, orderBy: SizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Size]!
   sizesConnection(where: SizeWhereInput, orderBy: SizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SizeConnection!
   socials(where: SocialWhereInput, orderBy: SocialOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Social]!
@@ -1286,6 +1383,7 @@ type Subscription {
   influencer(where: InfluencerSubscriptionWhereInput): InfluencerSubscriptionPayload
   item(where: ItemSubscriptionWhereInput): ItemSubscriptionPayload
   loggedActivity(where: LoggedActivitySubscriptionWhereInput): LoggedActivitySubscriptionPayload
+  note(where: NoteSubscriptionWhereInput): NoteSubscriptionPayload
   size(where: SizeSubscriptionWhereInput): SizeSubscriptionPayload
   social(where: SocialSubscriptionWhereInput): SocialSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload

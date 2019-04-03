@@ -13,6 +13,7 @@ import Error from "./ErrorMessage";
 import ContentWrapper from "./ContentWrapper";
 import Button from "./Button";
 import InfluencerCard from "./InfluencerCard";
+import InfluencerLoggedActivities from "./InfluencerLoggedActivities";
 
 const InfluencerContainer = styled.div`
   ${GRID.container};
@@ -33,11 +34,6 @@ const InfluencerHeader = styled.div`
     display: block;
     margin: 0;
   }
-`;
-
-const InfluencerTitle = styled.h1`
-  ${TYPE.displaySmall.feature.ink}
-  display: inline-block;
 `;
 
 const SINGLE_INFLUENCER_QUERY = gql`
@@ -90,6 +86,7 @@ class Influencer extends Component {
                       influencer={influencer}
                       key={influencer.id}
                     />
+                    <InfluencerLoggedActivities influencer={influencer} />
                   </>
                 );
               }}

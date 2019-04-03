@@ -169,7 +169,7 @@ const SINGLE_INFLUENCER_SIZE_QUERY = gql`
 `;
 
 class InfluencerCard extends Component {
-  static propTpes = {
+  static propTypes = {
     influencer: PropTypes.object.isRequired
   };
   render() {

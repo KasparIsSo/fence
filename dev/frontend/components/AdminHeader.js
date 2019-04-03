@@ -27,12 +27,12 @@ const AdminHeaderWrapper = styled.header`
   min-height: min-content;
   background: ${props => props.theme.color.gray.white};
   box-shadow: ${props => props.theme.shadow.drop};
-  padding: ${toRem(60)} ${toRem(40)};
+  padding: ${toRem(40)} 0;
   z-index: ${ZINDEX.header};
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     width: ${toRem(104)};
-    padding: ${toRem(20)};
+    padding: ${toRem(20)} 0;
   }
 
   @media (max-width: ${BREAKPOINTS.mobile.large}) {
@@ -60,8 +60,13 @@ const NavLink = styled.a`
   text-decoration: none;
   display: block;
   clear: both;
-  margin-bottom: ${toRem(30)};
+  padding: ${toRem(15)} ${toRem(40)};
+  /* margin-bottom: ${toRem(10)}; */
   cursor: pointer;
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    padding: ${toRem(15)} ${toRem(20)};
+  }
 
   :hover {
     > p {
@@ -74,18 +79,32 @@ const NavLink = styled.a`
   }
 
   &.active {
+    border-left: ${toRem(5)} solid ${props => props.theme.color.green.feature};
+    padding-left: calc(${toRem(40)} - ${toRem(5)});
+
+    @media (max-width: ${BREAKPOINTS.tablet.large}) {
+      text-align: center;
+    }
+
+    @media (max-width: ${BREAKPOINTS.mobile.large}) {
+      padding-left: calc(${toRem(20)} - ${toRem(5)});
+    }
+
     > p {
-      color: ${props => props.theme.color.gray.ink};
+      color: ${props => props.theme.color.green.feature};
       font-weight: 700;
     }
 
     > div > svg {
       opacity: 1;
     }
-  }
 
-  @media (max-width: ${BREAKPOINTS.tablet.large}) {
-    text-align: center;
+    &#navInfluencers {
+      > div > svg > g {
+        stroke: ${props => props.theme.color.green.feature};
+      }
+    }
+
   }
 `;
 
@@ -94,6 +113,10 @@ const NavIconWrapper = styled.div`
   width: 1.5rem;
   height: 1.5rem;
   margin-right: ${toRem(10)};
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    margin: 0 auto;
+  }
 
   svg {
     width: 100%;
@@ -128,9 +151,23 @@ const LinksContainer = styled.div`
 
 const NavLinksContainer = styled.div``;
 
+const SettingsLineBreak = styled.hr`
+  width: calc(100% - ${toRem(80)});
+  /* padding: 0 ${toRem(40)}; */
+  margin-bottom: ${toRem(30)};
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    width: calc(100% - ${toRem(60)});
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    width: calc(100% - ${toRem(40)});
+  }
+`;
+
 const SettingsContainer = styled.div`
-  padding-top: ${toRem(30)};
-  border-top: 1px solid ${props => props.theme.color.gray.subdued};
+  /* padding-top: ${toRem(30)}; */
+  /* border-top: 1px solid ${props => props.theme.color.gray.subdued}; */
   vertical-align: bottom;
   a:last-child {
     margin: 0;
@@ -147,14 +184,10 @@ class AdminHeader extends React.Component {
     activeNavCategory =
       activeNavCategory[1].charAt(0).toUpperCase() +
       activeNavCategory[1].slice(1);
-    activeNavCategory
-      ? () => {
-          const adminNavCtgy = document.getElementById(
-            "nav" + activeNavCategory
-          );
-          adminNavCtgy ? adminNavCtgy.classList.add("active") : null;
-        }
-      : null;
+    if (activeNavCategory) {
+      const adminNavCtgy = document.getElementById("nav" + activeNavCategory);
+      adminNavCtgy ? adminNavCtgy.classList.add("active") : null;
+    }
   }
 
   render() {
@@ -187,6 +220,7 @@ class AdminHeader extends React.Component {
             </NavLink>
           </NavLinksContainer>
           <SettingsContainer>
+            <SettingsLineBreak />
             <NavLink id="navSettingss">
               <NavIconWrapper>
                 <Settings />

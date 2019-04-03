@@ -17,6 +17,7 @@ import EmptyProfileImg from "react-svg-loader!../static/icons/emptyState/influen
 const InfluencerCardContainer = styled(CardContainer)`
   grid-column: span 4;
   padding: ${toRem(30)} ${toRem(20)};
+  margin-bottom: 0;
 
   @media (max-width: ${BREAKPOINTS.mobile.large}) {
     margin: 0;
@@ -115,16 +116,23 @@ class InfluencerSnapshotCard extends Component {
             )}
           </InfluencerProfileImg>
         </Link>
-        <InfluencerInfo>
-          <InfluencerName>
-            {influencer.firstName} {influencer.lastName}
-          </InfluencerName>
-          <InfluencerDescription>
-            {influencer.description
-              ? influencer.description
-              : '"No description, but I’m sure they’re great"'}
-          </InfluencerDescription>
-        </InfluencerInfo>
+        <Link
+          href={{
+            pathname: "/influencer",
+            query: { id: influencer.id }
+          }}
+        >
+          <InfluencerInfo>
+            <InfluencerName>
+              {influencer.firstName} {influencer.lastName}
+            </InfluencerName>
+            <InfluencerDescription>
+              {influencer.description
+                ? influencer.description
+                : '"No description, but I’m sure they’re great"'}
+            </InfluencerDescription>
+          </InfluencerInfo>
+        </Link>
         <InfluencerCampaigns>
           <InfluencerCampaignsTitle>Campaigns</InfluencerCampaignsTitle>
           <Tag tagType="active">yoyoyo</Tag>

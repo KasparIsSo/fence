@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>Social / Ink / Meeting</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="24" height="24"></rect>
+    </defs>
+    <g id="Social-/-Ink-/-Meeting" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <g id="Mask"></g>
+        <path d="M13.4717701,11.2917031 C13.360975,11.3177525 13.2506684,11.3455152 13.1408807,11.3749782 C8.37485922,12.6540025 5,16.9927191 5,22 C5,28.0751322 9.92486775,33 16,33 C22.0751322,33 27,28.0751322 27,22 C27,17.043833 23.6932303,12.7380875 18.9940947,11.4121307 C18.8359437,11.3675052 18.6766775,11.3264238 18.5163887,11.288926 L13.4717701,11.2917031 Z" id="Path" stroke="#333333" stroke-width="2" mask="url(#mask-2)"></path>
+        <circle id="Oval" fill="#333333" mask="url(#mask-2)" cx="6" cy="8" r="4"></circle>
+        <circle id="Oval-Copy" stroke="#333333" stroke-width="2" mask="url(#mask-2)" cx="16" cy="8" r="4"></circle>
+        <polyline id="Path" stroke="#333333" stroke-width="2" mask="url(#mask-2)" points="23 14 23 23 1 23 1 12"></polyline>
+        <path d="M12,11.6053863 C8.41319178,13.6802429 6,17.5583059 6,22 C6,26.4416941 8.41319178,30.3197571 12,32.3946137 C10.2349598,33.4156343 8.18572286,34 6,34 C-0.627416998,34 -6,28.627417 -6,22 C-6,15.372583 -0.627416998,10 6,10 C8.18572286,10 10.2349598,10.5843657 12,11.6053863 Z" id="Combined-Shape" fill="#333333" mask="url(#mask-2)"></path>
+    </g>
+</svg>

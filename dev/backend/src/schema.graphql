@@ -44,6 +44,12 @@ type Mutation {
     shoe: Int
     influencerId: String!
   ): Size!
+  createLoggedActivity(
+    eventType: activityType!
+    description: String
+    influencerId: String!
+  ): LoggedActivity!
+  createNote(content: String!, influencerId: String!, isShown: Boolean!): Note!
 }
 
 type Query {
@@ -53,4 +59,6 @@ type Query {
   addresses(where: AddressWhereInput): [Address]!
   socials(where: SocialWhereInput): [Social]!
   sizes(where: SizeWhereInput): [Size]!
+  loggedActivities(where: LoggedActivityWhereInput): [LoggedActivity]!
+  notes(where: NoteWhereInput): [Note]!
 }

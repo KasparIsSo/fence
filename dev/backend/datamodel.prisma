@@ -68,7 +68,6 @@ enum clothingSize {
 type LoggedActivity {
   eventType: activityType!
   description: String
-  influencerId: String!
   influencer: Influencer!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -84,6 +83,14 @@ enum activityType {
   COFFEE
   CELEBRATION
   OTHER
+}
+
+type Note {
+  content: String!
+  influencer: Influencer!
+  isShown: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Item {
