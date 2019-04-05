@@ -55,6 +55,7 @@ class Influencers extends Component {
 
   showModal = () => {
     this.setState({ showAddInfluencerModal: true });
+    document.querySelector("body").classList.toggle("modalOpen");
   };
 
   render() {

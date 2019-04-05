@@ -43,6 +43,10 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5rem;
     background-color: ${theme.color.cream};
     font-family: 'Lato', 'sans-serif';
+
+    &.modalOpen {
+      overflow-y: hidden;
+    }
   }
   a {
     text-decoration: none;

@@ -37,6 +37,8 @@ const InfluencerProfileImg = styled.a`
   >img, svg {
     ${ANIMATION.default}
     width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   :hover {

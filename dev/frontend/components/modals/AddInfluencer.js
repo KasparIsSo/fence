@@ -49,13 +49,14 @@ const CREATE_INFLUENCER_MUTATION = gql`
 const BackgroundOverlay = styled.div`
   background-color: ${props => props.theme.background.overlay};
   ${GRID.wrapper}
-  max-width: initial;
-  /* width: 100vw; */
-  /* translate: none; */
-  transform: translateX(12.5rem);
-  height: 100vh;
-  min-height: min-content;
+  max-width: none;
+  width: calc(100vw - ${toRem(200)});
+  transform: translateX(${toRem(200)});
+  height: 0;
+  min-height: 100vh;
+  padding: ${toRem(60)} 0;
   position: fixed;
+  overflow: hidden;
   left: 0;
   top: 0;
   z-index: ${ZINDEX.overlay};
@@ -67,6 +68,7 @@ const BackgroundOverlay = styled.div`
   &.show {
     pointer-events: auto;
     opacity: 1;
+    overflow-y: scroll;
   }
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
@@ -81,8 +83,6 @@ const BackgroundOverlay = styled.div`
 const ModalWrapper = styled.div`
   position: relative;
   ${GRID.container}
-  top: 50%;
-  transform: translateY(-50%);
 `;
 
 const Modal = styled(CardContainer)`
@@ -203,6 +203,7 @@ class AddInfluencerModal extends Component {
   hideModal = e => {
     e.preventDefault();
     this.setState({ show: false });
+    document.querySelector("body").classList.toggle("modalOpen");
   };
 
   render() {
