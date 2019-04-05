@@ -33,6 +33,14 @@ const NotesHeader = styled.h2`
   }
 `;
 
+const NotesEmpty = styled.p`
+  ${TYPE.body.primary.subdued}
+  font-style: italic;
+  display: block;
+  text-align: center;
+  grid-column: span 2;
+`;
+
 const NOTES_QUERY = gql`
   query SINGLE_INFLUENCER_NOTES_QUERY($id: ID!) {
     notes(where: { influencer: { id: $id } }) {
@@ -56,6 +64,9 @@ class InfluencerNotes extends Component {
           {({ data, error, loading }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error: {error.message}</p>;
+            if (data.notes.length == 0) {
+              return <NotesEmpty>No notes yet.</NotesEmpty>;
+            }
             return (
               <>
                 {data.notes.map(note => (

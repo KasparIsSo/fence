@@ -3,7 +3,6 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import { toRem } from "./utils/unitConversion";
-
 import TYPE from "./styles/Typography";
 
 import Facebook from "react-svg-loader!../static/icons/social/ink/facebook.svg";

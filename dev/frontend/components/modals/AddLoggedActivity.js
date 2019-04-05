@@ -13,32 +13,22 @@ import ANIMATION from "../styles/Animation";
 import { CardContainer } from "../CardContainer";
 import { TextFieldSimple } from "../TextField";
 import { TextAreaSimple } from "../TextArea";
-import UploadField from "../UploadField";
+import Select from "../Select";
 import Button from "../Button";
 import Error from "../ErrorMessage";
 
 import CloseIcon from "react-svg-loader!../../static/icons/input/cancel/default.svg";
 
-const CREATE_INFLUENCER_MUTATION = gql`
-  mutation CREATE_INFLUENCER_MUTATION(
-    $firstName: String!
-    $lastName: String
+const CREATE_LOGGED_ACTIVITY_MUTATION = gql`
+  mutation CREATE_LOGGED_ACTIVITY_MUTATION(
+    $eventType: activityType!
     $description: String
-    $phone: String
-    $thumbnail: String
-    $image: String
-    $activeCampaigns: [String]
-    $pastCampaigns: [String]
+    $influencerId: String!
   ) {
     createInfluencer(
-      firstName: $firstName
-      lastName: $lastName
+      eventType: $eventType
       description: $description
-      phone: $phone
-      thumbnail: $thumbnail
-      image: $image
-      activeCampaigns: $activeCampaigns
-      pastCampaigns: $pastCampaigns
+      influencerId: $influencerId
     ) {
       id
     }
@@ -156,43 +146,39 @@ const ModalButtons = styled.div`
   }
 `;
 
-class AddInfluencerModal extends Component {
+class AddLoggedActivityModal extends Component {
   state = {
     show: this.props.show,
-    firstName: "",
-    lastName: "",
     description: "",
-    thumbnail: "",
-    image: ""
+    social: "Instagram",
+    socialOptions: [
+      "Instagram",
+      "Twitter",
+      "Facebook",
+      "Event",
+      "Meeting",
+      "Call",
+      "Coffee",
+      "Celebration",
+      "Other"
+    ],
+    socialOptionsPlaceholders: {
+      Instagram: "New Instagram Post",
+      Twitter: "New Tweet",
+      Facebook: "New Facebook Post",
+      Event: "Attended an event",
+      Meeting: "Had a meeting",
+      Call: "Had a call",
+      Coffee: "Grabbed a coffee",
+      Celebration: "Had a celebration",
+      Other: "Something happened"
+    }
   };
 
   handleChange = e => {
     const { name, type, value } = e.target;
     const val = type === "number" ? parseFloat(value) : value;
     this.setState({ [name]: val });
-  };
-
-  uploadFile = async e => {
-    console.log("uploading file");
-    const files = e.target.files;
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", "fence-social");
-
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/kaspar/image/upload",
-      {
-        method: "POST",
-        body: data
-      }
-    );
-
-    const file = await res.json();
-    console.log(file);
-    this.setState({
-      thumbnail: file.secure_url,
-      image: file.eager[0].secure_url
-    });
   };
 
   componentWillReceiveProps(props) {
@@ -211,20 +197,16 @@ class AddInfluencerModal extends Component {
         <ModalWrapper>
           <Modal>
             <Mutation
-              mutation={CREATE_INFLUENCER_MUTATION}
+              mutation={CREATE_LOGGED_ACTIVITY_MUTATION}
               variables={this.state}
             >
-              {(createInfluencer, { loading, error }) => (
+              {(createLoggedActivity, { loading, error }) => (
                 <form
                   onSubmit={async e => {
                     e.preventDefault();
-                    const res = await createInfluencer();
-                    console.log(res);
-                    Router.push({
-                      pathname: "/influencer",
-                      query: { id: res.data.createInfluencer.id }
-                    });
-                    this.hideModal;
+                    const res = await createLoggedActivity();
+                    location.reload();
+                    // this.hideModal;
                   }}
                 >
                   <Error error={error} />
@@ -238,39 +220,20 @@ class AddInfluencerModal extends Component {
                     </ModalHeader>
 
                     <ModalInput>
+                      <Select options={this.state.socialOptions} />
                       <TextFieldSimple
-                        label="First Name"
-                        labelFor="firstName"
-                        textInputName="firstName"
-                        textInputPlaceholder="Enter their first name"
-                        inputType="secondary"
-                        className="halfInput"
-                        required
-                        value={this.state.firstName}
-                        onChange={this.handleChange}
-                      />
-                      <TextFieldSimple
-                        label="Last Name (Optional)"
-                        labelFor="lastName"
-                        textInputName="lastName"
-                        textInputPlaceholder="Enter their last name"
-                        inputType="secondary"
-                        className="halfInput"
-                        value={this.state.lastName}
-                        onChange={this.handleChange}
-                      />
-                      <TextAreaSimple
-                        label="Description (Optional)"
+                        label="Description"
                         labelFor="description"
                         textInputName="description"
-                        textInputPlaceholder="Something to help you remember them"
+                        textInputPlaceholder={
+                          this.state.socialOptionsPlaceholders[
+                            this.state.social
+                          ]
+                        }
                         inputType="secondary"
+                        className="halfInput"
                         value={this.state.description}
                         onChange={this.handleChange}
-                      />
-                      <UploadField
-                        onChange={this.uploadFile}
-                        image={this.state.image}
                       />
                     </ModalInput>
 
@@ -297,5 +260,5 @@ class AddInfluencerModal extends Component {
   }
 }
 
-export default AddInfluencerModal;
-export { CREATE_INFLUENCER_MUTATION };
+export default AddLoggedActivityModal;
+export { CREATE_LOGGED_ACTIVITY_MUTATION };

@@ -3,6 +3,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components";
 
+import { toRem } from "./utils/unitConversion";
 import { GRID, BREAKPOINTS } from "./styles/Layout";
 import TYPE from "./styles/Typography";
 
@@ -30,6 +31,12 @@ const InfluencersHeader = styled.div`
 const InfluencersTitle = styled.h1`
   ${TYPE.displaySmall.feature.ink}
   display: inline-block;
+  margin-top: 0;
+`;
+
+const AddInfluencerButton = styled(Button)`
+  margin: 0;
+  margin-top: ${toRem(5)};
 `;
 
 const ALL_INFLUENCERS_QUERY = gql`
@@ -66,13 +73,13 @@ class Influencers extends Component {
           <InfluencersContainer>
             <InfluencersHeader>
               <InfluencersTitle>Influencers</InfluencersTitle>
-              <Button
+              <AddInfluencerButton
                 buttonType="primary"
                 float="right"
                 onClick={this.showModal}
               >
                 +Add a New Influencer
-              </Button>
+              </AddInfluencerButton>
             </InfluencersHeader>
             <Query query={ALL_INFLUENCERS_QUERY}>
               {({ data, error, loading }) => {
