@@ -44,7 +44,10 @@ const AddLoggedActivityButton = styled(Button)`
 
 const LOGGED_ACTIVITIES_QUERY = gql`
   query SINGLE_INFLUENCER_LOGGED_ACTIVITIES_QUERY($id: ID!) {
-    loggedActivities(where: { influencer: { id: $id } }) {
+    loggedActivities(
+      where: { influencer: { id: $id } }
+      orderBy: updatedAt_DESC
+    ) {
       eventType
       description
       updatedAt
@@ -67,7 +70,7 @@ class InfluencerLoggedActivities extends Component {
           buttonType="primary"
           onClick={this.props.showModal}
         >
-          +Log an Activity
+          + Log an Activity
         </AddLoggedActivityButton>
         <Query
           query={LOGGED_ACTIVITIES_QUERY}

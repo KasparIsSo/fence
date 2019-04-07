@@ -19,32 +19,6 @@ import Error from "../ErrorMessage";
 
 import CloseIcon from "react-svg-loader!../../static/icons/input/cancel/default.svg";
 
-const CREATE_INFLUENCER_MUTATION = gql`
-  mutation CREATE_INFLUENCER_MUTATION(
-    $firstName: String!
-    $lastName: String
-    $description: String
-    $phone: String
-    $thumbnail: String
-    $image: String
-    $activeCampaigns: [String]
-    $pastCampaigns: [String]
-  ) {
-    createInfluencer(
-      firstName: $firstName
-      lastName: $lastName
-      description: $description
-      phone: $phone
-      thumbnail: $thumbnail
-      image: $image
-      activeCampaigns: $activeCampaigns
-      pastCampaigns: $pastCampaigns
-    ) {
-      id
-    }
-  }
-`;
-
 const BackgroundOverlay = styled.div`
   background-color: ${props => props.theme.background.overlay};
   ${GRID.wrapper}
@@ -115,8 +89,9 @@ const ModalClose = styled.button`
   background: none;
   padding: 0;
   float: right;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.25rem;
 
   :focus {
     outline: none;
@@ -153,6 +128,32 @@ const ModalButtons = styled.div`
   > button {
     margin-top: 0;
     margin-bottom: 0;
+  }
+`;
+
+const CREATE_INFLUENCER_MUTATION = gql`
+  mutation CREATE_INFLUENCER_MUTATION(
+    $firstName: String!
+    $lastName: String
+    $description: String
+    $phone: String
+    $thumbnail: String
+    $image: String
+    $activeCampaigns: [String]
+    $pastCampaigns: [String]
+  ) {
+    createInfluencer(
+      firstName: $firstName
+      lastName: $lastName
+      description: $description
+      phone: $phone
+      thumbnail: $thumbnail
+      image: $image
+      activeCampaigns: $activeCampaigns
+      pastCampaigns: $pastCampaigns
+    ) {
+      id
+    }
   }
 `;
 

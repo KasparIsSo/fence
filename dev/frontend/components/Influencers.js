@@ -78,7 +78,7 @@ class Influencers extends Component {
                 float="right"
                 onClick={this.showModal}
               >
-                +Add a New Influencer
+                + Add a New Influencer
               </AddInfluencerButton>
             </InfluencersHeader>
             <Query query={ALL_INFLUENCERS_QUERY}>

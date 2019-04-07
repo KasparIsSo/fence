@@ -19,22 +19,6 @@ import Error from "../ErrorMessage";
 
 import CloseIcon from "react-svg-loader!../../static/icons/input/cancel/default.svg";
 
-const CREATE_LOGGED_ACTIVITY_MUTATION = gql`
-  mutation CREATE_LOGGED_ACTIVITY_MUTATION(
-    $eventType: activityType!
-    $description: String
-    $influencerId: String!
-  ) {
-    createInfluencer(
-      eventType: $eventType
-      description: $description
-      influencerId: $influencerId
-    ) {
-      id
-    }
-  }
-`;
-
 const BackgroundOverlay = styled.div`
   background-color: ${props => props.theme.background.overlay};
   ${GRID.wrapper}
@@ -105,8 +89,9 @@ const ModalClose = styled.button`
   background: none;
   padding: 0;
   float: right;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.25rem;
 
   :focus {
     outline: none;
@@ -115,25 +100,25 @@ const ModalClose = styled.button`
 
 const ModalInput = styled.div`
   padding-top: ${toRem(40)};
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: ${toRem(40)};
   margin-bottom: ${toRem(20)};
-
-  .halfInput {
-    width: calc(50% - ${toRem(20)});
-    margin: 0;
-    display: inline-block;
-    margin-bottom: ${toRem(20)};
-
-    @media (max-width: ${BREAKPOINTS.mobile.large}) {
-      width: 100%;
-    }
-  }
 
   > div {
     margin: 0;
     margin-bottom: ${toRem(20)};
+  }
+`;
+
+const ActivityDescription = styled(TextFieldSimple)`
+  margin: 0;
+  display: inline-block;
+  margin-bottom: ${toRem(20)};
+  grid-column: span 3;
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    width: 100%;
   }
 `;
 
@@ -146,12 +131,32 @@ const ModalButtons = styled.div`
   }
 `;
 
+const ActivitySelect = styled(Select)`
+  grid-column: span 1;
+`;
+
+const CREATE_LOGGED_ACTIVITY_MUTATION = gql`
+  mutation CREATE_LOGGED_ACTIVITY_MUTATION(
+    $activity: activityType!
+    $description: String!
+    $influencerId: String!
+  ) {
+    createLoggedActivity(
+      eventType: $activity
+      description: $description
+      influencerId: $influencerId
+    ) {
+      createdAt
+    }
+  }
+`;
+
 class AddLoggedActivityModal extends Component {
   state = {
     show: this.props.show,
     description: "",
-    social: "Instagram",
-    socialOptions: [
+    activity: "instagram",
+    activityOptions: [
       "Instagram",
       "Twitter",
       "Facebook",
@@ -162,23 +167,34 @@ class AddLoggedActivityModal extends Component {
       "Celebration",
       "Other"
     ],
-    socialOptionsPlaceholders: {
-      Instagram: "New Instagram Post",
-      Twitter: "New Tweet",
-      Facebook: "New Facebook Post",
-      Event: "Attended an event",
-      Meeting: "Had a meeting",
-      Call: "Had a call",
-      Coffee: "Grabbed a coffee",
-      Celebration: "Had a celebration",
-      Other: "Something happened"
-    }
+    activityOptionsPlaceholders: {
+      instagram: "New Instagram Post",
+      twitter: "New Tweet",
+      facebook: "New Facebook Post",
+      event: "Attended an event",
+      meeting: "Had a meeting",
+      call: "Had a call",
+      coffee: "Grabbed a coffee",
+      celebration: "Had a celebration",
+      other: "Something happened"
+    },
+    influencerId: this.props.influencerId
   };
 
   handleChange = e => {
     const { name, type, value } = e.target;
     const val = type === "number" ? parseFloat(value) : value;
     this.setState({ [name]: val });
+  };
+
+  activityHandleChange = e => {
+    const activityType = e.target.value;
+    const description = e.target.parentNode.parentNode.querySelector("input");
+    description.placeholder = this.state.activityOptionsPlaceholders[
+      activityType
+    ];
+
+    this.setState({ activity: activityType });
   };
 
   componentWillReceiveProps(props) {
@@ -198,7 +214,13 @@ class AddLoggedActivityModal extends Component {
           <Modal>
             <Mutation
               mutation={CREATE_LOGGED_ACTIVITY_MUTATION}
-              variables={this.state}
+              variables={{
+                activity: this.state.activity.toUpperCase(),
+                description: this.state.description
+                  ? this.state.description
+                  : this.state.activityOptionsPlaceholders[this.state.activity],
+                influencerId: this.state.influencerId
+              }}
             >
               {(createLoggedActivity, { loading, error }) => (
                 <form
@@ -220,14 +242,19 @@ class AddLoggedActivityModal extends Component {
                     </ModalHeader>
 
                     <ModalInput>
-                      <Select options={this.state.socialOptions} />
-                      <TextFieldSimple
+                      <ActivitySelect
+                        labelFor="activity"
+                        label="Activity"
+                        options={this.state.activityOptions}
+                        onChange={this.activityHandleChange}
+                      />
+                      <ActivityDescription
                         label="Description"
                         labelFor="description"
                         textInputName="description"
                         textInputPlaceholder={
-                          this.state.socialOptionsPlaceholders[
-                            this.state.social
+                          this.state.activityOptionsPlaceholders[
+                            this.state.activity
                           ]
                         }
                         inputType="secondary"

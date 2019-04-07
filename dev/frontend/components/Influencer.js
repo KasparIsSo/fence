@@ -69,7 +69,10 @@ class Influencer extends Component {
   render() {
     return (
       <>
-        <AddLoggedActivityModal show={this.state.showAddLoggedActivityModal} />
+        <AddLoggedActivityModal
+          show={this.state.showAddLoggedActivityModal}
+          influencerId={this.props.id}
+        />
         <ContentWrapper>
           <InfluencerContainer>
             <InfluencerHeader>
