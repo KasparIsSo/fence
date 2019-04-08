@@ -65,4 +65,5 @@ type Query {
     orderBy: LoggedActivityOrderByInput
   ): [LoggedActivity]!
   notes(where: NoteWhereInput, orderBy: NoteOrderByInput): [Note]!
+  loggedInUser: User
 }

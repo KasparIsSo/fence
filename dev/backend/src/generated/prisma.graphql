@@ -1406,7 +1406,6 @@ type User {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]!
-  birthdayMonth: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1424,7 +1423,6 @@ input UserCreateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
-  birthdayMonth: String!
 }
 
 input UserCreatepermissionsInput {
@@ -1449,8 +1447,6 @@ enum UserOrderByInput {
   resetToken_DESC
   resetTokenExpiry_ASC
   resetTokenExpiry_DESC
-  birthdayMonth_ASC
-  birthdayMonth_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1465,7 +1461,6 @@ type UserPreviousValues {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]!
-  birthdayMonth: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1495,7 +1490,6 @@ input UserUpdateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
-  birthdayMonth: String
 }
 
 input UserUpdatepermissionsInput {
@@ -1581,20 +1575,6 @@ input UserWhereInput {
   resetTokenExpiry_lte: Float
   resetTokenExpiry_gt: Float
   resetTokenExpiry_gte: Float
-  birthdayMonth: String
-  birthdayMonth_not: String
-  birthdayMonth_in: [String!]
-  birthdayMonth_not_in: [String!]
-  birthdayMonth_lt: String
-  birthdayMonth_lte: String
-  birthdayMonth_gt: String
-  birthdayMonth_gte: String
-  birthdayMonth_contains: String
-  birthdayMonth_not_contains: String
-  birthdayMonth_starts_with: String
-  birthdayMonth_not_starts_with: String
-  birthdayMonth_ends_with: String
-  birthdayMonth_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]

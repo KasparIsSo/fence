@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
-import Header from "./Header";
-import AdminHeader from "./AdminHeader";
-import Button from "./Button";
 import Meta from "../components/Meta";
 
 import { toRem } from "./utils/unitConversion";
 import THEME from "./styles/Theme";
+
+import User from "./User";
+
+// import Background from "../static/images/background-pattern.jpg";
+// import Background from "../static/images/background-pattern.jpg";
 
 const theme = THEME;
 
@@ -14,15 +16,13 @@ const StyledPage = styled.div`
   color: ${props => props.theme.color.gray.ink};
   /* padding-top: 6.875rem; */
   padding-top: ${toRem(100)};
+  /* background-image: url(${Background}); */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('../static/images/background-pattern.jpg');
+  min-height: 100vh;
 `;
-
-const Inner = styled.div`
-  /* max-width: ${props => props.theme.maxWidth}; */
-  margin: 0 auto;
-  /* padding: 2rem; */
-`;
-
-const Modal = styled.div``;
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700|Lato:400,400i,700');
@@ -64,6 +64,10 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 class Page extends Component {
+  state = {
+    loggedIn: false
+  };
+
   render() {
     return (
       <ThemeProvider theme={theme}>
@@ -71,7 +75,15 @@ class Page extends Component {
           <GlobalStyle />
           <StyledPage>
             <Meta />
-            <AdminHeader />
+            {/* <AdminHeader /> */}
+            <User>
+              {({ data: { loggedInUser } }) => {
+                console.log(loggedInUser);
+                if (loggedInUser) return <p>{loggedInUser.name}</p>;
+                return null;
+              }}
+            </User>
+            {/* {this.state.loggedIn ? <AdminHeader /> : <Header />} */}
             {this.props.children}
           </StyledPage>
         </React.Fragment>

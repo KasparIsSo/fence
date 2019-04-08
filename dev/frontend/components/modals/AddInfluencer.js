@@ -226,8 +226,8 @@ class AddInfluencerModal extends Component {
                     this.hideModal;
                   }}
                 >
-                  <Error error={error} />
                   <fieldset disabled={loading} aria-busy={loading}>
+                    <Error error={error} />
                     <ModalHeader>
                       <ModalTitle>Add an Influencer</ModalTitle>
 

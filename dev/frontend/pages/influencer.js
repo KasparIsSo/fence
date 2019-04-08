@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Influencer from "../components/Influencer";
+import AdminHeader from "../components/AdminHeader";
 
 const InfluencerProfile = props => (
-  <div>
+  <>
+    <AdminHeader />
     <Influencer id={props.query.id} />
-  </div>
+  </>
 );
 
 export default InfluencerProfile;

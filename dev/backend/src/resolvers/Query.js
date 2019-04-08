@@ -8,7 +8,20 @@ const Query = {
   socials: forwardTo("db"),
   sizes: forwardTo("db"),
   loggedActivities: forwardTo("db"),
-  notes: forwardTo("db")
+  notes: forwardTo("db"),
+  loggedInUser(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      return null;
+    }
+    return ctx.db.query.user(
+      {
+        where: {
+          id: ctx.request.userId
+        }
+      },
+      info
+    );
+  }
   // async items(parent, args, ctx, info) {
   //   const items = ctx.db.query.items();
   //   return items;

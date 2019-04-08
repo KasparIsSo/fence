@@ -31,6 +31,7 @@ const TextField = props => {
       <Label htmlfor={props.labelFor ? props.labelFor : "title"}>
         {props.label ? props.label : "Label"}
         <TextFieldInput
+          type={props.type}
           textInputName={props.textInputName}
           textInputPlaceholder={props.textInputPlaceholder}
           inputType={props.inputType}
@@ -56,6 +57,7 @@ const TextFieldSimple = props => {
       <Label htmlfor={props.labelFor ? props.labelFor : "title"}>
         {props.label ? props.label : "Label"}
         <TextFieldInput
+          type={props.type}
           textInputName={props.textInputName}
           textInputPlaceholder={props.textInputPlaceholder}
           inputType={props.inputType}

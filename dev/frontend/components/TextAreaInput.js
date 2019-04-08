@@ -52,7 +52,7 @@ const TextArea = styled.textarea`
 const TextAreaInput = props => {
   return (
     <TextArea
-      type="text"
+      type={props.type ? props.type : "text"}
       name={props.textInputName ? props.textInputName : "textInput"}
       placeholder={
         props.textInputPlaceholder
