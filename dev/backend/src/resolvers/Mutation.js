@@ -1,4 +1,5 @@
 const Mutations = {
+  async signup(parent, args, ctx, info) {},
   async createInfluencer(parent, args, ctx, info) {
     const influencer = await ctx.db.mutation.createInfluencer(
       {

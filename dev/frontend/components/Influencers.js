@@ -14,6 +14,11 @@ import AddInfluencerModal from "./modals/AddInfluencer";
 
 const InfluencersContainer = styled.div`
   ${GRID.container};
+  grid-gap: 1.5rem;
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    display: block;
+  }
 `;
 
 const InfluencersHeader = styled.div`
@@ -32,11 +37,21 @@ const InfluencersTitle = styled.h1`
   ${TYPE.displaySmall.feature.ink}
   display: inline-block;
   margin-top: 0;
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    display: block;
+    margin-bottom: ${toRem(20)};
+  }
 `;
 
 const AddInfluencerButton = styled(Button)`
   margin: 0;
   margin-top: ${toRem(5)};
+  float: right;
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    float: none;
+    margin: 0;
+    margin-bottom: ${toRem(20)};
+  }
 `;
 
 const ALL_INFLUENCERS_QUERY = gql`
@@ -75,7 +90,6 @@ class Influencers extends Component {
               <InfluencersTitle>Influencers</InfluencersTitle>
               <AddInfluencerButton
                 buttonType="primary"
-                float="right"
                 onClick={this.showModal}
               >
                 + Add a New Influencer

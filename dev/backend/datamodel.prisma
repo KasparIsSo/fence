@@ -1,10 +1,23 @@
 type User {
   id: ID! @unique
   name: String!
-  email: String!
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission]
   birthdayMonth: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+enum Permission {
+  ADMIN
+  USER
+  INFLUENCERCREATE
+  INFLUENCERUPDATE
+  INFLUENCERDELETE
+  PERMISSIONUPDATE
 }
 
 type Influencer {

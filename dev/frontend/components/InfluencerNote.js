@@ -11,9 +11,11 @@ import { CardContainer } from "./CardContainer";
 const InfluencerNoteWrapper = styled(CardContainer)`
   grid-column: span 1;
   padding: ${toRem(20)};
+  margin-bottom: 0;
+  height: min-content;
 
   @media (max-width: ${BREAKPOINTS.mobile.large}) {
-    grid-column: span 2;
+    margin-bottom: ${toRem(20)};
   }
 `;
 

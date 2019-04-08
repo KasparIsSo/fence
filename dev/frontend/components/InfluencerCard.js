@@ -39,6 +39,9 @@ const InfluencerCardWrapper = styled.div`
 
 const InfluencerCardContainer = styled(CardContainer)`
   padding: ${toRem(30)} ${toRem(20)} 0;
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    margin-bottom: 0;
+  }
 `;
 
 const InfluencerProfile = styled.div`
@@ -109,8 +112,10 @@ const InfluencerDescription = styled.p`
 `;
 
 const InfluencerDetails = styled.div`
-  /* display: flex;
-  justify-content: space-between; */
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const InfluencerStat = styled.div`
@@ -121,6 +126,13 @@ const InfluencerStat = styled.div`
     display: inline-block;
     margin-right: ${toRem(30)};
     vertical-align: top;
+  }
+`;
+
+const InfluencerSocialStat = styled(InfluencerStat)`
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    grid-column: span 2;
+    margin-right: 0;
   }
 `;
 
@@ -142,13 +154,16 @@ const InfluencerContentWrapper = styled.div`
   flex-wrap: wrap;
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1.25rem;
+    margin: 0;
     width: calc(13rem + ${toRem(20)});
   }
 
   @media (max-width: ${BREAKPOINTS.mobile.large}) {
-    display: flex;
-    width: auto;
+    grid-column-gap: 0;
+    width: 100%;
   }
 `;
 
@@ -160,6 +175,17 @@ const InfluencerSocial = styled.a`
 
   > p {
     vertical-align: top;
+    ${ANIMATION.default}
+  }
+
+  :hover {
+    > p {
+      color: ${props => props.theme.color.blue.feature};
+    }
+
+    > svg > g {
+      stroke: ${props => props.theme.color.blue.feature};
+    }
   }
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
@@ -263,7 +289,7 @@ class InfluencerCard extends Component {
                 const social = data.socials[0];
                 return (
                   <>
-                    <InfluencerStat>
+                    <InfluencerSocialStat>
                       <InfluencerStatTitle>Social</InfluencerStatTitle>
                       <InfluencerContentWrapper>
                         {social.facebook ? (
@@ -335,7 +361,7 @@ class InfluencerCard extends Component {
                           </InfluencerSocial>
                         ) : null}
                       </InfluencerContentWrapper>
-                    </InfluencerStat>
+                    </InfluencerSocialStat>
                   </>
                 );
               }}
@@ -395,7 +421,6 @@ class InfluencerCard extends Component {
                         {size.shoe ? <br /> : null}
                         {size.shoe ? "Shoe: " + size.shoe / 10 : null}
                       </InfluencerContent>
-                      <InfluencerContentWrapper />
                     </InfluencerStat>
                   </>
                 );

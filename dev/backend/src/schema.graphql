@@ -1,6 +1,7 @@
 # import * from './generated/prisma.graphql'
 
 type Mutation {
+  signup(email: String!, password: String!, name: String!): User!
   createInfluencer(
     firstName: String!
     lastName: String
@@ -63,5 +64,5 @@ type Query {
     where: LoggedActivityWhereInput
     orderBy: LoggedActivityOrderByInput
   ): [LoggedActivity]!
-  notes(where: NoteWhereInput): [Note]!
+  notes(where: NoteWhereInput, orderBy: NoteOrderByInput): [Note]!
 }

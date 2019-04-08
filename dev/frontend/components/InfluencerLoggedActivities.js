@@ -28,6 +28,11 @@ const LoggedActivitiesHeader = styled.h2`
   ${TYPE.displaySmall.feature.ink}
   display: inline-block;
   margin-top: 0;
+  margin-bottom: ${toRem(30)};
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    display: block;
+    margin-bottom: ${toRem(20)};
+  }
 `;
 
 const LoggedActivitiesEmpty = styled.p`
@@ -40,6 +45,14 @@ const LoggedActivitiesEmpty = styled.p`
 const AddLoggedActivityButton = styled(Button)`
   margin: 0;
   margin-top: ${toRem(5)};
+  margin-bottom: ${toRem(20)};
+  float: right;
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    float: none;
+    display: 0;
+    margin: 0;
+    margin-bottom: ${toRem(20)};
+  }
 `;
 
 const LOGGED_ACTIVITIES_QUERY = gql`
@@ -66,7 +79,6 @@ class InfluencerLoggedActivities extends Component {
       <LoggedActivitiesWrapper>
         <LoggedActivitiesHeader>Logged Activity</LoggedActivitiesHeader>
         <AddLoggedActivityButton
-          float="right"
           buttonType="primary"
           onClick={this.props.showModal}
         >

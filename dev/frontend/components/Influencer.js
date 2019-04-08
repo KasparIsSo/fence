@@ -17,6 +17,7 @@ import InfluencerCard from "./InfluencerCard";
 import InfluencerLoggedActivities from "./InfluencerLoggedActivities";
 import InfluencerNotes from "./InfluencerNotes";
 import AddLoggedActivityModal from "./modals/AddLoggedActivity";
+import AddNoteModal from "./modals/AddNote";
 
 const InfluencerContainer = styled.div`
   ${GRID.container};
@@ -58,11 +59,17 @@ const SINGLE_INFLUENCER_QUERY = gql`
 
 class Influencer extends Component {
   state = {
-    showAddLoggedActivityModal: false
+    showAddLoggedActivityModal: false,
+    showAddNoteModal: false
   };
 
-  showModal = () => {
+  showActivityModal = () => {
     this.setState({ showAddLoggedActivityModal: true });
+    document.querySelector("body").classList.toggle("modalOpen");
+  };
+
+  showNoteModal = () => {
+    this.setState({ showAddNoteModal: true });
     document.querySelector("body").classList.toggle("modalOpen");
   };
 
@@ -71,6 +78,10 @@ class Influencer extends Component {
       <>
         <AddLoggedActivityModal
           show={this.state.showAddLoggedActivityModal}
+          influencerId={this.props.id}
+        />
+        <AddNoteModal
+          show={this.state.showAddNoteModal}
           influencerId={this.props.id}
         />
         <ContentWrapper>
@@ -105,9 +116,12 @@ class Influencer extends Component {
                     />
                     <InfluencerLoggedActivities
                       influencer={influencer}
-                      showModal={this.showModal}
+                      showModal={this.showActivityModal}
                     />
-                    <InfluencerNotes influencer={influencer} />
+                    <InfluencerNotes
+                      influencer={influencer}
+                      showModal={this.showNoteModal}
+                    />
                   </>
                 );
               }}

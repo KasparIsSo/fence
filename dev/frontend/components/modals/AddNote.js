@@ -13,7 +13,7 @@ import ANIMATION from "../styles/Animation";
 import { CardContainer } from "../CardContainer";
 import { TextFieldSimple } from "../TextField";
 import { TextAreaSimple } from "../TextArea";
-import UploadField from "../UploadField";
+import Select from "../Select";
 import Button from "../Button";
 import Error from "../ErrorMessage";
 
@@ -100,25 +100,21 @@ const ModalClose = styled.button`
 
 const ModalInput = styled.div`
   padding-top: ${toRem(40)};
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
   margin-bottom: ${toRem(20)};
-
-  .halfInput {
-    width: calc(50% - ${toRem(20)});
-    margin: 0;
-    display: inline-block;
-    margin-bottom: ${toRem(20)};
-
-    @media (max-width: ${BREAKPOINTS.mobile.large}) {
-      width: 100%;
-    }
-  }
 
   > div {
     margin: 0;
     margin-bottom: ${toRem(20)};
+  }
+`;
+
+const NoteContent = styled(TextAreaSimple)`
+  margin: 0;
+  display: block;
+  margin-bottom: ${toRem(20)};
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    width: 100%;
   }
 `;
 
@@ -131,68 +127,34 @@ const ModalButtons = styled.div`
   }
 `;
 
-const CREATE_INFLUENCER_MUTATION = gql`
-  mutation CREATE_INFLUENCER_MUTATION(
-    $firstName: String!
-    $lastName: String
-    $description: String
-    $phone: String
-    $thumbnail: String
-    $image: String
-    $activeCampaigns: [String]
-    $pastCampaigns: [String]
+const CREATE_NOTE_MUTATION = gql`
+  mutation CREATE_NOTE_MUTATION(
+    $content: String!
+    $isShown: Boolean!
+    $influencerId: String!
   ) {
-    createInfluencer(
-      firstName: $firstName
-      lastName: $lastName
-      description: $description
-      phone: $phone
-      thumbnail: $thumbnail
-      image: $image
-      activeCampaigns: $activeCampaigns
-      pastCampaigns: $pastCampaigns
+    createNote(
+      content: $content
+      isShown: $isShown
+      influencerId: $influencerId
     ) {
-      id
+      createdAt
     }
   }
 `;
 
-class AddInfluencerModal extends Component {
+class AddNoteModal extends Component {
   state = {
     show: this.props.show,
-    firstName: "",
-    lastName: "",
-    description: "",
-    thumbnail: "",
-    image: ""
+    content: "",
+    isShown: true,
+    influencerId: this.props.influencerId
   };
 
   handleChange = e => {
     const { name, type, value } = e.target;
     const val = type === "number" ? parseFloat(value) : value;
     this.setState({ [name]: val });
-  };
-
-  uploadFile = async e => {
-    const files = e.target.files;
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", "fence-social");
-
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/kaspar/image/upload",
-      {
-        method: "POST",
-        body: data
-      }
-    );
-
-    const file = await res.json();
-    console.log(file);
-    this.setState({
-      thumbnail: file.secure_url,
-      image: file.eager[0].secure_url
-    });
   };
 
   componentWillReceiveProps(props) {
@@ -210,26 +172,20 @@ class AddInfluencerModal extends Component {
       <BackgroundOverlay className={this.state.show ? "show" : null}>
         <ModalWrapper>
           <Modal>
-            <Mutation
-              mutation={CREATE_INFLUENCER_MUTATION}
-              variables={this.state}
-            >
-              {(createInfluencer, { loading, error }) => (
+            <Mutation mutation={CREATE_NOTE_MUTATION} variables={this.state}>
+              {(createNote, { loading, error }) => (
                 <form
                   onSubmit={async e => {
                     e.preventDefault();
-                    const res = await createInfluencer();
-                    Router.push({
-                      pathname: "/influencer",
-                      query: { id: res.data.createInfluencer.id }
-                    });
-                    this.hideModal;
+                    const res = await createNote();
+                    location.reload();
+                    // this.hideModal;
                   }}
                 >
                   <Error error={error} />
                   <fieldset disabled={loading} aria-busy={loading}>
                     <ModalHeader>
-                      <ModalTitle>Add an Influencer</ModalTitle>
+                      <ModalTitle>Add a Note</ModalTitle>
 
                       <ModalClose type="button" onClick={this.hideModal}>
                         <CloseIcon />
@@ -237,39 +193,15 @@ class AddInfluencerModal extends Component {
                     </ModalHeader>
 
                     <ModalInput>
-                      <TextFieldSimple
-                        label="First Name"
-                        labelFor="firstName"
-                        textInputName="firstName"
-                        textInputPlaceholder="Enter their first name"
+                      <NoteContent
+                        label="Note"
+                        labelFor="note"
+                        textInputName="content"
+                        textInputPlaceholder="Add a quick note"
                         inputType="secondary"
-                        className="halfInput"
                         required
-                        value={this.state.firstName}
+                        value={this.state.content}
                         onChange={this.handleChange}
-                      />
-                      <TextFieldSimple
-                        label="Last Name (Optional)"
-                        labelFor="lastName"
-                        textInputName="lastName"
-                        textInputPlaceholder="Enter their last name"
-                        inputType="secondary"
-                        className="halfInput"
-                        value={this.state.lastName}
-                        onChange={this.handleChange}
-                      />
-                      <TextAreaSimple
-                        label="Description (Optional)"
-                        labelFor="description"
-                        textInputName="description"
-                        textInputPlaceholder="Something to help you remember them"
-                        inputType="secondary"
-                        value={this.state.description}
-                        onChange={this.handleChange}
-                      />
-                      <UploadField
-                        onChange={this.uploadFile}
-                        image={this.state.image}
                       />
                     </ModalInput>
 
@@ -296,5 +228,5 @@ class AddInfluencerModal extends Component {
   }
 }
 
-export default AddInfluencerModal;
-export { CREATE_INFLUENCER_MUTATION };
+export default AddNoteModal;
+export { CREATE_NOTE_MUTATION };

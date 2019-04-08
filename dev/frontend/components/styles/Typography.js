@@ -9,7 +9,7 @@ const TYPE = {
         line-height: 5.0625rem;
         font-family: 'Crimson Text';
         font-weight: 600;
-        margin: 1rem 0 2rem;
+        margin: 0;
       `,
       subdued: `
         color: ${THEME.color.gray.subdued};
@@ -17,7 +17,7 @@ const TYPE = {
         line-height: 5.0625rem;
         font-family: 'Crimson Text';
         font-weight: 600;
-        margin: 1rem 0 2rem;
+        margin: 0;
       `,
       ink: `
         color: ${THEME.color.gray.ink};
@@ -25,7 +25,7 @@ const TYPE = {
         line-height: 5.0625rem;
         font-family: 'Crimson Text';
         font-weight: 600;
-        margin: 1rem 0 2rem;
+        margin: 0;
       `
     }
   },
@@ -37,7 +37,7 @@ const TYPE = {
         line-height: 3.375rem;
         font-family: 'Crimson Text';
         font-weight: 600;
-        margin: .5rem 0 1.5rem;
+        margin: 0;
       `,
       subdued: `
         color: ${THEME.color.gray.subdued};
@@ -45,7 +45,7 @@ const TYPE = {
         line-height: 3.375rem;
         font-family: 'Crimson Text';
         font-weight: 600;
-        margin: .5rem 0 1.5rem;
+        margin: 0;
       `,
       ink: `
         color: ${THEME.color.gray.ink};
@@ -53,7 +53,7 @@ const TYPE = {
         line-height: 3.375rem;
         font-family: 'Crimson Text';
         font-weight: 600;
-        margin: .5rem 0 1.5rem;
+        margin: 0;
       `
     }
   },
@@ -65,7 +65,7 @@ const TYPE = {
         line-height: 2.25rem;
         font-family: 'Crimson Text';
         font-weight: 700;
-        margin: .5rem 0 1.5rem;
+        margin: 0;
         letter-spacing: -.01875rem;
       `,
       subdued: `
@@ -74,7 +74,7 @@ const TYPE = {
         line-height: 2.25rem;
         font-family: 'Crimson Text';
         font-weight: 700;
-        margin: .5rem 0 1.5rem;
+        margin: 0;
         letter-spacing: -.01875rem;
       `,
       ink: `
@@ -83,7 +83,7 @@ const TYPE = {
         line-height: 2.25rem;
         font-family: 'Crimson Text';
         font-weight: 700;
-        margin: .5rem 0 1.5rem;
+        margin: 0;
         letter-spacing: -.01875rem;
       `
     },
@@ -94,7 +94,7 @@ const TYPE = {
         line-height: 2.25rem;
         font-family: 'Lato';
         font-weight: 700;
-        margin: .5rem 0 1.5rem;
+        margin: 0;
       `,
       subdued: `
         color: ${THEME.color.gray.subdued};
@@ -102,7 +102,7 @@ const TYPE = {
         line-height: 2.25rem;
         font-family: 'Lato';
         font-weight: 700;
-        margin: .5rem 0 1.5rem;
+        margin: 0;
       `,
       ink: `
         color: ${THEME.color.gray.ink};
@@ -110,7 +110,7 @@ const TYPE = {
         line-height: 2.25rem;
         font-family: 'Lato';
         font-weight: 700;
-        margin: .5rem 0 1.5rem;
+        margin: 0;
       `
     }
   },
@@ -122,7 +122,7 @@ const TYPE = {
         line-height: 1.75rem;
         font-family: 'Crimson Text';
         font-weight: 400;
-        margin: .5rem 0 1rem;
+        margin: 0;
       `,
       subdued: `
         color: ${THEME.color.gray.subdued};
@@ -130,7 +130,7 @@ const TYPE = {
         line-height: 1.75rem;
         font-family: 'Crimson Text';
         font-weight: 400;
-        margin: .5rem 0 1rem;
+        margin: 0;
       `,
       ink: `
         color: ${THEME.color.gray.ink};
@@ -138,7 +138,7 @@ const TYPE = {
         line-height: 1.75rem;
         font-family: 'Crimson Text';
         font-weight: 400;
-        margin: .5rem 0 1rem;
+        margin: 0;
       `
     },
     primary: {
@@ -150,7 +150,7 @@ const TYPE = {
         font-weight: 700;
         letter-spacing: .0375rem;
         text-transform: uppercase;
-        margin: .5rem 0 1rem;
+        margin: 0;
       `,
       subdued: `
         color: ${THEME.color.gray.subdued};
@@ -160,7 +160,7 @@ const TYPE = {
         font-weight: 700;
         letter-spacing: .0375rem;
         text-transform: uppercase;
-        margin: .5rem 0 1rem;
+        margin: 0;
       `,
       ink: `
         color: ${THEME.color.gray.ink};
@@ -170,7 +170,7 @@ const TYPE = {
         font-weight: 700;
         letter-spacing: .0375rem;
         text-transform: uppercase;
-        margin: .5rem 0 1rem;
+        margin: 0;
       `
     }
   },
@@ -182,7 +182,7 @@ const TYPE = {
         line-height: 1.5rem;
         font-family: 'Crimson Text';
         font-weight: 400;
-        margin: 0 0 1rem;
+        margin: 0;
       `,
       subdued: `
         color: ${THEME.color.gray.subdued};
@@ -190,7 +190,7 @@ const TYPE = {
         line-height: 1.5rem;
         font-family: 'Crimson Text';
         font-weight: 400;
-        margin: 0 0 1rem;
+        margin: 0;
       `,
       ink: `
         color: ${THEME.color.gray.ink};
@@ -198,7 +198,7 @@ const TYPE = {
         line-height: 1.5rem;
         font-family: 'Crimson Text';
         font-weight: 400;
-        margin: 0 0 1rem;
+        margin: 0;
       `
     },
     primary: {
@@ -208,7 +208,7 @@ const TYPE = {
         line-height: 1.5rem;
         font-family: 'Lato';
         font-weight: 400;
-        margin: 0 0 1rem;
+        margin: 0;
       `,
       subdued: `
         color: ${THEME.color.gray.subdued};
@@ -216,7 +216,7 @@ const TYPE = {
         line-height: 1.5rem;
         font-family: 'Lato';
         font-weight: 400;
-        margin: 0 0 1rem;
+        margin: 0;
       `,
       ink: `
         color: ${THEME.color.gray.ink};
@@ -224,7 +224,7 @@ const TYPE = {
         line-height: 1.5rem;
         font-family: 'Lato';
         font-weight: 400;
-        margin: 0 0 1rem;
+        margin: 0;
       `
     }
   },
@@ -236,7 +236,7 @@ const TYPE = {
         line-height: 1rem;
         font-family: 'Crimson Text';
         font-weight: 400;
-        margin: 0 0 .5rem;
+        margin: 0;
       `,
       subdued: `
         color: ${THEME.color.gray.subdued};
@@ -244,7 +244,7 @@ const TYPE = {
         line-height: 1rem;
         font-family: 'Crimson Text';
         font-weight: 400;
-        margin: 0 0 .5rem;
+        margin: 0;
       `,
       ink: `
         color: ${THEME.color.gray.ink};
@@ -252,7 +252,7 @@ const TYPE = {
         line-height: 1rem;
         font-family: 'Crimson Text';
         font-weight: 400;
-        margin: 0 0 .5rem;
+        margin: 0;
       `
     },
     primary: {
@@ -262,7 +262,7 @@ const TYPE = {
         line-height: 1rem;
         font-family: 'Lato';
         font-weight: 400;
-        margin: 0 0 .5rem;
+        margin: 0;
       `,
       subdued: `
         color: ${THEME.color.gray.subdued};
@@ -270,7 +270,7 @@ const TYPE = {
         line-height: 1rem;
         font-family: 'Lato';
         font-weight: 400;
-        margin: 0 0 .5rem;
+        margin: 0;
       `,
       ink: `
         color: ${THEME.color.gray.ink};
@@ -278,7 +278,7 @@ const TYPE = {
         line-height: 1rem;
         font-family: 'Lato';
         font-weight: 400;
-        margin: 0 0 .5rem;
+        margin: 0;
       `
     }
   }

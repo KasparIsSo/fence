@@ -20,7 +20,7 @@ const InfluencerCardContainer = styled(CardContainer)`
   margin-bottom: 0;
 
   @media (max-width: ${BREAKPOINTS.mobile.large}) {
-    margin: 0;
+    margin-bottom: ${toRem(20)};
   }
 `;
 
@@ -91,6 +91,7 @@ const InfluencerCampaigns = styled.div`
 const InfluencerCampaignsTitle = styled.h4`
   ${TYPE.body.primary.ink}
   font-weight: 700;
+  margin-bottom: ${toRem(10)};
 `;
 
 class InfluencerSnapshotCard extends Component {

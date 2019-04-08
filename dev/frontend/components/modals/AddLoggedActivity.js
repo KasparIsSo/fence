@@ -12,7 +12,6 @@ import ANIMATION from "../styles/Animation";
 
 import { CardContainer } from "../CardContainer";
 import { TextFieldSimple } from "../TextField";
-import { TextAreaSimple } from "../TextArea";
 import Select from "../Select";
 import Button from "../Button";
 import Error from "../ErrorMessage";
@@ -234,7 +233,7 @@ class AddLoggedActivityModal extends Component {
                   <Error error={error} />
                   <fieldset disabled={loading} aria-busy={loading}>
                     <ModalHeader>
-                      <ModalTitle>Add an Influencer</ModalTitle>
+                      <ModalTitle>Log an Activity</ModalTitle>
 
                       <ModalClose type="button" onClick={this.hideModal}>
                         <CloseIcon />

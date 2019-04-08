@@ -1,4 +1,5 @@
 // Starts up node server
+const cookieParser = require("cookie-parser");
 require("dotenv").config({ path: ".env" });
 const createServer = require("./createServer");
 const db = require("./db");
@@ -6,6 +7,7 @@ const db = require("./db");
 const server = createServer();
 
 // TODO use express middleware to handle cookies (JWT)
+server.express.use();
 // TODO use express middleware to handle current user
 
 server.start(
