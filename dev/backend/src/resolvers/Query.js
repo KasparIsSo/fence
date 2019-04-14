@@ -8,7 +8,9 @@ const Query = {
   socials: forwardTo("db"),
   sizes: forwardTo("db"),
   loggedActivities: forwardTo("db"),
+  loggedActivitiesConnection: forwardTo("db"),
   notes: forwardTo("db"),
+  notesConnection: forwardTo("db"),
   loggedInUser(parent, args, ctx, info) {
     if (!ctx.request.userId) {
       return null;

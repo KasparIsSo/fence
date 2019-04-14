@@ -55,15 +55,35 @@ const AddLoggedActivityButton = styled(Button)`
   }
 `;
 
+const SeeMore = styled.a`
+  ${TYPE.body.primary.ink};
+  font-weight: 700;
+  color: ${props => props.theme.color.green.feature};
+  /* grid-column: span 2; */
+  display: block;
+  text-align: center;
+  cursor: pointer;
+`;
+
 const LOGGED_ACTIVITIES_QUERY = gql`
-  query SINGLE_INFLUENCER_LOGGED_ACTIVITIES_QUERY($id: ID!) {
-    loggedActivities(
+  query SINGLE_INFLUENCER_LOGGED_ACTIVITIES_QUERY($id: ID!, $cursor: String) {
+    loggedActivitiesConnection(
+      first: 10
+      after: $cursor
       where: { influencer: { id: $id } }
       orderBy: updatedAt_DESC
     ) {
-      eventType
-      description
-      updatedAt
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          eventType
+          description
+          updatedAt
+        }
+      }
     }
   }
 `;
@@ -88,10 +108,11 @@ class InfluencerLoggedActivities extends Component {
           query={LOGGED_ACTIVITIES_QUERY}
           variables={{ id: influencer.id }}
         >
-          {({ data, error, loading }) => {
+          {({ data, error, loading, fetchMore }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error: {error.message}</p>;
-            if (data.loggedActivities.length == 0) {
+            const loggedActivitiesConnection = data.loggedActivitiesConnection;
+            if (loggedActivitiesConnection.edges.length == 0) {
               return (
                 <LoggedActivitiesEmpty>
                   No logged events yet.
@@ -100,12 +121,47 @@ class InfluencerLoggedActivities extends Component {
             }
             return (
               <>
-                {data.loggedActivities.map(loggedActivity => (
+                {loggedActivitiesConnection.edges.map(loggedActivity => (
                   <InfluencerLoggedActivity
-                    loggedActivity={loggedActivity}
-                    key={loggedActivity.updatedAt}
+                    loggedActivity={loggedActivity.node}
+                    key={loggedActivity.node.updatedAt}
                   />
                 ))}
+                {loggedActivitiesConnection.pageInfo.hasNextPage ? (
+                  <SeeMore
+                    onClick={() => {
+                      fetchMore({
+                        variables: {
+                          cursor: loggedActivitiesConnection.pageInfo.endCursor
+                        },
+                        updateQuery: (previousResult, { fetchMoreResult }) => {
+                          const newEdges =
+                            fetchMoreResult.loggedActivitiesConnection.edges;
+                          const pageInfo =
+                            fetchMoreResult.loggedActivitiesConnection.pageInfo;
+
+                          return newEdges.length
+                            ? {
+                                loggedActivitiesConnection: {
+                                  __typename:
+                                    previousResult.loggedActivitiesConnection
+                                      .__typename,
+                                  edges: [
+                                    ...previousResult.loggedActivitiesConnection
+                                      .edges,
+                                    ...newEdges
+                                  ],
+                                  pageInfo
+                                }
+                              }
+                            : previousResult;
+                        }
+                      });
+                    }}
+                  >
+                    See More
+                  </SeeMore>
+                ) : null}
               </>
             );
           }}
@@ -116,3 +172,4 @@ class InfluencerLoggedActivities extends Component {
 }
 
 export default InfluencerLoggedActivities;
+export { LOGGED_ACTIVITIES_QUERY };

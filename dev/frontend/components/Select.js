@@ -79,7 +79,6 @@ const Select = props => {
         className={props.className}
       >
         {options(props.options)}
-        <option>hey</option>
       </SelectContainer>
     </SelectWrapper>
   );

@@ -2,6 +2,7 @@
 
 type Mutation {
   signup(email: String!, password: String!, name: String!): User!
+  signin(email: String!, password: String!): User!
   createInfluencer(
     firstName: String!
     lastName: String
@@ -64,6 +65,18 @@ type Query {
     where: LoggedActivityWhereInput
     orderBy: LoggedActivityOrderByInput
   ): [LoggedActivity]!
+  loggedActivitiesConnection(
+    after: String
+    first: Int
+    where: LoggedActivityWhereInput
+    orderBy: LoggedActivityOrderByInput
+  ): LoggedActivityConnection!
   notes(where: NoteWhereInput, orderBy: NoteOrderByInput): [Note]!
+  notesConnection(
+    after: String
+    first: Int
+    where: NoteWhereInput
+    orderBy: NoteOrderByInput
+  ): NoteConnection!
   loggedInUser: User
 }

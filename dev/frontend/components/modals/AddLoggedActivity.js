@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 import Router from "next/router";
 
+import { LOGGED_ACTIVITIES_QUERY } from "../InfluencerLoggedActivities";
 import { toRem } from "../utils/unitConversion";
 import { BREAKPOINTS, GRID } from "../styles/Layout";
 import TYPE from "../styles/Typography";
@@ -201,7 +202,9 @@ class AddLoggedActivityModal extends Component {
   }
 
   hideModal = e => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     this.setState({ show: false });
     document.querySelector("body").classList.toggle("modalOpen");
   };
@@ -220,14 +223,19 @@ class AddLoggedActivityModal extends Component {
                   : this.state.activityOptionsPlaceholders[this.state.activity],
                 influencerId: this.state.influencerId
               }}
+              refetchQueries={[
+                {
+                  query: LOGGED_ACTIVITIES_QUERY,
+                  variables: { id: this.state.influencerId }
+                }
+              ]}
             >
               {(createLoggedActivity, { loading, error }) => (
                 <form
                   onSubmit={async e => {
                     e.preventDefault();
                     const res = await createLoggedActivity();
-                    location.reload();
-                    // this.hideModal;
+                    this.hideModal();
                   }}
                 >
                   <Error error={error} />

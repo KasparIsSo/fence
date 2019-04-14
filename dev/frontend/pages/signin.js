@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-import Signup from "../components/Signup";
+import Signin from "../components/Signin";
 
 const BackgroundWrapper = styled.div`
   position: relative;
@@ -12,21 +12,21 @@ const BackgroundWrapper = styled.div`
   background-repeat: no-repeat;
 `;
 
-const SignupPosition = styled.div`
+const SigninPosition = styled.div`
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 `;
 
-const SignupPage = props => (
+const SigninPage = props => (
   <>
     <BackgroundWrapper>
-      <SignupPosition>
-        <Signup />
-      </SignupPosition>
+      <SigninPosition>
+        <Signin />
+      </SigninPosition>
     </BackgroundWrapper>
   </>
 );
 
-export default SignupPage;
+export default SigninPage;

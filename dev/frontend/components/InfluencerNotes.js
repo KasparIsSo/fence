@@ -64,12 +64,35 @@ const AddNoteButton = styled(Button)`
   }
 `;
 
+const SeeMore = styled.a`
+  ${TYPE.body.primary.ink};
+  font-weight: 700;
+  color: ${props => props.theme.color.green.feature};
+  grid-column: span 2;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+`;
+
 const NOTES_QUERY = gql`
-  query SINGLE_INFLUENCER_NOTES_QUERY($id: ID!) {
-    notes(where: { influencer: { id: $id } }, orderBy: updatedAt_DESC) {
-      content
-      isShown
-      updatedAt
+  query SINGLE_INFLUENCER_NOTES_QUERY($id: ID!, $cursor: String) {
+    notesConnection(
+      first: 6
+      after: $cursor
+      where: { influencer: { id: $id } }
+      orderBy: updatedAt_DESC
+    ) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          content
+          isShown
+          updatedAt
+        }
+      }
     }
   }
 `;
@@ -78,6 +101,7 @@ class InfluencerNotes extends Component {
   static propTypes = {
     influencer: PropTypes.object.isRequired
   };
+
   render() {
     const { influencer } = this.props;
     return (
@@ -89,17 +113,51 @@ class InfluencerNotes extends Component {
           </AddNoteButton>
         </NotesHeaderWrapper>
         <Query query={NOTES_QUERY} variables={{ id: influencer.id }}>
-          {({ data, error, loading }) => {
+          {({ data, error, loading, fetchMore }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error: {error.message}</p>;
-            if (data.notes.length == 0) {
+            const notesConnection = data.notesConnection;
+            if (notesConnection.edges.length == 0) {
               return <NotesEmpty>No notes yet.</NotesEmpty>;
             }
             return (
               <>
-                {data.notes.map(note => (
-                  <InfluencerNote note={note} key={note.updatedAt} />
+                {notesConnection.edges.map(note => (
+                  <InfluencerNote note={note.node} key={note.node.updatedAt} />
                 ))}
+                {notesConnection.pageInfo.hasNextPage ? (
+                  <SeeMore
+                    onClick={() => {
+                      fetchMore({
+                        variables: {
+                          cursor: notesConnection.pageInfo.endCursor
+                        },
+                        updateQuery: (previousResult, { fetchMoreResult }) => {
+                          const newEdges =
+                            fetchMoreResult.notesConnection.edges;
+                          const pageInfo =
+                            fetchMoreResult.notesConnection.pageInfo;
+
+                          return newEdges.length
+                            ? {
+                                notesConnection: {
+                                  __typename:
+                                    previousResult.notesConnection.__typename,
+                                  edges: [
+                                    ...previousResult.notesConnection.edges,
+                                    ...newEdges
+                                  ],
+                                  pageInfo
+                                }
+                              }
+                            : previousResult;
+                        }
+                      });
+                    }}
+                  >
+                    See More
+                  </SeeMore>
+                ) : null}
               </>
             );
           }}
@@ -110,3 +168,4 @@ class InfluencerNotes extends Component {
 }
 
 export default InfluencerNotes;
+export { NOTES_QUERY };

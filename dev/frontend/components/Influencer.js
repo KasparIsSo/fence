@@ -22,6 +22,7 @@ import AddNoteModal from "./modals/AddNote";
 const InfluencerContainer = styled.div`
   ${GRID.container};
   grid-row-gap: ${toRem(40)};
+  padding: ${toRem(40)} 0;
 `;
 
 const InfluencerHeader = styled.div`

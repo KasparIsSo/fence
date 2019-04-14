@@ -140,11 +140,15 @@ const LinksContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(100vh - 7.5rem - 9.75rem);
+  height: calc(100vh - 6rem - 3.75rem - 5rem);
   min-height: min-content;
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     height: calc(100vh - 6.5rem - 3.75rem);
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    height: calc(100vh - 5.75rem - 2.5rem);
   }
 `;
 

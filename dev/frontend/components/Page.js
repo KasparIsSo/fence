@@ -15,13 +15,13 @@ const theme = THEME;
 const StyledPage = styled.div`
   color: ${props => props.theme.color.gray.ink};
   /* padding-top: 6.875rem; */
-  padding-top: ${toRem(100)};
+  /* padding-top: ${toRem(100)}; */
   /* background-image: url(${Background}); */
-  background-position: center;
+  /* background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url('../static/images/background-pattern.jpg');
-  min-height: 100vh;
+  min-height: 100vh; */
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -78,8 +78,8 @@ class Page extends Component {
             {/* <AdminHeader /> */}
             <User>
               {({ data: { loggedInUser } }) => {
-                console.log(loggedInUser);
-                if (loggedInUser) return <p>{loggedInUser.name}</p>;
+                // console.log(loggedInUser);
+                // if (loggedInUser) return <p>{loggedInUser.name}</p>;
                 return null;
               }}
             </User>

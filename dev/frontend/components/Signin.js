@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 import Link from "next/link";
 
+import { CURRENT_USER_QUERY } from "./User";
 import TYPE from "./styles/Typography";
 import { MARKETING_GRID, BREAKPOINTS } from "./styles/Layout";
 import { toRem } from "./utils/unitConversion";
@@ -15,15 +16,15 @@ import Button from "./Button";
 
 import Logo from "react-svg-loader!../static/icons/brand/logo.svg";
 
-const SignupWrapper = styled.div`
+const SigninWrapper = styled.div`
   ${MARKETING_GRID.wrapper}
 `;
 
-const SignupContainer = styled.div`
+const SigninContainer = styled.div`
   ${MARKETING_GRID.container}
 `;
 
-const SignupCard = styled(CardContainer)`
+const SigninCard = styled(CardContainer)`
   grid-column: 2 / 12;
   padding: 2.5rem 5rem;
 
@@ -56,7 +57,7 @@ const LogoWrapper = styled.div`
   }
 `;
 
-const SignupInputWrapper = styled.div`
+const SigninInputWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-column-gap: 1.5rem;
@@ -69,18 +70,44 @@ const SignupInputWrapper = styled.div`
   }
 `;
 
-const SignupTextField = styled(TextFieldSimple)`
-  grid-column: span 4;
+const SigninTextField = styled(TextFieldSimple)`
+  grid-column: 3 /7;
   margin: 0;
   margin-bottom: ${toRem(20)};
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    grid-column: 2 /8;
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    grid-column: span 4;
+  }
 `;
 
-const SignupButton = styled(Button)`
+const SigninButton = styled(Button)`
   display: block;
   margin: ${toRem(20)} auto 0;
 `;
 
-const SigninLink = styled.a`
+const SigninForgotPassword = styled.a`
+  ${TYPE.caption.primary};
+  grid-column: 3 /7;
+  color: ${props => props.theme.color.blue.feature};
+  cursor: pointer;
+  margin-top: ${toRem(-10)};
+  margin-bottom: ${toRem(20)};
+  text-align: right;
+
+  @media (max-width: ${BREAKPOINTS.tablet.large}) {
+    grid-column: 2 /8;
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    grid-column: span 4;
+  }
+`;
+
+const SignupLink = styled.a`
   ${TYPE.caption.primary};
   color: ${props => props.theme.color.blue.feature};
   cursor: pointer;
@@ -89,13 +116,9 @@ const SigninLink = styled.a`
   text-align: center;
 `;
 
-const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION(
-    $name: String!
-    $email: String!
-    $password: String!
-  ) {
-    signup(name: $name, email: $email, password: $password) {
+const SIGNIN_MUTATION = gql`
+  mutation SIGNin_MUTATION($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
       id
       email
       name
@@ -103,58 +126,41 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-class Signup extends Component {
+class Signin extends Component {
   state = {
-    name: "",
-    password: "",
     email: "",
-    business: ""
+    password: ""
   };
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
   render() {
     return (
-      <SignupWrapper>
-        <SignupContainer>
-          <SignupCard>
-            <Mutation mutation={SIGNUP_MUTATION} variables={this.state}>
-              {(signup, { error, loading }) => {
+      <SigninWrapper>
+        <SigninContainer>
+          <SigninCard>
+            <Mutation
+              mutation={SIGNIN_MUTATION}
+              variables={this.state}
+              refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+            >
+              {(signin, { error, loading }) => {
                 return (
                   <form
                     method="post"
                     onSubmit={async e => {
                       e.preventDefault();
-                      await signup();
-                      this.setState({ name: "", email: "", password: "" });
+                      await signin();
+                      this.setState({ email: "", password: "" });
                     }}
                   >
                     <fieldset disabled={loading} aria-busy={loading}>
                       <Error error={error} />
-                      <SignupInputWrapper>
+                      <SigninInputWrapper>
                         <LogoWrapper>
                           <Logo />
                         </LogoWrapper>
-                        <SignupTextField
-                          label="First Name"
-                          labelFor="name"
-                          textInputName="name"
-                          textInputPlaceholder="Enter their first name"
-                          inputType="secondary"
-                          required
-                          value={this.state.name}
-                          onChange={this.saveToState}
-                        />
-                        <SignupTextField
-                          label="Business Name (Optional)"
-                          labelFor="business"
-                          textInputName="business"
-                          textInputPlaceholder="Enter tyour business's name"
-                          inputType="secondary"
-                          value={this.state.business}
-                          onChange={this.saveToState}
-                        />
-                        <SignupTextField
+                        <SigninTextField
                           label="Email"
                           labelFor="email"
                           type="email"
@@ -165,7 +171,7 @@ class Signup extends Component {
                           value={this.state.email}
                           onChange={this.saveToState}
                         />
-                        <SignupTextField
+                        <SigninTextField
                           label="Password"
                           labelFor="password"
                           type="password"
@@ -176,26 +182,29 @@ class Signup extends Component {
                           value={this.state.password}
                           onChange={this.saveToState}
                         />
-                      </SignupInputWrapper>
+                        <SigninForgotPassword>
+                          Forgot your password?
+                        </SigninForgotPassword>
+                      </SigninInputWrapper>
 
-                      <SignupButton buttonType="primary" type="submit">
-                        Sign Up
-                      </SignupButton>
+                      <SigninButton buttonType="primary" type="submit">
+                        Sign In
+                      </SigninButton>
                     </fieldset>
                   </form>
                 );
               }}
             </Mutation>
-            <Link href={{ pathname: "/signin" }}>
-              <SigninLink>
-                Already have an account? <b>Sign In</b>
-              </SigninLink>
+            <Link href={{ pathname: "/signup" }}>
+              <SignupLink>
+                Don't have an account? <b>Sign Up</b>
+              </SignupLink>
             </Link>
-          </SignupCard>
-        </SignupContainer>
-      </SignupWrapper>
+          </SigninCard>
+        </SigninContainer>
+      </SigninWrapper>
     );
   }
 }
 
-export default Signup;
+export default Signin;

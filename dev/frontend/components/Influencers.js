@@ -15,6 +15,7 @@ import AddInfluencerModal from "./modals/AddInfluencer";
 const InfluencersContainer = styled.div`
   ${GRID.container};
   grid-gap: 1.5rem;
+  padding: ${toRem(40)} 0;
 
   @media (max-width: ${BREAKPOINTS.mobile.large}) {
     display: block;

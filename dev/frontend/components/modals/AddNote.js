@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 import Router from "next/router";
 
+import { NOTES_QUERY } from "../InfluencerNotes";
 import { toRem } from "../utils/unitConversion";
 import { BREAKPOINTS, GRID } from "../styles/Layout";
 import TYPE from "../styles/Typography";
@@ -162,7 +163,9 @@ class AddNoteModal extends Component {
   }
 
   hideModal = e => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     this.setState({ show: false });
     document.querySelector("body").classList.toggle("modalOpen");
   };
@@ -172,14 +175,22 @@ class AddNoteModal extends Component {
       <BackgroundOverlay className={this.state.show ? "show" : null}>
         <ModalWrapper>
           <Modal>
-            <Mutation mutation={CREATE_NOTE_MUTATION} variables={this.state}>
+            <Mutation
+              mutation={CREATE_NOTE_MUTATION}
+              variables={this.state}
+              refetchQueries={[
+                {
+                  query: NOTES_QUERY,
+                  variables: { id: this.state.influencerId }
+                }
+              ]}
+            >
               {(createNote, { loading, error }) => (
                 <form
                   onSubmit={async e => {
                     e.preventDefault();
                     const res = await createNote();
-                    location.reload();
-                    // this.hideModal;
+                    this.hideModal();
                   }}
                 >
                   <Error error={error} />

@@ -25,6 +25,26 @@ const Mutations = {
     });
     return user;
   },
+  async signin(parent, { email, password }, ctx, info) {
+    // check if there is a user with that email
+    const user = await ctx.db.query.user({ where: { email } });
+    if (!user) {
+      throw new Error("The email or password you entered was invalid");
+    }
+    // check if their pw is correct
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) {
+      throw new Error("The email or password you entered was invalid");
+    }
+    // generate jwt
+    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+    // set the cookie with the token
+    ctx.response.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 365 //1 year cookie
+    });
+    return user;
+  },
   async createInfluencer(parent, args, ctx, info) {
     const influencer = await ctx.db.mutation.createInfluencer(
       {

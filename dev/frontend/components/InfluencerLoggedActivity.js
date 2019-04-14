@@ -16,8 +16,8 @@ import Event from "react-svg-loader!../static/icons/social/ink/event.svg";
 const InfluencerActivityWrapper = styled.div`
   padding: ${toRem(10)};
   border-top: ${toRem(1)} solid ${props => props.theme.color.gray.ink};
-  display: grid;
-  grid-template-columns: 1fr ${toRem(92)};
+  display: flex;
+  justify-content: space-between;
   :last-child {
     border-bottom: ${toRem(1)} solid ${props => props.theme.color.gray.ink};
   }
@@ -51,8 +51,9 @@ const InfluencerActivityDescriptionText = styled.p`
 const InfluencerActivityDate = styled.p`
   /* display: inline-block; */
   vertical-align: middle;
-  float: right;
-  width: ${toRem(92)};
+  text-align: right;
+  flex: 0 0 ${toRem(128)};
+  width: ${toRem(128)};
   ${TYPE.body.primary.ink}
   margin-bottom: 0;
 `;
