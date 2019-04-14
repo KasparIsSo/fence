@@ -162,14 +162,6 @@ class AddNoteModal extends Component {
     this.setState({ show: props.show });
   }
 
-  hideModal = e => {
-    if (e) {
-      e.preventDefault();
-    }
-    this.setState({ show: false });
-    document.querySelector("body").classList.toggle("modalOpen");
-  };
-
   render() {
     return (
       <BackgroundOverlay className={this.state.show ? "show" : null}>
@@ -190,7 +182,7 @@ class AddNoteModal extends Component {
                   onSubmit={async e => {
                     e.preventDefault();
                     const res = await createNote();
-                    this.hideModal();
+                    this.props.hide();
                   }}
                 >
                   <Error error={error} />
@@ -198,7 +190,7 @@ class AddNoteModal extends Component {
                     <ModalHeader>
                       <ModalTitle>Add a Note</ModalTitle>
 
-                      <ModalClose type="button" onClick={this.hideModal}>
+                      <ModalClose type="button" onClick={this.props.hide}>
                         <CloseIcon />
                       </ModalClose>
                     </ModalHeader>
@@ -223,7 +215,7 @@ class AddNoteModal extends Component {
                       <Button
                         buttonType="secondary"
                         type="button"
-                        onClick={this.hideModal}
+                        onClick={this.props.hide}
                       >
                         Cancel
                       </Button>

@@ -201,14 +201,6 @@ class AddLoggedActivityModal extends Component {
     this.setState({ show: props.show });
   }
 
-  hideModal = e => {
-    if (e) {
-      e.preventDefault();
-    }
-    this.setState({ show: false });
-    document.querySelector("body").classList.toggle("modalOpen");
-  };
-
   render() {
     return (
       <BackgroundOverlay className={this.state.show ? "show" : null}>
@@ -235,7 +227,7 @@ class AddLoggedActivityModal extends Component {
                   onSubmit={async e => {
                     e.preventDefault();
                     const res = await createLoggedActivity();
-                    this.hideModal();
+                    this.props.hide();
                   }}
                 >
                   <Error error={error} />
@@ -243,7 +235,7 @@ class AddLoggedActivityModal extends Component {
                     <ModalHeader>
                       <ModalTitle>Log an Activity</ModalTitle>
 
-                      <ModalClose type="button" onClick={this.hideModal}>
+                      <ModalClose type="button" onClick={this.props.hide}>
                         <CloseIcon />
                       </ModalClose>
                     </ModalHeader>
@@ -278,7 +270,7 @@ class AddLoggedActivityModal extends Component {
                       <Button
                         buttonType="secondary"
                         type="button"
-                        onClick={this.hideModal}
+                        onClick={this.props.hide}
                       >
                         Cancel
                       </Button>

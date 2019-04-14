@@ -66,12 +66,22 @@ class Influencer extends Component {
 
   showActivityModal = () => {
     this.setState({ showAddLoggedActivityModal: true });
-    document.querySelector("body").classList.toggle("modalOpen");
+    document.querySelector("body").classList.add("modalOpen");
+  };
+
+  hideActivityModal = () => {
+    this.setState({ showAddLoggedActivityModal: false });
+    document.querySelector("body").classList.remove("modalOpen");
   };
 
   showNoteModal = () => {
     this.setState({ showAddNoteModal: true });
-    document.querySelector("body").classList.toggle("modalOpen");
+    document.querySelector("body").classList.add("modalOpen");
+  };
+
+  hideNoteModal = () => {
+    this.setState({ showAddLoggedActivityModal: false });
+    document.querySelector("body").classList.remove("modalOpen");
   };
 
   render() {
@@ -79,10 +89,12 @@ class Influencer extends Component {
       <>
         <AddLoggedActivityModal
           show={this.state.showAddLoggedActivityModal}
+          hide={this.hideActivityModal}
           influencerId={this.props.id}
         />
         <AddNoteModal
           show={this.state.showAddNoteModal}
+          hide={this.hideNoteModal}
           influencerId={this.props.id}
         />
         <ContentWrapper>

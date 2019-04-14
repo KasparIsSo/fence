@@ -54,7 +54,7 @@ export default TextArea;
 
 const TextAreaSimple = props => {
   return (
-    <TextAreaWrapper>
+    <TextAreaWrapper className={props.className}>
       <Label>
         {props.label ? props.label : "Label"}
         <TextAreaInput
