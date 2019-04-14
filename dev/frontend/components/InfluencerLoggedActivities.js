@@ -15,6 +15,10 @@ const LoggedActivitiesWrapper = styled.div`
   grid-column: 5 /13;
   height: min-content;
 
+  > div:last-of-type {
+    border-bottom: ${toRem(1)} solid ${props => props.theme.color.gray.ink};
+  }
+
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     grid-column: span 8;
   }

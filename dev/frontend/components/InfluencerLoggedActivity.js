@@ -18,9 +18,6 @@ const InfluencerActivityWrapper = styled.div`
   border-top: ${toRem(1)} solid ${props => props.theme.color.gray.ink};
   display: flex;
   justify-content: space-between;
-  :last-child {
-    border-bottom: ${toRem(1)} solid ${props => props.theme.color.gray.ink};
-  }
 `;
 
 const InfluencerActivityDescription = styled.div`
