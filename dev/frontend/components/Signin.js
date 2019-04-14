@@ -3,6 +3,7 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components";
 import Link from "next/link";
+import Router from "next/router";
 
 import { CURRENT_USER_QUERY } from "./User";
 import TYPE from "./styles/Typography";
@@ -142,7 +143,7 @@ class Signin extends Component {
             <Mutation
               mutation={SIGNIN_MUTATION}
               variables={this.state}
-              refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+              // refetchQueries={[{ query: CURRENT_USER_QUERY }]}
             >
               {(signin, { error, loading }) => {
                 return (
@@ -151,7 +152,11 @@ class Signin extends Component {
                     onSubmit={async e => {
                       e.preventDefault();
                       await signin();
-                      this.setState({ email: "", password: "" });
+
+                      Router.push({
+                        pathname: "/influencers"
+                      });
+                      // this.setState({ email: "", password: "" });
                     }}
                   >
                     <fieldset disabled={loading} aria-busy={loading}>

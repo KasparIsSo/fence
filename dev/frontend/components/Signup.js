@@ -3,6 +3,7 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components";
 import Link from "next/link";
+import Router from "next/router";
 
 import TYPE from "./styles/Typography";
 import { MARKETING_GRID, BREAKPOINTS } from "./styles/Layout";
@@ -126,7 +127,11 @@ class Signup extends Component {
                     onSubmit={async e => {
                       e.preventDefault();
                       await signup();
-                      this.setState({ name: "", email: "", password: "" });
+                      // this.setState({ name: "", email: "", password: "" });
+
+                      Router.push({
+                        pathname: "/influencers"
+                      });
                     }}
                   >
                     <fieldset disabled={loading} aria-busy={loading}>
@@ -136,7 +141,7 @@ class Signup extends Component {
                           <Logo />
                         </LogoWrapper>
                         <SignupTextField
-                          label="First Name"
+                          label="Name"
                           labelFor="name"
                           textInputName="name"
                           textInputPlaceholder="Enter their first name"
@@ -149,7 +154,7 @@ class Signup extends Component {
                           label="Business Name (Optional)"
                           labelFor="business"
                           textInputName="business"
-                          textInputPlaceholder="Enter tyour business's name"
+                          textInputPlaceholder="Enter your business's name"
                           inputType="secondary"
                           value={this.state.business}
                           onChange={this.saveToState}

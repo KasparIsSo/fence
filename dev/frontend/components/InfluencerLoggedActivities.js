@@ -64,6 +64,7 @@ const SeeMore = styled.a`
   font-weight: 700;
   color: ${props => props.theme.color.green.feature};
   /* grid-column: span 2; */
+  margin-top: ${toRem(10)};
   display: block;
   text-align: center;
   cursor: pointer;

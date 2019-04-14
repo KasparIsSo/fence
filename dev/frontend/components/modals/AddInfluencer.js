@@ -188,7 +188,7 @@ class AddInfluencerModal extends Component {
     );
 
     const file = await res.json();
-    console.log(file);
+    // console.log(file);
     this.setState({
       thumbnail: file.secure_url,
       image: file.eager[0].secure_url
@@ -223,7 +223,7 @@ class AddInfluencerModal extends Component {
                       pathname: "/influencer",
                       query: { id: res.data.createInfluencer.id }
                     });
-                    this.hideModal;
+                    // this.hideModal;
                   }}
                 >
                   <fieldset disabled={loading} aria-busy={loading}>
