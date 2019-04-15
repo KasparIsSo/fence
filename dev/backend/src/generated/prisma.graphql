@@ -388,6 +388,7 @@ type Influencer {
   pastCampaigns: [String!]!
   createdAt: DateTime!
   updatedAt: DateTime!
+  user: User!
 }
 
 type InfluencerConnection {
@@ -409,6 +410,7 @@ input InfluencerCreateInput {
   image: String
   activeCampaigns: InfluencerCreateactiveCampaignsInput
   pastCampaigns: InfluencerCreatepastCampaignsInput
+  user: UserCreateOneInput!
 }
 
 input InfluencerCreateOneInput {
@@ -491,6 +493,7 @@ input InfluencerUpdateDataInput {
   image: String
   activeCampaigns: InfluencerUpdateactiveCampaignsInput
   pastCampaigns: InfluencerUpdatepastCampaignsInput
+  user: UserUpdateOneRequiredInput
 }
 
 input InfluencerUpdateInput {
@@ -502,6 +505,7 @@ input InfluencerUpdateInput {
   image: String
   activeCampaigns: InfluencerUpdateactiveCampaignsInput
   pastCampaigns: InfluencerUpdatepastCampaignsInput
+  user: UserUpdateOneRequiredInput
 }
 
 input InfluencerUpdateOneRequiredInput {
@@ -635,6 +639,7 @@ input InfluencerWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  user: UserWhereInput
   AND: [InfluencerWhereInput!]
   OR: [InfluencerWhereInput!]
   NOT: [InfluencerWhereInput!]
@@ -1402,6 +1407,7 @@ type User {
   id: ID!
   name: String!
   email: String!
+  businessName: String
   password: String!
   resetToken: String
   resetTokenExpiry: Float
@@ -1419,10 +1425,16 @@ type UserConnection {
 input UserCreateInput {
   name: String!
   email: String!
+  businessName: String
   password: String!
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreatepermissionsInput {
@@ -1441,6 +1453,8 @@ enum UserOrderByInput {
   name_DESC
   email_ASC
   email_DESC
+  businessName_ASC
+  businessName_DESC
   password_ASC
   password_DESC
   resetToken_ASC
@@ -1457,6 +1471,7 @@ type UserPreviousValues {
   id: ID!
   name: String!
   email: String!
+  businessName: String
   password: String!
   resetToken: String
   resetTokenExpiry: Float
@@ -1483,17 +1498,40 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
-input UserUpdateInput {
+input UserUpdateDataInput {
   name: String
   email: String
+  businessName: String
   password: String
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
 }
 
+input UserUpdateInput {
+  name: String
+  email: String
+  businessName: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission!]
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {
@@ -1539,6 +1577,20 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  businessName: String
+  businessName_not: String
+  businessName_in: [String!]
+  businessName_not_in: [String!]
+  businessName_lt: String
+  businessName_lte: String
+  businessName_gt: String
+  businessName_gte: String
+  businessName_contains: String
+  businessName_not_contains: String
+  businessName_starts_with: String
+  businessName_not_starts_with: String
+  businessName_ends_with: String
+  businessName_not_ends_with: String
   password: String
   password_not: String
   password_in: [String!]

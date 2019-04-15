@@ -3,6 +3,7 @@ const { forwardTo } = require("prisma-binding");
 const Query = {
   items: forwardTo("db"),
   influencers: forwardTo("db"),
+  influencersConnection: forwardTo("db"),
   influencer: forwardTo("db"),
   addresses: forwardTo("db"),
   socials: forwardTo("db"),

@@ -1,7 +1,12 @@
 # import * from './generated/prisma.graphql'
 
 type Mutation {
-  signup(email: String!, password: String!, name: String!): User!
+  signup(
+    email: String!
+    password: String!
+    name: String!
+    businessName: String
+  ): User!
   signin(email: String!, password: String!): User!
   createInfluencer(
     firstName: String!
@@ -12,6 +17,7 @@ type Mutation {
     image: String
     activeCampaigns: [String]
     pastCampaigns: [String]
+    userId: String!
   ): Influencer!
   updateInfluencer(
     id: ID!
@@ -23,6 +29,7 @@ type Mutation {
     image: String
     activeCampaigns: [String]
     pastCampaigns: [String]
+    userId: String!
   ): Influencer!
   createAddress(
     unit: String
@@ -57,6 +64,12 @@ type Mutation {
 type Query {
   items: [Item]!
   influencers: [Influencer]!
+  influencersConnection(
+    after: String
+    first: Int
+    where: InfluencerWhereInput
+    orderBy: InfluencerOrderByInput
+  ): InfluencerConnection!
   influencer(where: InfluencerWhereUniqueInput!): Influencer
   addresses(where: AddressWhereInput): [Address]!
   socials(where: SocialWhereInput): [Social]!

@@ -2,6 +2,7 @@ type User {
   id: ID! @unique
   name: String!
   email: String! @unique
+  businessName: String
   password: String!
   resetToken: String
   resetTokenExpiry: Float
@@ -31,7 +32,7 @@ type Influencer {
   pastCampaigns: [String]
   createdAt: DateTime!
   updatedAt: DateTime!
-  # user: User!
+  user: User!
 }
 
 type Campaign {

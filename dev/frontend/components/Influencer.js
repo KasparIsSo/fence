@@ -10,7 +10,6 @@ import { GRID, BREAKPOINTS } from "./styles/Layout";
 import TYPE from "./styles/Typography";
 
 import Error from "./ErrorMessage";
-
 import ContentWrapper from "./ContentWrapper";
 import Button from "./Button";
 import InfluencerCard from "./InfluencerCard";

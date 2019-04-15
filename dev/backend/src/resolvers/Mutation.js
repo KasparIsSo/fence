@@ -46,10 +46,17 @@ const Mutations = {
     return user;
   },
   async createInfluencer(parent, args, ctx, info) {
+    const influencerArgs = { ...args };
+    delete influencerArgs.userId;
     const influencer = await ctx.db.mutation.createInfluencer(
       {
         data: {
-          ...args
+          user: {
+            connect: {
+              id: args.userId
+            }
+          },
+          ...influencerArgs
         }
       },
       info

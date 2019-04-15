@@ -93,10 +93,16 @@ const SigninLink = styled.a`
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
     $name: String!
+    $businessName: String
     $email: String!
     $password: String!
   ) {
-    signup(name: $name, email: $email, password: $password) {
+    signup(
+      name: $name
+      businessName: $businessName
+      email: $email
+      password: $password
+    ) {
       id
       email
       name
@@ -109,7 +115,7 @@ class Signup extends Component {
     name: "",
     password: "",
     email: "",
-    business: ""
+    businessName: ""
   };
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -144,7 +150,7 @@ class Signup extends Component {
                           label="Name"
                           labelFor="name"
                           textInputName="name"
-                          textInputPlaceholder="Enter their first name"
+                          textInputPlaceholder="Enter your name"
                           inputType="secondary"
                           required
                           value={this.state.name}
@@ -152,11 +158,11 @@ class Signup extends Component {
                         />
                         <SignupTextField
                           label="Business Name (Optional)"
-                          labelFor="business"
-                          textInputName="business"
+                          labelFor="businessName"
+                          textInputName="businessName"
                           textInputPlaceholder="Enter your business's name"
                           inputType="secondary"
-                          value={this.state.business}
+                          value={this.state.businessName}
                           onChange={this.saveToState}
                         />
                         <SignupTextField

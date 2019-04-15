@@ -16,6 +16,7 @@ import { TextAreaSimple } from "../TextArea";
 import UploadField from "../UploadField";
 import Button from "../Button";
 import Error from "../ErrorMessage";
+import { ALL_INFLUENCERS_QUERY } from "../Influencers";
 
 import CloseIcon from "react-svg-loader!../../static/icons/input/cancel/default.svg";
 
@@ -141,6 +142,7 @@ const CREATE_INFLUENCER_MUTATION = gql`
     $image: String
     $activeCampaigns: [String]
     $pastCampaigns: [String]
+    $userId: String!
   ) {
     createInfluencer(
       firstName: $firstName
@@ -151,6 +153,7 @@ const CREATE_INFLUENCER_MUTATION = gql`
       image: $image
       activeCampaigns: $activeCampaigns
       pastCampaigns: $pastCampaigns
+      userId: $userId
     ) {
       id
     }
@@ -164,7 +167,8 @@ class AddInfluencerModal extends Component {
     lastName: "",
     description: "",
     thumbnail: "",
-    image: ""
+    image: "",
+    influencerId: ""
   };
 
   handleChange = e => {
@@ -212,7 +216,15 @@ class AddInfluencerModal extends Component {
           <Modal>
             <Mutation
               mutation={CREATE_INFLUENCER_MUTATION}
-              variables={this.state}
+              variables={{ ...{ userId: this.props.userId }, ...this.state }}
+              refetchQueries={[
+                {
+                  query: ALL_INFLUENCERS_QUERY,
+                  variables: {
+                    id: this.props.userId
+                  }
+                }
+              ]}
             >
               {(createInfluencer, { loading, error }) => (
                 <form
@@ -223,7 +235,6 @@ class AddInfluencerModal extends Component {
                       pathname: "/influencer",
                       query: { id: res.data.createInfluencer.id }
                     });
-                    // this.hideModal;
                   }}
                 >
                   <fieldset disabled={loading} aria-busy={loading}>

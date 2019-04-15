@@ -75,15 +75,6 @@ class Page extends Component {
           <GlobalStyle />
           <StyledPage>
             <Meta />
-            {/* <AdminHeader /> */}
-            <User>
-              {({ data: { loggedInUser } }) => {
-                // console.log(loggedInUser);
-                // if (loggedInUser) return <p>{loggedInUser.name}</p>;
-                return null;
-              }}
-            </User>
-            {/* {this.state.loggedIn ? <AdminHeader /> : <Header />} */}
             {this.props.children}
           </StyledPage>
         </React.Fragment>
