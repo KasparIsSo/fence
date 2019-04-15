@@ -204,7 +204,9 @@ class AddInfluencerModal extends Component {
   }
 
   hideModal = e => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     this.setState({ show: false });
     document.querySelector("body").classList.toggle("modalOpen");
   };
@@ -231,6 +233,7 @@ class AddInfluencerModal extends Component {
                   onSubmit={async e => {
                     e.preventDefault();
                     const res = await createInfluencer();
+                    this.hideModal();
                     Router.push({
                       pathname: "/influencer",
                       query: { id: res.data.createInfluencer.id }

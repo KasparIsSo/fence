@@ -197,7 +197,7 @@ class AdminHeader extends React.Component {
     return (
       <AdminHeaderWrapper>
         <LogoWrapper>
-          <Link href="./">
+          <Link href="./signup">
             <Logo />
           </Link>
         </LogoWrapper>
@@ -224,7 +224,7 @@ class AdminHeader extends React.Component {
           </NavLinksContainer>
           <SettingsContainer>
             <SettingsLineBreak />
-            <NavLink id="navSettingss">
+            <NavLink id="navSettings">
               <NavIconWrapper>
                 <Settings />
               </NavIconWrapper>

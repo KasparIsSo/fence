@@ -8,7 +8,9 @@ const UploadFieldInputWrapper = styled.div`
   margin: 1rem;
 `;
 
-const UploadFieldInput = styled.input``;
+const UploadFieldInput = styled.input`
+  margin-bottom: ${toRem(10)};
+`;
 
 const Label = styled.label`
   ${TYPE.body.primary.ink}

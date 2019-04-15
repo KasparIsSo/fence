@@ -182,6 +182,7 @@ class AddNoteModal extends Component {
                   onSubmit={async e => {
                     e.preventDefault();
                     const res = await createNote();
+                    this.setState({ content: "" });
                     this.props.hide();
                   }}
                 >

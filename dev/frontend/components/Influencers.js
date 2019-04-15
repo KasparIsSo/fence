@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components";
+import Router from "next/router";
 
 import { toRem } from "./utils/unitConversion";
 import { GRID, BREAKPOINTS } from "./styles/Layout";
@@ -125,7 +126,8 @@ const ALL_INFLUENCERS_QUERY = gql`
 
 class Influencers extends Component {
   state = {
-    showAddInfluencerModal: false
+    showAddInfluencerModal: false,
+    loggedIn: false
   };
 
   showModal = () => {
@@ -133,14 +135,23 @@ class Influencers extends Component {
     document.querySelector("body").classList.toggle("modalOpen");
   };
 
+  componentDidMount() {
+    if (!this.state.loggedIn) {
+      Router.push({
+        pathname: "/"
+      });
+    }
+  }
+
   render() {
     return (
       <User>
         {({ data: { loggedInUser } }) => (
           <>
+            {loggedInUser ? this.setState({ loggedIn: true }) : null}
             <AddInfluencerModal
               show={this.state.showAddInfluencerModal}
-              userId={loggedInUser.id}
+              userId={loggedInUser ? loggedInUser.id : null}
             />
             <ContentWrapper>
               <InfluencersContainer>
@@ -153,73 +164,77 @@ class Influencers extends Component {
                     + Add a New Influencer
                   </AddInfluencerButton>
                 </InfluencersHeader>
-                <Query
-                  query={ALL_INFLUENCERS_QUERY}
-                  variables={{ id: loggedInUser.id }}
-                >
-                  {({ data, error, loading, fetchMore }) => {
-                    if (loading) return <p>Loading...</p>;
-                    if (error) return <p>Error: {error.message}</p>;
-                    const influencersConnection = data.influencersConnection;
-                    if (influencersConnection.edges.length == 0) {
+                {loggedInUser && (
+                  <Query
+                    query={ALL_INFLUENCERS_QUERY}
+                    variables={{ id: loggedInUser.id }}
+                  >
+                    {({ data, error, loading, fetchMore }) => {
+                      if (loading) return <p>Loading...</p>;
+                      if (error) return <p>Error: {error.message}</p>;
+                      const influencersConnection = data.influencersConnection;
+                      if (influencersConnection.edges.length == 0) {
+                        return (
+                          <InfluencersEmpty>
+                            No influencers added yet.
+                          </InfluencersEmpty>
+                        );
+                      }
                       return (
-                        <InfluencersEmpty>
-                          No influencers added yet.
-                        </InfluencersEmpty>
-                      );
-                    }
-                    return (
-                      <>
-                        {influencersConnection.edges.map(influencer => (
-                          <InfluencerSnapshotCard
-                            influencer={influencer.node}
-                            key={influencer.node.id}
-                          />
-                        ))}
-                        {influencersConnection.pageInfo.hasNextPage ? (
-                          <SeeMore
-                            onClick={() => {
-                              fetchMore({
-                                variables: {
-                                  cursor:
-                                    influencersConnection.pageInfo.endCursor
-                                },
-                                updateQuery: (
-                                  previousResult,
-                                  { fetchMoreResult }
-                                ) => {
-                                  const newEdges =
-                                    fetchMoreResult.influencersConnection.edges;
-                                  const pageInfo =
-                                    fetchMoreResult.influencersConnection
-                                      .pageInfo;
+                        <>
+                          {influencersConnection.edges.map(influencer => (
+                            <InfluencerSnapshotCard
+                              influencer={influencer.node}
+                              key={influencer.node.id}
+                            />
+                          ))}
+                          {influencersConnection.pageInfo.hasNextPage ? (
+                            <SeeMore
+                              onClick={() => {
+                                fetchMore({
+                                  variables: {
+                                    cursor:
+                                      influencersConnection.pageInfo.endCursor
+                                  },
+                                  updateQuery: (
+                                    previousResult,
+                                    { fetchMoreResult }
+                                  ) => {
+                                    const newEdges =
+                                      fetchMoreResult.influencersConnection
+                                        .edges;
+                                    const pageInfo =
+                                      fetchMoreResult.influencersConnection
+                                        .pageInfo;
 
-                                  return newEdges.length
-                                    ? {
-                                        influencersConnection: {
-                                          __typename:
-                                            previousResult.influencersConnection
-                                              .__typename,
-                                          edges: [
-                                            ...previousResult
-                                              .influencersConnection.edges,
-                                            ...newEdges
-                                          ],
-                                          pageInfo
+                                    return newEdges.length
+                                      ? {
+                                          influencersConnection: {
+                                            __typename:
+                                              previousResult
+                                                .influencersConnection
+                                                .__typename,
+                                            edges: [
+                                              ...previousResult
+                                                .influencersConnection.edges,
+                                              ...newEdges
+                                            ],
+                                            pageInfo
+                                          }
                                         }
-                                      }
-                                    : previousResult;
-                                }
-                              });
-                            }}
-                          >
-                            See More
-                          </SeeMore>
-                        ) : null}
-                      </>
-                    );
-                  }}
-                </Query>
+                                      : previousResult;
+                                  }
+                                });
+                              }}
+                            >
+                              See More
+                            </SeeMore>
+                          ) : null}
+                        </>
+                      );
+                    }}
+                  </Query>
+                )}
               </InfluencersContainer>
             </ContentWrapper>
           </>

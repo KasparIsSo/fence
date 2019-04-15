@@ -17,6 +17,7 @@ import InfluencerLoggedActivities from "./InfluencerLoggedActivities";
 import InfluencerNotes from "./InfluencerNotes";
 import AddLoggedActivityModal from "./modals/AddLoggedActivity";
 import AddNoteModal from "./modals/AddNote";
+import User from "./User";
 
 const InfluencerContainer = styled.div`
   ${GRID.container};
@@ -60,7 +61,8 @@ const SINGLE_INFLUENCER_QUERY = gql`
 class Influencer extends Component {
   state = {
     showAddLoggedActivityModal: false,
-    showAddNoteModal: false
+    showAddNoteModal: false,
+    loggedIn: false
   };
 
   showActivityModal = () => {
@@ -79,68 +81,79 @@ class Influencer extends Component {
   };
 
   hideNoteModal = () => {
-    this.setState({ showAddLoggedActivityModal: false });
+    this.setState({ showAddNoteModal: false });
     document.querySelector("body").classList.remove("modalOpen");
   };
-
+  componentDidMount() {
+    if (!this.state.loggedIn) {
+      Router.push({
+        pathname: "/"
+      });
+    }
+  }
   render() {
     return (
-      <>
-        <AddLoggedActivityModal
-          show={this.state.showAddLoggedActivityModal}
-          hide={this.hideActivityModal}
-          influencerId={this.props.id}
-        />
-        <AddNoteModal
-          show={this.state.showAddNoteModal}
-          hide={this.hideNoteModal}
-          influencerId={this.props.id}
-        />
-        <ContentWrapper>
-          <InfluencerContainer>
-            <InfluencerHeader>
-              <Button
-                className="backButton"
-                buttonType="outline"
-                onClick={() => Router.back()}
-              >
-                ← Back to Influencers
-              </Button>
-            </InfluencerHeader>
-            <Query
-              query={SINGLE_INFLUENCER_QUERY}
-              variables={{ id: this.props.id }}
-            >
-              {({ data, error, loading }) => {
-                if (loading) return <p>Loading...</p>;
-                if (error) return <Error error={error} />;
-                if (!data.influencer)
-                  return <p>No influencer found for {this.props.id}</p>;
-                const influencer = data.influencer;
-                return (
-                  <>
-                    <Head>
-                      <title>fence | {influencer.firstName}</title>
-                    </Head>
-                    <InfluencerCard
-                      influencer={influencer}
-                      key={influencer.id}
-                    />
-                    <InfluencerLoggedActivities
-                      influencer={influencer}
-                      showModal={this.showActivityModal}
-                    />
-                    <InfluencerNotes
-                      influencer={influencer}
-                      showModal={this.showNoteModal}
-                    />
-                  </>
-                );
-              }}
-            </Query>
-          </InfluencerContainer>
-        </ContentWrapper>
-      </>
+      <User>
+        {({ data: { loggedInUser } }) => (
+          <>
+            {loggedInUser ? this.setState({ loggedIn: true }) : null}
+            <AddLoggedActivityModal
+              show={this.state.showAddLoggedActivityModal}
+              hide={this.hideActivityModal}
+              influencerId={this.props.id}
+            />
+            <AddNoteModal
+              show={this.state.showAddNoteModal}
+              hide={this.hideNoteModal}
+              influencerId={this.props.id}
+            />
+            <ContentWrapper>
+              <InfluencerContainer>
+                <InfluencerHeader>
+                  <Button
+                    className="backButton"
+                    buttonType="outline"
+                    onClick={() => Router.back()}
+                  >
+                    ← Back to Influencers
+                  </Button>
+                </InfluencerHeader>
+                <Query
+                  query={SINGLE_INFLUENCER_QUERY}
+                  variables={{ id: this.props.id }}
+                >
+                  {({ data, error, loading }) => {
+                    if (loading) return <p>Loading...</p>;
+                    if (error) return <Error error={error} />;
+                    if (!data.influencer)
+                      return <p>No influencer found for {this.props.id}</p>;
+                    const influencer = data.influencer;
+                    return (
+                      <>
+                        <Head>
+                          <title>fence | {influencer.firstName}</title>
+                        </Head>
+                        <InfluencerCard
+                          influencer={influencer}
+                          key={influencer.id}
+                        />
+                        <InfluencerLoggedActivities
+                          influencer={influencer}
+                          showModal={this.showActivityModal}
+                        />
+                        <InfluencerNotes
+                          influencer={influencer}
+                          showModal={this.showNoteModal}
+                        />
+                      </>
+                    );
+                  }}
+                </Query>
+              </InfluencerContainer>
+            </ContentWrapper>
+          </>
+        )}
+      </User>
     );
   }
 }

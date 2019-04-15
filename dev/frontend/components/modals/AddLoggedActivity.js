@@ -227,6 +227,7 @@ class AddLoggedActivityModal extends Component {
                   onSubmit={async e => {
                     e.preventDefault();
                     const res = await createLoggedActivity();
+                    this.setState({ description: "" });
                     this.props.hide();
                   }}
                 >
