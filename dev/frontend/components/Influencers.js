@@ -137,9 +137,11 @@ class Influencers extends Component {
 
   componentDidMount() {
     if (!this.state.loggedIn) {
-      Router.push({
-        pathname: "/"
-      });
+      console.log("false");
+      console.log(this.state);
+      // Router.push({
+      //   pathname: "/"
+      // });
     }
   }
 
@@ -148,7 +150,6 @@ class Influencers extends Component {
       <User>
         {({ data: { loggedInUser } }) => (
           <>
-            {loggedInUser ? this.setState({ loggedIn: true }) : null}
             <AddInfluencerModal
               show={this.state.showAddInfluencerModal}
               userId={loggedInUser ? loggedInUser.id : null}

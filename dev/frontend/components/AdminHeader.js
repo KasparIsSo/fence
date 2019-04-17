@@ -2,6 +2,8 @@ import Link from "next/link";
 import styled from "styled-components";
 import { PropTypes } from "react";
 import Router from "next/router";
+import gql from "graphql-tag";
+import { Mutation } from "react-apollo";
 
 import MarketingNav from "./MarketingNav";
 
@@ -17,6 +19,8 @@ import Contacts from "react-svg-loader!../static/icons/nav/contacts.svg";
 import LogOut from "react-svg-loader!../static/icons/nav/logOut.svg";
 import Profile from "react-svg-loader!../static/icons/nav/profile.svg";
 import Settings from "react-svg-loader!../static/icons/nav/settings.svg";
+
+import { CURRENT_USER_QUERY } from "./User";
 
 const AdminHeaderWrapper = styled.header`
   position: fixed;
@@ -177,6 +181,14 @@ const SettingsContainer = styled.div`
   }
 `;
 
+const SIGN_OUT_MUTATION = gql`
+  mutation SIGN_OUT_MUTATION {
+    signout {
+      message
+    }
+  }
+`;
+
 class AdminHeader extends React.Component {
   constructor(props) {
     super(props);
@@ -230,12 +242,27 @@ class AdminHeader extends React.Component {
               </NavIconWrapper>
               <NavLinkText>Settings</NavLinkText>
             </NavLink>
-            <NavLink>
-              <NavIconWrapper>
-                <LogOut />
-              </NavIconWrapper>
-              <NavLinkText>Log Out</NavLinkText>
-            </NavLink>
+            <Mutation
+              mutation={SIGN_OUT_MUTATION}
+              refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+            >
+              {signout => (
+                <NavLink
+                  onClick={async e => {
+                    e.preventDefault();
+                    signout();
+                    Router.push({
+                      pathname: "/"
+                    });
+                  }}
+                >
+                  <NavIconWrapper>
+                    <LogOut />
+                  </NavIconWrapper>
+                  <NavLinkText>Log Out</NavLinkText>
+                </NavLink>
+              )}
+            </Mutation>
           </SettingsContainer>
         </LinksContainer>
       </AdminHeaderWrapper>

@@ -28,6 +28,7 @@ const SignupContainer = styled.div`
 const SignupCard = styled(CardContainer)`
   grid-column: 2 / 12;
   padding: 2.5rem 5rem;
+  text-align: center;
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     grid-column: 2 /8;
@@ -91,6 +92,20 @@ const SigninLink = styled.a`
   text-align: center;
 `;
 
+const LoggedInMessage = styled.h4`
+  ${TYPE.heading.primary.ink};
+  text-align: center;
+  margin: ${toRem(40)} 0;
+`;
+
+const LoggedInRedirect = styled.a`
+  ${TYPE.body.primary.ink};
+  display: inline-block;
+  color: ${props => props.theme.color.blue.feature};
+  margin-bottom: ${toRem(40)};
+  cursor: pointer;
+`;
+
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
     $name: String!
@@ -134,86 +149,104 @@ class Signup extends Component {
       <User>
         {({ data: { loggedInUser } }) => (
           <>
-            {loggedInUser ? this.setState({ loggedIn: true }) : null}
             <SignupWrapper>
               <SignupContainer>
                 <SignupCard>
-                  <Mutation mutation={SIGNUP_MUTATION} variables={this.state}>
-                    {(signup, { error, loading }) => {
-                      return (
-                        <form
-                          method="post"
-                          onSubmit={async e => {
-                            e.preventDefault();
-                            await signup();
-                            // this.setState({ name: "", email: "", password: "" });
-                            Router.push({
-                              pathname: "/influencers"
-                            });
-                          }}
-                        >
-                          <fieldset disabled={loading} aria-busy={loading}>
-                            <Error error={error} />
-                            <SignupInputWrapper>
-                              <LogoWrapper>
-                                <Logo />
-                              </LogoWrapper>
-                              <SignupTextField
-                                label="Name"
-                                labelFor="name"
-                                textInputName="name"
-                                textInputPlaceholder="Enter your name"
-                                inputType="secondary"
-                                required
-                                value={this.state.name}
-                                onChange={this.saveToState}
-                              />
-                              <SignupTextField
-                                label="Business Name (Optional)"
-                                labelFor="businessName"
-                                textInputName="businessName"
-                                textInputPlaceholder="Enter your business's name"
-                                inputType="secondary"
-                                value={this.state.businessName}
-                                onChange={this.saveToState}
-                              />
-                              <SignupTextField
-                                label="Email"
-                                labelFor="email"
-                                type="email"
-                                textInputName="email"
-                                textInputPlaceholder="Enter your email"
-                                inputType="secondary"
-                                required
-                                value={this.state.email}
-                                onChange={this.saveToState}
-                              />
-                              <SignupTextField
-                                label="Password"
-                                labelFor="password"
-                                type="password"
-                                textInputName="password"
-                                textInputPlaceholder="Enter your password"
-                                inputType="secondary"
-                                required
-                                value={this.state.password}
-                                onChange={this.saveToState}
-                              />
-                            </SignupInputWrapper>
+                  {loggedInUser ? (
+                    <>
+                      <LoggedInMessage>
+                        You're already logged in!
+                      </LoggedInMessage>
+                      <Link href={{ pathname: "/influencers" }}>
+                        <LoggedInRedirect>Go to Dashboard</LoggedInRedirect>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Mutation
+                        mutation={SIGNUP_MUTATION}
+                        variables={this.state}
+                      >
+                        {(signup, { error, loading }) => {
+                          return (
+                            <form
+                              method="post"
+                              onSubmit={async e => {
+                                e.preventDefault();
+                                await signup();
+                                // this.setState({ name: "", email: "", password: "" });
+                                Router.push({
+                                  pathname: "/influencers"
+                                });
+                              }}
+                            >
+                              <fieldset disabled={loading} aria-busy={loading}>
+                                <Error error={error} />
+                                <SignupInputWrapper>
+                                  <LogoWrapper>
+                                    <Logo />
+                                  </LogoWrapper>
+                                  <SignupTextField
+                                    label="Name"
+                                    labelFor="name"
+                                    textInputName="name"
+                                    textInputPlaceholder="Enter your name"
+                                    inputType="secondary"
+                                    required
+                                    value={this.state.name}
+                                    onChange={this.saveToState}
+                                  />
+                                  <SignupTextField
+                                    label="Business Name (Optional)"
+                                    labelFor="businessName"
+                                    textInputName="businessName"
+                                    textInputPlaceholder="Enter your business's name"
+                                    inputType="secondary"
+                                    value={this.state.businessName}
+                                    onChange={this.saveToState}
+                                  />
+                                  <SignupTextField
+                                    label="Email"
+                                    labelFor="email"
+                                    type="email"
+                                    textInputName="email"
+                                    textInputPlaceholder="Enter your email"
+                                    inputType="secondary"
+                                    required
+                                    value={this.state.email}
+                                    onChange={this.saveToState}
+                                  />
+                                  <SignupTextField
+                                    label="Password"
+                                    labelFor="password"
+                                    type="password"
+                                    textInputName="password"
+                                    textInputPlaceholder="Enter your password"
+                                    inputType="secondary"
+                                    required
+                                    value={this.state.password}
+                                    onChange={this.saveToState}
+                                  />
+                                </SignupInputWrapper>
 
-                            <SignupButton buttonType="primary" type="submit">
-                              Sign Up
-                            </SignupButton>
-                          </fieldset>
-                        </form>
-                      );
-                    }}
-                  </Mutation>
-                  <Link href={{ pathname: "/signin" }}>
-                    <SigninLink>
-                      Already have an account? <b>Sign In</b>
-                    </SigninLink>
-                  </Link>
+                                <SignupButton
+                                  buttonType="primary"
+                                  type="submit"
+                                >
+                                  Sign Up
+                                </SignupButton>
+                              </fieldset>
+                            </form>
+                          );
+                        }}
+                      </Mutation>
+                      <Link href={{ pathname: "/signin" }}>
+                        <SigninLink>
+                          Already have an account? <b>Sign In</b>
+                        </SigninLink>
+                      </Link>
+                    </>
+                  )}
                 </SignupCard>
               </SignupContainer>
             </SignupWrapper>

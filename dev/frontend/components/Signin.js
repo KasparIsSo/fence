@@ -14,6 +14,7 @@ import Error from "./ErrorMessage";
 import { CardContainer } from "./CardContainer";
 import { TextFieldSimple } from "./TextField";
 import Button from "./Button";
+import User from "./User";
 
 import Logo from "react-svg-loader!../static/icons/brand/logo.svg";
 
@@ -28,6 +29,7 @@ const SigninContainer = styled.div`
 const SigninCard = styled(CardContainer)`
   grid-column: 2 / 12;
   padding: 2.5rem 5rem;
+  text-align: center;
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     grid-column: 2 /8;
@@ -117,6 +119,20 @@ const SignupLink = styled.a`
   text-align: center;
 `;
 
+const LoggedInMessage = styled.h4`
+  ${TYPE.heading.primary.ink};
+  text-align: center;
+  margin: ${toRem(40)} 0;
+`;
+
+const LoggedInRedirect = styled.a`
+  ${TYPE.body.primary.ink};
+  display: inline-block;
+  color: ${props => props.theme.color.blue.feature};
+  margin-bottom: ${toRem(40)};
+  cursor: pointer;
+`;
+
 const SIGNIN_MUTATION = gql`
   mutation SIGNin_MUTATION($email: String!, $password: String!) {
     signin(email: $email, password: $password) {
@@ -137,77 +153,99 @@ class Signin extends Component {
   };
   render() {
     return (
-      <SigninWrapper>
-        <SigninContainer>
-          <SigninCard>
-            <Mutation
-              mutation={SIGNIN_MUTATION}
-              variables={this.state}
-              // refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-            >
-              {(signin, { error, loading }) => {
-                return (
-                  <form
-                    method="post"
-                    onSubmit={async e => {
-                      e.preventDefault();
-                      await signin();
+      <User>
+        {({ data: { loggedInUser } }) => (
+          <>
+            <SigninWrapper>
+              <SigninContainer>
+                <SigninCard>
+                  {loggedInUser ? (
+                    <>
+                      <LoggedInMessage>
+                        You're already logged in!
+                      </LoggedInMessage>
+                      <Link href={{ pathname: "/influencers" }}>
+                        <LoggedInRedirect>Go to Dashboard</LoggedInRedirect>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Mutation
+                        mutation={SIGNIN_MUTATION}
+                        variables={this.state}
+                        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+                      >
+                        {(signin, { error, loading }) => {
+                          return (
+                            <form
+                              method="post"
+                              onSubmit={async e => {
+                                e.preventDefault();
+                                await signin();
 
-                      Router.push({
-                        pathname: "/influencers"
-                      });
-                      // this.setState({ email: "", password: "" });
-                    }}
-                  >
-                    <fieldset disabled={loading} aria-busy={loading}>
-                      <Error error={error} />
-                      <SigninInputWrapper>
-                        <LogoWrapper>
-                          <Logo />
-                        </LogoWrapper>
-                        <SigninTextField
-                          label="Email"
-                          labelFor="email"
-                          type="email"
-                          textInputName="email"
-                          textInputPlaceholder="Enter your email"
-                          inputType="secondary"
-                          required
-                          value={this.state.email}
-                          onChange={this.saveToState}
-                        />
-                        <SigninTextField
-                          label="Password"
-                          labelFor="password"
-                          type="password"
-                          textInputName="password"
-                          textInputPlaceholder="Enter your password"
-                          inputType="secondary"
-                          required
-                          value={this.state.password}
-                          onChange={this.saveToState}
-                        />
-                        <SigninForgotPassword>
-                          Forgot your password?
-                        </SigninForgotPassword>
-                      </SigninInputWrapper>
+                                Router.push({
+                                  pathname: "/influencers"
+                                });
+                                // this.setState({ email: "", password: "" });
+                              }}
+                            >
+                              <fieldset disabled={loading} aria-busy={loading}>
+                                <Error error={error} />
+                                <SigninInputWrapper>
+                                  <LogoWrapper>
+                                    <Logo />
+                                  </LogoWrapper>
+                                  <SigninTextField
+                                    label="Email"
+                                    labelFor="email"
+                                    type="email"
+                                    textInputName="email"
+                                    textInputPlaceholder="Enter your email"
+                                    inputType="secondary"
+                                    required
+                                    value={this.state.email}
+                                    onChange={this.saveToState}
+                                  />
+                                  <SigninTextField
+                                    label="Password"
+                                    labelFor="password"
+                                    type="password"
+                                    textInputName="password"
+                                    textInputPlaceholder="Enter your password"
+                                    inputType="secondary"
+                                    required
+                                    value={this.state.password}
+                                    onChange={this.saveToState}
+                                  />
+                                  <SigninForgotPassword>
+                                    Forgot your password?
+                                  </SigninForgotPassword>
+                                </SigninInputWrapper>
 
-                      <SigninButton buttonType="primary" type="submit">
-                        Sign In
-                      </SigninButton>
-                    </fieldset>
-                  </form>
-                );
-              }}
-            </Mutation>
-            <Link href={{ pathname: "/signup" }}>
-              <SignupLink>
-                Don't have an account? <b>Sign Up</b>
-              </SignupLink>
-            </Link>
-          </SigninCard>
-        </SigninContainer>
-      </SigninWrapper>
+                                <SigninButton
+                                  buttonType="primary"
+                                  type="submit"
+                                >
+                                  Sign In
+                                </SigninButton>
+                              </fieldset>
+                            </form>
+                          );
+                        }}
+                      </Mutation>
+                      <Link href={{ pathname: "/signup" }}>
+                        <SignupLink>
+                          Don't have an account? <b>Sign Up</b>
+                        </SignupLink>
+                      </Link>
+                    </>
+                  )}
+                </SigninCard>
+              </SigninContainer>
+            </SigninWrapper>
+          </>
+        )}
+      </User>
     );
   }
 }

@@ -20,13 +20,11 @@ const SigninPosition = styled.div`
 `;
 
 const SigninPage = props => (
-  <>
-    <BackgroundWrapper>
-      <SigninPosition>
-        <Signin />
-      </SigninPosition>
-    </BackgroundWrapper>
-  </>
+  <BackgroundWrapper>
+    <SigninPosition>
+      <Signin />
+    </SigninPosition>
+  </BackgroundWrapper>
 );
 
 export default SigninPage;

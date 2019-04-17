@@ -8,6 +8,7 @@ import Button from "./Button";
 
 const TextFieldInputWrapper = styled.div`
   margin: 1rem;
+  text-align: left;
 
   > button {
     margin-top: 0;

@@ -1,5 +1,9 @@
 # import * from './generated/prisma.graphql'
 
+type SuccessMessage {
+  message: String
+}
+
 type Mutation {
   signup(
     email: String!
@@ -59,6 +63,7 @@ type Mutation {
     influencerId: String!
   ): LoggedActivity!
   createNote(content: String!, influencerId: String!, isShown: Boolean!): Note!
+  signout: SuccessMessage
 }
 
 type Query {

@@ -84,19 +84,13 @@ class Influencer extends Component {
     this.setState({ showAddNoteModal: false });
     document.querySelector("body").classList.remove("modalOpen");
   };
-  componentDidMount() {
-    if (!this.state.loggedIn) {
-      Router.push({
-        pathname: "/"
-      });
-    }
-  }
+
   render() {
     return (
       <User>
         {({ data: { loggedInUser } }) => (
           <>
-            {loggedInUser ? this.setState({ loggedIn: true }) : null}
+            {/* {loggedInUser ? this.setState({ loggedIn: true }) : null} */}
             <AddLoggedActivityModal
               show={this.state.showAddLoggedActivityModal}
               hide={this.hideActivityModal}
