@@ -1,6 +1,7 @@
 endpoint: ${env:PRISMA_ENDPOINT}
+# endpoint: https://fence-production-07067c95b4.herokuapp.com/fence-prod/prod
 datamodel: datamodel.prisma
-# secret: ${env:PRIMSA_SECRET}
+secret: ${env:PRISMA_SECRET}
 
 generate:
   - generator: graphql-schema
