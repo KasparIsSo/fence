@@ -21,7 +21,7 @@ import User from "./User";
 
 const InfluencerContainer = styled.div`
   ${GRID.container};
-  grid-row-gap: ${toRem(40)};
+  grid-row-gap: 1.5rem;
   padding: ${toRem(40)} 0;
 `;
 
@@ -38,7 +38,7 @@ const InfluencerHeader = styled.div`
 
   > .backButton {
     display: block;
-    margin: 0;
+    margin: ${toRem(5)} 0;
   }
 `;
 
