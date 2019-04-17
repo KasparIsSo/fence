@@ -208,7 +208,6 @@ class AddInfluencerModal extends Component {
     );
 
     const file = await res.json();
-    // console.log(file);
     this.setState({
       thumbnail: file.secure_url,
       image: file.eager[0].secure_url

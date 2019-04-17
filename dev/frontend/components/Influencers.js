@@ -135,16 +135,6 @@ class Influencers extends Component {
     document.querySelector("body").classList.toggle("modalOpen");
   };
 
-  componentDidMount() {
-    if (!this.state.loggedIn) {
-      console.log("false");
-      console.log(this.state);
-      // Router.push({
-      //   pathname: "/"
-      // });
-    }
-  }
-
   render() {
     return (
       <User>
