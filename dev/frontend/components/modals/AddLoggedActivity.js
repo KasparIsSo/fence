@@ -65,10 +65,12 @@ const Modal = styled(CardContainer)`
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     grid-column: 1 /9;
+    padding: ${toRem(20)};
   }
 
   @media (max-width: ${BREAKPOINTS.mobile.large}) {
     grid-column: 1 /5;
+    padding: ${toRem(20)};
   }
 `;
 
@@ -105,9 +107,9 @@ const ModalInput = styled.div`
   grid-gap: ${toRem(40)};
   margin-bottom: ${toRem(20)};
 
-  > div {
-    margin: 0;
-    margin-bottom: ${toRem(20)};
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    width: 100%;
+    grid-gap: ${toRem(20)};
   }
 `;
 
@@ -118,7 +120,7 @@ const ActivityDescription = styled(TextFieldSimple)`
   grid-column: span 3;
 
   @media (max-width: ${BREAKPOINTS.mobile.large}) {
-    width: 100%;
+    grid-column: span 4;
   }
 `;
 
@@ -129,10 +131,26 @@ const ModalButtons = styled.div`
     margin-top: 0;
     margin-bottom: 0;
   }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    float: left;
+    > button {
+      display: block;
+      margin-left: 0;
+      margin-bottom: ${toRem(10)};
+    }
+  }
 `;
 
 const ActivitySelect = styled(Select)`
   grid-column: span 1;
+  margin: 0;
+  margin-bottom: ${toRem(20)};
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    grid-column: span 4;
+    margin-bottom: 0;
+  }
 `;
 
 const CREATE_LOGGED_ACTIVITY_MUTATION = gql`

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
+import { BREAKPOINTS } from "../components/styles/Layout";
 import { toRem } from "./utils/unitConversion";
 import TYPE from "./styles/Typography";
 
@@ -18,6 +19,10 @@ const InfluencerActivityWrapper = styled.div`
   border-top: ${toRem(1)} solid ${props => props.theme.color.gray.ink};
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    display: block;
+  }
 `;
 
 const InfluencerActivityDescription = styled.div`
@@ -53,6 +58,13 @@ const InfluencerActivityDate = styled.p`
   width: ${toRem(128)};
   ${TYPE.body.primary.ink}
   margin-bottom: 0;
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    display: block;
+    ${TYPE.caption.primary.subdued}
+    text-align: left;
+    margin-top: ${toRem(10)};
+  }
 `;
 
 class InfluencerLoggedActivity extends Component {

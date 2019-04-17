@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import TYPE from "./styles/Typography";
+import { BREAKPOINTS } from "./styles/Layout";
 import { toRem } from "./utils/unitConversion";
 
 const UploadFieldInputWrapper = styled.div`
@@ -23,6 +24,12 @@ const Label = styled.label`
 
   > img {
     width: 50%;
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    > img {
+      width: 100%;
+    }
   }
 `;
 

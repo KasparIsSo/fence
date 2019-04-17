@@ -24,8 +24,8 @@ const SelectContainer = styled.select`
   border-radius: 0.125rem;
   border-width: 0.0625rem;
   border-style: solid;
-  padding: 0.625rem 1.25rem;
-  height: 2.75rem;
+  padding: 0.625rem ${toRem(10)};
+   height: 2.75rem;
   ${TYPE.body.primary.white}
   ${ANIMATION.default}
   float: ${props => props.float};
@@ -33,7 +33,7 @@ const SelectContainer = styled.select`
   color: ${props => (props.color ? props.color : props.theme.color.gray.white)};
   border-color: ${props => props.theme.color.green.feature};
   margin: ${toRem(5)} 0 0 0;
-  width: 100%;
+  width: 100%; */
 
   :hover {
     box-shadow: ${props => props.theme.shadow.drop};
@@ -68,7 +68,7 @@ const Select = props => {
   };
 
   return (
-    <SelectWrapper>
+    <SelectWrapper className={props.className}>
       <Label htmlfor={props.labelFor ? props.labelFor : "title"}>
         {props.label ? props.label : "Label"}
       </Label>
@@ -76,7 +76,6 @@ const Select = props => {
         float={props.float}
         color={props.color}
         onChange={props.onChange}
-        className={props.className}
       >
         {options(props.options)}
       </SelectContainer>

@@ -66,10 +66,12 @@ const Modal = styled(CardContainer)`
 
   @media (max-width: ${BREAKPOINTS.tablet.large}) {
     grid-column: 1 /9;
+    padding: ${toRem(20)};
   }
 
   @media (max-width: ${BREAKPOINTS.mobile.large}) {
     grid-column: 1 /5;
+    padding: ${toRem(20)};
   }
 `;
 
@@ -107,16 +109,16 @@ const ModalInput = styled.div`
     margin: 0;
     margin-bottom: ${toRem(20)};
   }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    width: 100%;
+  }
 `;
 
 const NoteContent = styled(TextAreaSimple)`
   margin: 0;
   display: block;
   margin-bottom: ${toRem(20)};
-
-  @media (max-width: ${BREAKPOINTS.mobile.large}) {
-    width: 100%;
-  }
 `;
 
 const ModalButtons = styled.div`
@@ -125,6 +127,15 @@ const ModalButtons = styled.div`
   > button {
     margin-top: 0;
     margin-bottom: 0;
+  }
+
+  @media (max-width: ${BREAKPOINTS.mobile.large}) {
+    float: left;
+    > button {
+      display: block;
+      margin-left: 0;
+      margin-bottom: ${toRem(10)};
+    }
   }
 `;
 

@@ -138,7 +138,7 @@ class InfluencerSnapshotCard extends Component {
         </Link>
         <InfluencerCampaigns>
           <InfluencerCampaignsTitle>Campaigns</InfluencerCampaignsTitle>
-          <Tag tagType="active">#stayFresh</Tag>
+          <Tag tagType="active">#IXD2019</Tag>
         </InfluencerCampaigns>
       </InfluencerCardContainer>
     );
