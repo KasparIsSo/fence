@@ -22,7 +22,8 @@ server.express.use((req, res, next) => {
 server.start(
   {
     cors: {
-      credentials: false
+      origin: false
+      // credentials: false
       // origin: ["https://fence-react-prod.herokuapp.com/"]
       // origin: process.env.FRONTEND_URL
     }
