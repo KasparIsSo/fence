@@ -23,7 +23,8 @@ server.start(
   {
     cors: {
       credentials: true,
-      origin: process.env.FRONTEND_URL
+      origin: "https://fence-react-prod.herokuapp.com/"
+      // origin: process.env.FRONTEND_URL
     }
   },
   deets => {
