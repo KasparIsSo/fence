@@ -21,7 +21,7 @@ server.express.use((req, res, next) => {
 
 server.start(
   {
-    cors: {s
+    cors: {
       credentials: true,
       origin: process.env.FRONTEND_URL
     }
